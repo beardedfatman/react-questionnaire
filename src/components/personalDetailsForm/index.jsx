@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Typography } from "@mui/material";
@@ -8,6 +8,8 @@ import { Box } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { ThemeProvider, createTheme } from "@mui/material";
+import Cookies from "js-cookie"; // Import js-cookie
+import dayjs from "dayjs";
 
 import {
   CustomInputLabel,
@@ -119,6 +121,60 @@ const PersonalDetailForm = ({ onNext, saveFormData, onBack }) => {
     },
   });
 
+  // function formatDateToYYYYMMDD(date) {
+  //   console.log("786 date", date, typeof date);
+  //   if (typeof date === "string") {
+  //     console.log("786 date string", date.split("T")[0]);
+  //     return date.split("T")[0];
+  //   }
+  //   date = date.$d;
+  //   const year = date.getFullYear();
+  //   const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are 0-indexed
+  //   const day = String(date.getDate()).padStart(2, "0");
+  //   console.log("786 `${year}-${month}-${day}`;", `${year}-${month}-${day}`);
+  //   return `${year}-${month}-${day}`;
+  // }
+
+  useEffect(() => {
+    // Cookies.remove("personalFormData");
+    const formDataFromCookies = Cookies.get("personalFormData"); // Get the saved form data
+    console.log("786 formDataFromCookies", formDataFromCookies);
+    if (formDataFromCookies) {
+      const parsedData = JSON.parse(formDataFromCookies);
+      formik.setValues(parsedData); // Set the formik values from the cookie data
+    }
+  }, []);
+
+  // Function to save form data to cookies whenever a field changes
+  const handleFieldChange = async (fieldName, value) => {
+    // await formik.setFieldValue(fieldName, value);
+    const updatedValues = { ...formik.values, [fieldName]: value };
+    await formik.setValues(updatedValues); // Update formik values
+    console.log("786 savign", formik.values);
+    // Cookies.set("personalFormData", JSON.stringify(formik.values), {
+    //   expires: 7,
+    // }); // Save the form data to cookies as JSON
+    setTimeout(() => {
+      Cookies.set("personalFormData", JSON.stringify(updatedValues), {
+        expires: 7,
+      }); // Save the form data to cookies as JSON
+    }, 100);
+  };
+
+  // useEffect(() => {
+  //   const formDataFromCookies = Cookies.get("personalFormData"); // Get the saved form data
+  //   if (formDataFromCookies) {
+  //     formik.setValues(formDataFromCookies); // Set the formik values from the cookie data
+  //   }
+  // }, []);
+
+  // // Function to save form data to cookies whenever a field changes
+  // const handleFieldChange = (fieldName, value) => {
+  //   console.log("786 fieldName value", fieldName, value);
+  //   formik.setFieldValue(fieldName, value);
+  //   Cookies.set("personalFormData", formik.values); // Save the form data to cookies
+  // };
+
   return (
     <form onSubmit={formik.handleSubmit}>
       <Typography variant="h4" sx={{ color: "#ffb942" }}>
@@ -131,7 +187,12 @@ const PersonalDetailForm = ({ onNext, saveFormData, onBack }) => {
             name="name"
             label="Name"
             value={formik.values.name}
-            onChange={formik.handleChange}
+            // onChange={formik.handleChange}
+            onChange={async (e) => {
+              console.log("786 e", e.target.value);
+              await formik.handleChange(e);
+              handleFieldChange("name", e.target.value);
+            }}
             error={formik.touched.name && Boolean(formik.errors.name)}
             helperText={formik.touched.name && formik.errors.name}
             required
@@ -146,7 +207,11 @@ const PersonalDetailForm = ({ onNext, saveFormData, onBack }) => {
             name="contactNumber"
             label="Contact Number"
             value={formik.values.contactNumber}
-            onChange={formik.handleChange}
+            // onChange={formik.handleChange}
+            onChange={(e) => {
+              formik.handleChange(e);
+              handleFieldChange("contactNumber", e.target.value);
+            }}
             error={
               formik.touched.contactNumber &&
               Boolean(formik.errors.contactNumber)
@@ -173,8 +238,25 @@ const PersonalDetailForm = ({ onNext, saveFormData, onBack }) => {
               }}
               name="dateOfBirth"
               label="Date of Birth"
-              value={formik.values.dateOfBirth}
-              onChange={(date) => formik.setFieldValue("dateOfBirth", date)}
+              // value={
+              //   formik.values.dateOfBirth != null
+              //     ? dayjs(formatDateToYYYYMMDD(formik.values.dateOfBirth))
+              //     : null
+              // }
+              // // onChange={(date) => formik.setFieldValue("dateOfBirth", date)}
+              // onChange={(date) => {
+              //   formik.setFieldValue("dateOfBirth", date);
+              //   handleFieldChange("dateOfBirth", date);
+              // }}
+              value={
+                formik.values.dateOfBirth != null
+                  ? dayjs(formik.values.dateOfBirth)
+                  : null
+              }
+              onChange={(date) => {
+                formik.setFieldValue("dateOfBirth", date.toDate());
+                handleFieldChange("dateOfBirth", date.toDate());
+              }}
               PopOverProps={{
                 style: { backgroundColor: "black !important" }, // Set the background color of the popover to black
               }}
@@ -209,7 +291,11 @@ const PersonalDetailForm = ({ onNext, saveFormData, onBack }) => {
               name="gender"
               label="Gender"
               value={formik.values.gender}
-              onChange={formik.handleChange}
+              // onChange={formik.handleChange}
+              onChange={(e) => {
+                formik.handleChange(e);
+                handleFieldChange("gender", e.target.value);
+              }}
               MenuProps={{
                 PaperProps: {
                   style: { background: "#292829" },
@@ -228,7 +314,11 @@ const PersonalDetailForm = ({ onNext, saveFormData, onBack }) => {
             name="address"
             label="Address"
             value={formik.values.address}
-            onChange={formik.handleChange}
+            // onChange={formik.handleChange}
+            onChange={(e) => {
+              formik.handleChange(e);
+              handleFieldChange("address", e.target.value);
+            }}
             error={formik.touched.address && Boolean(formik.errors.address)}
             helperText={formik.touched.address && formik.errors.address}
             required
@@ -248,7 +338,11 @@ const PersonalDetailForm = ({ onNext, saveFormData, onBack }) => {
               name="maritalStatus"
               label="Marital Status"
               value={formik.values.maritalStatus}
-              onChange={formik.handleChange}
+              // onChange={formik.handleChange}
+              onChange={(e) => {
+                formik.handleChange(e);
+                handleFieldChange("maritalStatus", e.target.value);
+              }}
               error={
                 formik.touched.maritalStatus &&
                 Boolean(formik.errors.maritalStatus)
@@ -273,7 +367,11 @@ const PersonalDetailForm = ({ onNext, saveFormData, onBack }) => {
             name="nationality"
             label="Nationality"
             value={formik.values.nationality}
-            onChange={formik.handleChange}
+            // onChange={formik.handleChange}
+            onChange={(e) => {
+              formik.handleChange(e);
+              handleFieldChange("nationality", e.target.value);
+            }}
             error={
               formik.touched.nationality && Boolean(formik.errors.nationality)
             }
