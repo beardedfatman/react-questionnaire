@@ -1,6 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Box, useMediaQuery, Stepper, Step, StepLabel } from "@mui/material";
+import Cookies from "js-cookie"; // Import js-cookie
 import PersonalDetailForm from "../personalDetailsForm";
+import EmploymentStatusForm from "../EmploymentStatusForm";
+import NetWorthForm from "../netWorthForm";
 
 const steps = [
   "Personal Details",
@@ -8,26 +11,64 @@ const steps = [
   "Goal Setting",
   "Net Worth",
   "Loans",
+  "Central Provident Funds",
+  "Cashflow Statement",
+  "Insurance Policies",
+  "Dependents",
+  "Retirement",
 ];
 
 function Main() {
   const isMobile = useMediaQuery("(max-width: 701px)");
   const [step, setStep] = useState(0);
 
+  useEffect(() => {
+    // Cookies.remove("stepCount");
+    const formDataFromCookies = Cookies.get("stepCount"); // Get the saved form data
+    console.log("786 formDataFromCookies", formDataFromCookies);
+    if (formDataFromCookies) {
+      // const parsedData = JSON.parse(formDataFromCookies);
+      // console.log("786 stepcount",parsedData);
+      setStep(parseInt(formDataFromCookies));
+      // formik.setValues(parsedData); // Set the formik values from the cookie data
+    }
+    console.log("786 step", step);
+  }, []);
+
   const onNext = () => {
     setStep((step) => {
       if (step < 4) {
+        setTimeout(() => {
+          Cookies.set("stepCount", step + 1, {
+            expires: 7,
+          }); // Save the form data to cookies as JSON
+        }, 100);
         return step + 1;
       }
+      setTimeout(() => {
+        Cookies.set("stepCount", step, {
+          expires: 7,
+        }); // Save the form data to cookies as JSON
+      }, 100);
       return step;
     });
   };
 
   const onBack = () => {
     setStep((step) => {
-      if (step > 1) {
+      if (step >= 1) {
+        setTimeout(() => {
+          Cookies.set("stepCount", step - 1, {
+            expires: 7,
+          }); // Save the form data to cookies as JSON
+        }, 100);
         return step - 1;
       }
+      setTimeout(() => {
+        Cookies.set("stepCount", step, {
+          expires: 7,
+        }); // Save the form data to cookies as JSON
+      }, 100);
       return step;
     });
   };
@@ -93,7 +134,9 @@ function Main() {
             ))}
           </Stepper>
         )}
-        <PersonalDetailForm onNext={onNext} onBack={onBack} />
+        {step === 0 && <PersonalDetailForm onNext={onNext} onBack={onBack} />}
+        {step === 1 && <EmploymentStatusForm onNext={onNext} onBack={onBack} />}
+        {step === 3 && <NetWorthForm onNext={onNext} onBack={onBack} />}
       </Box>
     </Box>
   );
