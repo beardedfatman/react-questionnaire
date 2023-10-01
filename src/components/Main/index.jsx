@@ -4,6 +4,7 @@ import Cookies from "js-cookie"; // Import js-cookie
 import PersonalDetailForm from "../personalDetailsForm";
 import EmploymentStatusForm from "../EmploymentStatusForm";
 import NetWorthForm from "../netWorthForm";
+import LoanForm from "../loanFormData";
 
 const steps = [
   "Personal Details",
@@ -32,24 +33,24 @@ function Main() {
       setStep(parseInt(formDataFromCookies));
       // formik.setValues(parsedData); // Set the formik values from the cookie data
     }
-    console.log("786 step", step);
+    console.log("786 step change", step);
   }, []);
 
   const onNext = () => {
     setStep((step) => {
-      if (step < 4) {
-        setTimeout(() => {
-          Cookies.set("stepCount", step + 1, {
-            expires: 7,
-          }); // Save the form data to cookies as JSON
-        }, 100);
-        return step + 1;
-      }
+      // if (step < 5) {
       setTimeout(() => {
-        Cookies.set("stepCount", step, {
+        Cookies.set("stepCount", step + 1, {
           expires: 7,
         }); // Save the form data to cookies as JSON
       }, 100);
+      return step + 1;
+      // }
+      // setTimeout(() => {
+      //   Cookies.set("stepCount", step, {
+      //     expires: 7,
+      //   }); // Save the form data to cookies as JSON
+      // }, 100);
       return step;
     });
   };
@@ -77,7 +78,7 @@ function Main() {
     <Box
       sx={{
         width: "100%",
-        height: "100vh",
+        minHeight: "100vh",
         background: "#000000",
         display: "flex",
         justifyContent: "center",
@@ -136,7 +137,8 @@ function Main() {
         )}
         {step === 0 && <PersonalDetailForm onNext={onNext} onBack={onBack} />}
         {step === 1 && <EmploymentStatusForm onNext={onNext} onBack={onBack} />}
-        {step === 3 && <NetWorthForm onNext={onNext} onBack={onBack} />}
+        {step === 2 && <NetWorthForm onNext={onNext} onBack={onBack} />}
+        {step === 3 && <LoanForm onNext={onNext} onBack={onBack} />}
       </Box>
     </Box>
   );

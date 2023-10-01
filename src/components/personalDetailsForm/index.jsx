@@ -417,7 +417,7 @@ const PersonalDetailForm = ({ onNext, saveFormData, onBack }) => {
         </Button>
         <Button
           type="submit"
-          disabled={!formik.isValid}
+          // disabled={!formik.isValid}
           variant="contained"
           sx={{
             mt: 3.5, // Set margin-top
