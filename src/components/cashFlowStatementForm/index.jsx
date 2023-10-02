@@ -14,7 +14,7 @@ import {
 } from "../Fields";
 import Cookies from "js-cookie";
 
-const NetWorthForm = ({ onNext, onBack }) => {
+const CashFlowStatementForm = ({ onNext, onBack }) => {
   const formik = useFormik({
     initialValues: {
       currentValueOfResidence: "",
@@ -194,7 +194,7 @@ const NetWorthForm = ({ onNext, onBack }) => {
   return (
     <form onSubmit={formik.handleSubmit}>
       <Typography variant="h4" sx={{ color: "#ffb942" }}>
-        Net Worth Details
+        Cash Flow Statement Details
       </Typography>
       <Grid container spacing={2}>
         {/* Current Value of Residence */}
@@ -685,4 +685,4 @@ const NetWorthForm = ({ onNext, onBack }) => {
   );
 };
 
-export default NetWorthForm;
+export default CashFlowStatementForm;

@@ -60,7 +60,7 @@ const CentralProvidentFundsForm = ({ onNext, onBack }) => {
   return (
     <form onSubmit={formik.handleSubmit}>
       <Typography variant="h4" sx={{ color: "#ffb942" }}>
-        Central Provident Funds Form
+        Central Provident Funds Details
       </Typography>
       <Grid container spacing={2}>
         {/* Central Provident Fund */}

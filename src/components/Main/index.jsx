@@ -6,6 +6,7 @@ import EmploymentStatusForm from "../EmploymentStatusForm";
 import NetWorthForm from "../netWorthForm";
 import LoanForm from "../loanFormData";
 import CentralProvidentFundsForm from "../centralProvidentFundsForm";
+import CashFlowStatementForm from "../cashFlowStatementForm";
 
 const steps = [
   "Personal Details",
@@ -142,6 +143,9 @@ function Main() {
         {step === 3 && <LoanForm onNext={onNext} onBack={onBack} />}
         {step === 4 && (
           <CentralProvidentFundsForm onNext={onNext} onBack={onBack} />
+        )}
+        {step === 5 && (
+          <CashFlowStatementForm onNext={onNext} onBack={onBack} />
         )}
       </Box>
     </Box>
