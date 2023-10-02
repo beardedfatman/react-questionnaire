@@ -13,13 +13,8 @@ import {
   CustomTextField,
 } from "../Fields";
 import Cookies from "js-cookie";
-import { createTheme, ThemeProvider } from "@mui/material";
 
 const LoanForm = ({ onNext, saveFormData, onBack }) => {
-  const customTheme = createTheme({
-    // Define your custom theme here
-  });
-
   const [isFormValid, setIsFormValid] = useState(false);
 
   const formik = useFormik({
@@ -39,38 +34,38 @@ const LoanForm = ({ onNext, saveFormData, onBack }) => {
       remainingLoan: Yup.number()
         .when("hasLongTermLoans", {
           is: "Yes",
-          then: Yup.number().required("This field is required"),
+          then: () => Yup.number().required("This field is required"),
         })
         .nullable(),
       remainingRenovationLoan: Yup.number()
         .when("hasLongTermLoans", {
           is: "Yes",
-          then: Yup.number().required("This field is required"),
+          then: () => Yup.number().required("This field is required"),
         })
         .nullable(),
       remainingVehicleLoan: Yup.number()
         .when("hasLongTermLoans", {
           is: "Yes",
-          then: Yup.number().required("This field is required"),
+          then: () => Yup.number().required("This field is required"),
         })
         .nullable(),
       remainingStudyLoan: Yup.number()
         .when("hasLongTermLoans", {
           is: "Yes",
-          then: Yup.number().required("This field is required"),
+          then: () => Yup.number().required("This field is required"),
         })
         .nullable(),
       hasShortTermLoan: Yup.string().required("This field is required"),
       remainingCreditCardsLoan: Yup.number()
         .when("hasShortTermLoan", {
           is: "Yes",
-          then: Yup.number().required("This field is required"),
+          then: () => Yup.number().required("This field is required"),
         })
         .nullable(),
       remainingPersonalDebitLoan: Yup.number()
         .when("hasShortTermLoan", {
           is: "Yes",
-          then: Yup.number().required("This field is required"),
+          then: () => Yup.number().required("This field is required"),
         })
         .nullable(),
       incomeTaxLastYear: Yup.number().nullable(),
@@ -165,6 +160,7 @@ const LoanForm = ({ onNext, saveFormData, onBack }) => {
             InputProps={{
               style: { color: "#ffb942" },
             }}
+            type="number"
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -189,6 +185,7 @@ const LoanForm = ({ onNext, saveFormData, onBack }) => {
             InputProps={{
               style: { color: "#ffb942" },
             }}
+            type="number"
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -213,6 +210,7 @@ const LoanForm = ({ onNext, saveFormData, onBack }) => {
             InputProps={{
               style: { color: "#ffb942" },
             }}
+            type="number"
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -237,6 +235,7 @@ const LoanForm = ({ onNext, saveFormData, onBack }) => {
             InputProps={{
               style: { color: "#ffb942" },
             }}
+            type="number"
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -290,6 +289,7 @@ const LoanForm = ({ onNext, saveFormData, onBack }) => {
             InputProps={{
               style: { color: "#ffb942" },
             }}
+            type="number"
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -314,6 +314,7 @@ const LoanForm = ({ onNext, saveFormData, onBack }) => {
             InputProps={{
               style: { color: "#ffb942" },
             }}
+            type="number"
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -337,6 +338,7 @@ const LoanForm = ({ onNext, saveFormData, onBack }) => {
             InputProps={{
               style: { color: "#ffb942" },
             }}
+            type="number"
           />
         </Grid>
       </Grid>
@@ -357,7 +359,7 @@ const LoanForm = ({ onNext, saveFormData, onBack }) => {
         </Button>
         <Button
           type="submit"
-          disabled={!isFormValid}
+          // disabled={!isFormValid}
           variant="contained"
           sx={{
             mt: 3.5,
@@ -375,3 +377,4 @@ const LoanForm = ({ onNext, saveFormData, onBack }) => {
 };
 
 export default LoanForm;
+// Annual Salary (text field only numbers and optional), Annual Bonus (text field only numbers and optional), Investment Income Annual (text field only numbers and optional), Rental Income Annual (text field only numbers and optional), Other Income Annual (text field only numbers and optional),
