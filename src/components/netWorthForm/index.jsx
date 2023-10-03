@@ -594,7 +594,7 @@ const NetWorthForm = ({ onNext, onBack }) => {
             name="currentValueOfOrdinaryCPF"
             label="Current Value Of Ordinary Account in CPF"
             type="number"
-            value={formik.values.valueOfOtherInvestments}
+            value={formik.values.currentValueOfOrdinaryCPF}
             onChange={(e) =>
               handleFieldChange("currentValueOfOrdinaryCPF", e.target.value)
             }
@@ -610,7 +610,7 @@ const NetWorthForm = ({ onNext, onBack }) => {
             name="currentValueOfSpecialCPF"
             label="Current Value Of Special Account in CPF"
             type="number"
-            value={formik.values.valueOfOtherInvestments}
+            value={formik.values.currentValueOfSpecialCPF}
             onChange={(e) =>
               handleFieldChange("currentValueOfSpecialCPF", e.target.value)
             }
@@ -626,7 +626,7 @@ const NetWorthForm = ({ onNext, onBack }) => {
             name="currentValueOfMedisaveCPF"
             label="Current Value Of Medi Save Account in CPF"
             type="number"
-            value={formik.values.valueOfOtherInvestments}
+            value={formik.values.currentValueOfMedisaveCPF}
             onChange={(e) =>
               handleFieldChange("currentValueOfMedisaveCPF", e.target.value)
             }
@@ -642,7 +642,7 @@ const NetWorthForm = ({ onNext, onBack }) => {
             name="currentValueOfOtherCPF"
             label="Current Value Of Any Other Account in CPF"
             type="number"
-            value={formik.values.valueOfOtherInvestments}
+            value={formik.values.currentValueOfOtherCPF}
             onChange={(e) =>
               handleFieldChange("currentValueOfOtherCPF", e.target.value)
             }

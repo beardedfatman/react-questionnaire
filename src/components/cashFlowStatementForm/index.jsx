@@ -17,93 +17,73 @@ import Cookies from "js-cookie";
 const CashFlowStatementForm = ({ onNext, onBack }) => {
   const formik = useFormik({
     initialValues: {
-      currentValueOfResidence: "",
-      currentValueOfVehicle: "",
-      currentSavings: "",
-      currentValueOfFixedDeposits: "",
-      anyInvestments: "No",
-      valueOfBonds: "",
-      bond: "No",
-      valueOfUnitTrusts: "",
-      unitTrusts: "No",
-      valueOfEquities: "",
-      equities: "No",
-      valueOfInsurancePolicies: "",
-      insurancePolicies: "No",
-      valueOfCommodities: "",
-      commodities: "No",
-      valueOfProperties: "",
-      properties: "No",
-      valueOfCryptocurrencies: "",
-      cryptocurrencies: "No",
-      valueOfOtherInvestments: "",
-      otherInvestments: "No",
-      currentValueOfOrdinaryCPF: "",
-      currentValueOfSpecialCPF: "",
-      currentValueOfMedisaveCPF: "",
-      currentValueOfOtherCPF: "",
-      stocks: "No",
-      valueOfStocks: "",
-      // anyLongTermLoans: "No",
-      // remainingLoan: "",
-      // remainingRenovationLoan: "",
-      // remainingVehicleLoan: "",
-      // remainingStudyLoan: "",
-      // anyShortTermLoans: "No",
-      // remainingCreditCardsLoan: "",
-      // remainingPersonalDebitLoan: "",
+      annualSalary: "",
+      annualBonus: "",
+      annualInvestmentIncome: "",
+      rentalIncomeAnnual: "",
+      otherIncomeAnnual: "",
+      annualSavings: "",
+      annualInvestments: "",
+      mortgagePayAnnually: "",
+      loansPayAnnually: "",
+      payForInsuranceAnnually: "",
+      payForHouseholdAnnually: "",
+      payForTransportAnnually: "",
+      payForDependenstAnnually: "",
+      payForPersonalExpensesAnnually: "",
+      payForMedicalAnnually: "",
+      payForMiscellaniousAnnually: "",
+      giveForFamilyBlessingsAnnually: "",
     },
     validationSchema: Yup.object({
-      currentValueOfResidence: Yup.number().optional(),
-      currentValueOfVehicle: Yup.number().optional(),
-      currentSavings: Yup.number().required("Current Savings is required"),
-      currentValueOfFixedDeposits: Yup.number().optional(),
-      anyInvestments: Yup.string().required("Any Investments is required"),
-      valueOfBonds: Yup.number().optional(),
-      valueOfStocks: Yup.number().optional(),
+      annualSalary: Yup.number().optional(),
+      giveForFamilyBlessingsAnnually: Yup.number().optional(),
+      annualBonus: Yup.number().optional(),
+      annualInvestmentIncome: Yup.number().optional(),
+      rentalIncomeAnnual: Yup.number().optional(),
+
+      otherIncomeAnnual: Yup.number().optional(),
+      payForMiscellaniousAnnually: Yup.number().optional(),
       bond: Yup.string().optional(),
       stocks: Yup.string().optional(),
-      valueOfUnitTrusts: Yup.number().optional(),
+      annualSavings: Yup.number().required("Annual Savings is required"),
       unitTrusts: Yup.string().optional(),
-      valueOfEquities: Yup.number().optional(),
+
       equities: Yup.string().optional(),
-      valueOfInsurancePolicies: Yup.number().optional(),
+      annualInvestments: Yup.number().required(
+        "Annual Investments is required"
+      ),
       insurancePolicies: Yup.string().optional(),
-      valueOfCommodities: Yup.number().optional(),
+      mortgagePayAnnually: Yup.number().optional(),
       commodities: Yup.string().optional(),
-      valueOfProperties: Yup.number().optional(),
+      loansPayAnnually: Yup.number().optional(),
       properties: Yup.string().optional(),
-      valueOfCryptocurrencies: Yup.number().optional(),
+      payForInsuranceAnnually: Yup.number().optional(),
       cryptocurrencies: Yup.string().optional(),
-      valueOfOtherInvestments: Yup.number().optional(),
+      payForHouseholdAnnually: Yup.number().required(
+        "Pay for Householde Annually"
+      ),
       otherInvestments: Yup.string().optional(),
-      currentValueOfOrdinaryCPF: Yup.number().optional(),
-      currentValueOfSpecialCPF: Yup.number().optional(),
-      currentValueOfMedisaveCPF: Yup.number().optional(),
-      currentValueOfOtherCPF: Yup.number().optional(),
-      // anyLongTermLoans: Yup.string().required(
-      //   "Any Long Term Loans is required"
-      // ),
-      // remainingLoan: Yup.number().optional(),
-      // remainingRenovationLoan: Yup.number().optional(),
-      // remainingVehicleLoan: Yup.number().optional(),
-      // remainingStudyLoan: Yup.number().optional(),
-      // anyShortTermLoans: Yup.string().required(
-      //   "Any Short Term Loans is required"
-      // ),
-      // remainingCreditCardsLoan: Yup.number().optional(),
-      // remainingPersonalDebitLoan: Yup.number().optional(),
+      payForTransportAnnually: Yup.number().required(
+        "Pay for Transport Annually is required"
+      ),
+      payForDependenstAnnually: Yup.number().optional(),
+      payForPersonalExpensesAnnually:
+        Yup.number().required("Value is required"),
+      payForMedicalAnnually: Yup.number().optional(),
     }),
     onSubmit: (values) => {
       // Save form data to cookies
-      Cookies.set("netWorthFormData", JSON.stringify(values), { expires: 7 });
+      Cookies.set("cashFlowStatementFormData", JSON.stringify(values), {
+        expires: 7,
+      });
       onNext();
     },
   });
 
   // Load saved form data from cookies
   useEffect(() => {
-    const formDataFromCookies = Cookies.get("netWorthFormData");
+    const formDataFromCookies = Cookies.get("cashFlowStatementFormData");
     if (formDataFromCookies) {
       const parsedData = JSON.parse(formDataFromCookies);
       formik.setValues(parsedData);
@@ -114,78 +94,8 @@ const CashFlowStatementForm = ({ onNext, onBack }) => {
     const updatedValues = { ...formik.values, [fieldName]: value };
     await formik.setValues(updatedValues);
 
-    if (fieldName.localeCompare("valueOfStocks") === 0) {
-      if (value !== "") {
-        const updatedValuesOther = { ...formik.values, ["stocks"]: "Yes" };
-        await formik.setValues(updatedValuesOther);
-      } else {
-        const updatedValuesOther = { ...formik.values, ["stocks"]: "No" };
-        await formik.setValues(updatedValuesOther);
-      }
-    } else if (fieldName.localeCompare("valueOfBonds") === 0) {
-      // const updatedValuesOther = { ...formik.values, ["bond"]: value };
-      // await formik.setValues(updatedValuesOther);
-      if (value !== "") {
-        const updatedValuesOther = { ...formik.values, ["bond"]: "Yes" };
-        await formik.setValues(updatedValuesOther);
-      } else {
-        const updatedValuesOther = { ...formik.values, ["bond"]: "No" };
-        await formik.setValues(updatedValuesOther);
-      }
-    } else if (fieldName.localeCompare("valueOfEquities") === 0) {
-      // const updatedValuesOther = { ...formik.values, ["equities"]: value };
-      // await formik.setValues(updatedValuesOther);
-      if (value !== "") {
-        const updatedValuesOther = { ...formik.values, ["equities"]: "Yes" };
-        await formik.setValues(updatedValuesOther);
-      } else {
-        const updatedValuesOther = { ...formik.values, ["equities"]: "No" };
-        await formik.setValues(updatedValuesOther);
-      }
-    } else if (fieldName.localeCompare("valueOfCommodities") === 0) {
-      // const updatedValuesOther = { ...formik.values, ["commodities"]: value };
-      // await formik.setValues(updatedValuesOther);
-      if (value !== "") {
-        const updatedValuesOther = { ...formik.values, ["commodities"]: "Yes" };
-        await formik.setValues(updatedValuesOther);
-      } else {
-        const updatedValuesOther = { ...formik.values, ["commodities"]: "No" };
-        await formik.setValues(updatedValuesOther);
-      }
-    } else if (fieldName.localeCompare("valueOfInsurancePolicies") === 0) {
-      const updatedValuesOther = {
-        ...formik.values,
-        ["insurancePolicies"]: value !== "" ? "Yes" : "No",
-      };
-      await formik.setValues(updatedValuesOther);
-    } else if (fieldName.localeCompare("valueOfUnitTrusts") === 0) {
-      const updatedValuesOther = {
-        ...formik.values,
-        ["unitTrusts"]: value !== "" ? "Yes" : "No",
-      };
-      await formik.setValues(updatedValuesOther);
-    } else if (fieldName.localeCompare("valueOfProperties") === 0) {
-      const updatedValuesOther = {
-        ...formik.values,
-        ["properties"]: value !== "" ? "Yes" : "No",
-      };
-      await formik.setValues(updatedValuesOther);
-    } else if (fieldName.localeCompare("valueOfCryptocurrencies") === 0) {
-      const updatedValuesOther = {
-        ...formik.values,
-        ["cryptocurrencies"]: value !== "" ? "Yes" : "No",
-      };
-      await formik.setValues(updatedValuesOther);
-    } else if (fieldName.localeCompare("valueOfOtherInvestments") === 0) {
-      const updatedValuesOther = {
-        ...formik.values,
-        ["otherInvestments"]: value !== "" ? "Yes" : "No",
-      };
-      await formik.setValues(updatedValuesOther);
-    }
-
     setTimeout(() => {
-      Cookies.set("netWorthFormData", JSON.stringify(updatedValues), {
+      Cookies.set("cashFlowStatementFormData", JSON.stringify(updatedValues), {
         expires: 7,
       });
     }, 100);
@@ -197,16 +107,43 @@ const CashFlowStatementForm = ({ onNext, onBack }) => {
         Cash Flow Statement Details
       </Typography>
       <Grid container spacing={2}>
-        {/* Current Value of Residence */}
         <Grid item xs={12} sm={6}>
           <CustomTextField
             fullWidth
-            name="currentValueOfResidence"
-            label="Current Value of Residence"
+            name="annualSalary"
+            label="Annual Salary"
             type="number"
-            value={formik.values.currentValueOfResidence}
+            value={formik.values.annualSalary}
+            onChange={(e) => handleFieldChange("annualSalary", e.target.value)}
+            InputProps={{
+              style: { color: "#ffb942" },
+            }}
+          />
+        </Grid>
+
+        <Grid item xs={12} sm={6}>
+          <CustomTextField
+            fullWidth
+            name="annualBonus"
+            label="Annual Bonus"
+            type="number"
+            value={formik.values.annualBonus}
+            onChange={(e) => handleFieldChange("annualBonus", e.target.value)}
+            InputProps={{
+              style: { color: "#ffb942" },
+            }}
+          />
+        </Grid>
+
+        <Grid item xs={12} sm={6}>
+          <CustomTextField
+            fullWidth
+            name="annualInvestmentIncome"
+            label="Annual Investment Income"
+            type="number"
+            value={formik.values.annualInvestmentIncome}
             onChange={(e) =>
-              handleFieldChange("currentValueOfResidence", e.target.value)
+              handleFieldChange("annualInvestmentIncome", e.target.value)
             }
             InputProps={{
               style: { color: "#ffb942" },
@@ -214,16 +151,15 @@ const CashFlowStatementForm = ({ onNext, onBack }) => {
           />
         </Grid>
 
-        {/* Current Value of Vehicle */}
         <Grid item xs={12} sm={6}>
           <CustomTextField
             fullWidth
-            name="currentValueOfVehicle"
-            label="Current Value of Vehicle"
+            name="rentalIncomeAnnual"
+            label="Rental Income Annual"
             type="number"
-            value={formik.values.currentValueOfVehicle}
+            value={formik.values.rentalIncomeAnnual}
             onChange={(e) =>
-              handleFieldChange("currentValueOfVehicle", e.target.value)
+              handleFieldChange("rentalIncomeAnnual", e.target.value)
             }
             InputProps={{
               style: { color: "#ffb942" },
@@ -231,356 +167,110 @@ const CashFlowStatementForm = ({ onNext, onBack }) => {
           />
         </Grid>
 
-        {/* Current Savings */}
         <Grid item xs={12} sm={6}>
           <CustomTextField
             fullWidth
-            name="currentSavings"
-            label="Current Savings"
+            name="otherIncomeAnnual"
+            label="Other Income Annual"
             type="number"
-            value={formik.values.currentSavings}
+            value={formik.values.otherIncomeAnnual}
             onChange={(e) =>
-              handleFieldChange("currentSavings", e.target.value)
+              handleFieldChange("otherIncomeAnnual", e.target.value)
             }
+            InputProps={{
+              style: { color: "#ffb942" },
+            }}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <CustomTextField
+            fullWidth
+            name="payForMiscellaniousAnnually"
+            label="Pay for Miscellanious Annually"
+            type="number"
+            value={formik.values.payForMiscellaniousAnnually}
+            onChange={(e) =>
+              handleFieldChange("payForMiscellaniousAnnually", e.target.value)
+            }
+            InputProps={{
+              style: { color: "#ffb942" },
+            }}
+          />
+        </Grid>
+
+        <Grid item xs={12} sm={6}>
+          <CustomTextField
+            fullWidth
+            name="giveForFamilyBlessingsAnnually"
+            label="Give For Family Blessings Annually"
+            type="number"
+            value={formik.values.giveForFamilyBlessingsAnnually}
+            onChange={(e) =>
+              handleFieldChange(
+                "giveForFamilyBlessingsAnnually",
+                e.target.value
+              )
+            }
+            InputProps={{
+              style: { color: "#ffb942" },
+            }}
+          />
+        </Grid>
+
+        <Grid item xs={12} sm={6}>
+          <CustomTextField
+            fullWidth
+            name="annualSavings"
+            label="Annual Savings"
+            type="number"
+            value={formik.values.annualSavings}
+            onChange={(e) => handleFieldChange("annualSavings", e.target.value)}
+            InputProps={{
+              style: { color: "#ffb942" },
+            }}
             error={
-              formik.touched.currentSavings &&
-              Boolean(formik.errors.currentSavings)
+              formik.touched.annualSavings &&
+              Boolean(formik.errors.annualSavings)
             }
             helperText={
-              formik.touched.currentSavings && formik.errors.currentSavings
+              formik.touched.annualSavings && formik.errors.annualSavings
+            }
+          />
+        </Grid>
+
+        <Grid item xs={12} sm={6}>
+          <CustomTextField
+            fullWidth
+            name="annualInvestments"
+            label="Annual Investments"
+            type="number"
+            value={formik.values.annualInvestments}
+            onChange={(e) =>
+              handleFieldChange("annualInvestments", e.target.value)
             }
             InputProps={{
               style: { color: "#ffb942" },
             }}
-            required
-          />
-        </Grid>
-
-        {/* Current Value of Fixed Deposits */}
-        <Grid item xs={12} sm={6}>
-          <CustomTextField
-            fullWidth
-            name="currentValueOfFixedDeposits"
-            label="Current Value of Fixed Deposits"
-            type="number"
-            value={formik.values.currentValueOfFixedDeposits}
-            onChange={(e) =>
-              handleFieldChange("currentValueOfFixedDeposits", e.target.value)
+            error={
+              formik.touched.annualInvestments &&
+              Boolean(formik.errors.annualInvestments)
             }
-            InputProps={{
-              style: { color: "#ffb942" },
-            }}
-          />
-        </Grid>
-
-        {/* Any Investments */}
-        <Grid item xs={12} sm={6}>
-          <FormControl fullWidth required>
-            <CustomInputLabel>Any Investments</CustomInputLabel>
-            <CustomSelect
-              name="anyInvestments"
-              label="Any Investments"
-              value={formik.values.anyInvestments}
-              onChange={(e) =>
-                handleFieldChange("anyInvestments", e.target.value)
-              }
-              MenuProps={{
-                PaperProps: {
-                  style: { background: "#292829" },
-                },
-              }}
-            >
-              <CustomMenuItem value="Yes">Yes</CustomMenuItem>
-              <CustomMenuItem value="No">No</CustomMenuItem>
-            </CustomSelect>
-          </FormControl>
-        </Grid>
-
-        {/* Value of Bonds */}
-        <Grid item xs={12} sm={6}>
-          <CustomTextField
-            fullWidth
-            name="valueOfBonds"
-            label="Value of Bonds"
-            type="number"
-            value={formik.values.valueOfBonds}
-            onChange={(e) => handleFieldChange("valueOfBonds", e.target.value)}
-            InputProps={{
-              style: { color: "#ffb942" },
-            }}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <CustomTextField
-            fullWidth
-            name="valueOfStocks"
-            label="Value of Stocks"
-            type="number"
-            value={formik.values.valueOfStocks}
-            onChange={(e) => handleFieldChange("valueOfStocks", e.target.value)}
-            InputProps={{
-              style: { color: "#ffb942" },
-            }}
-          />
-        </Grid>
-
-        {/* Bond */}
-        {/* <Grid item xs={12} sm={6}>
-          <FormControl fullWidth required>
-            <CustomInputLabel>Bond</CustomInputLabel>
-            <CustomSelect
-              name="bond"
-              label="Bond"
-              value={formik.values.bond}
-              onChange={(e) => handleFieldChange("bond", e.target.value)}
-              MenuProps={{
-                PaperProps: {
-                  style: { background: "#292829" },
-                },
-              }}
-            >
-              <CustomMenuItem value="Yes">Yes</CustomMenuItem>
-              <CustomMenuItem value="No">No</CustomMenuItem>
-            </CustomSelect>
-          </FormControl>
-        </Grid> */}
-
-        {/* Value of Unit Trusts */}
-        <Grid item xs={12} sm={6}>
-          <CustomTextField
-            fullWidth
-            name="valueOfUnitTrusts"
-            label="Value of Unit Trusts"
-            type="number"
-            value={formik.values.valueOfUnitTrusts}
-            onChange={(e) =>
-              handleFieldChange("valueOfUnitTrusts", e.target.value)
+            helperText={
+              formik.touched.annualInvestments &&
+              formik.errors.annualInvestments
             }
-            InputProps={{
-              style: { color: "#ffb942" },
-            }}
           />
         </Grid>
-
-        {/* Unit Trusts */}
-        {/* <Grid item xs={12} sm={6}>
-          <FormControl fullWidth required>
-            <CustomInputLabel>Unit Trusts</CustomInputLabel>
-            <CustomSelect
-              name="unitTrusts"
-              label="Unit Trusts"
-              value={formik.values.unitTrusts}
-              onChange={(e) => handleFieldChange("unitTrusts", e.target.value)}
-              MenuProps={{
-                PaperProps: {
-                  style: { background: "#292829" },
-                },
-              }}
-            >
-              <CustomMenuItem value="Yes">Yes</CustomMenuItem>
-              <CustomMenuItem value="No">No</CustomMenuItem>
-            </CustomSelect>
-          </FormControl>
-        </Grid> */}
-
-        {/* Value of Equities */}
-        <Grid item xs={12} sm={6}>
-          <CustomTextField
-            fullWidth
-            name="valueOfEquities"
-            label="Value of Equities"
-            type="number"
-            value={formik.values.valueOfEquities}
-            onChange={(e) =>
-              handleFieldChange("valueOfEquities", e.target.value)
-            }
-            InputProps={{
-              style: { color: "#ffb942" },
-            }}
-          />
-        </Grid>
-
-        {/* Equities */}
-        {/* <Grid item xs={12} sm={6}>
-          <FormControl fullWidth required>
-            <CustomInputLabel>Equities</CustomInputLabel>
-            <CustomSelect
-              name="equities"
-              label="Equities"
-              value={formik.values.equities}
-              onChange={(e) => handleFieldChange("equities", e.target.value)}
-              MenuProps={{
-                PaperProps: {
-                  style: { background: "#292829" },
-                },
-              }}
-            >
-              <CustomMenuItem value="Yes">Yes</CustomMenuItem>
-              <CustomMenuItem value="No">No</CustomMenuItem>
-            </CustomSelect>
-          </FormControl>
-        </Grid> */}
-
-        {/* Value of Insurance Policies */}
-        <Grid item xs={12} sm={6}>
-          <CustomTextField
-            fullWidth
-            name="valueOfInsurancePolicies"
-            label="Value of Insurance Policies"
-            type="number"
-            value={formik.values.valueOfInsurancePolicies}
-            onChange={(e) =>
-              handleFieldChange("valueOfInsurancePolicies", e.target.value)
-            }
-            InputProps={{
-              style: { color: "#ffb942" },
-            }}
-          />
-        </Grid>
-
-        {/* Insurance Policies */}
-        {/* <Grid item xs={12} sm={6}>
-          <FormControl fullWidth required>
-            <CustomInputLabel>Insurance Policies</CustomInputLabel>
-            <CustomSelect
-              name="insurancePolicies"
-              label="Insurance Policies"
-              value={formik.values.insurancePolicies}
-              onChange={(e) =>
-                handleFieldChange("insurancePolicies", e.target.value)
-              }
-              MenuProps={{
-                PaperProps: {
-                  style: { background: "#292829" },
-                },
-              }}
-            >
-              <CustomMenuItem value="Yes">Yes</CustomMenuItem>
-              <CustomMenuItem value="No">No</CustomMenuItem>
-            </CustomSelect>
-          </FormControl>
-        </Grid> */}
-
-        {/* Add similar fields for Commodities, Properties, Cryptocurrencies, Other Investments */}
-        <Grid item xs={12} sm={6}>
-          <CustomTextField
-            fullWidth
-            name="valueOfCommodities"
-            label="Value of Commodities"
-            type="number"
-            value={formik.values.valueOfCommodities}
-            onChange={(e) =>
-              handleFieldChange("valueOfCommodities", e.target.value)
-            }
-            InputProps={{
-              style: { color: "#ffb942" },
-            }}
-          />
-        </Grid>
-
-        {/* <Grid item xs={12} sm={6}>
-          <FormControl fullWidth required>
-            <CustomInputLabel>Commodities</CustomInputLabel>
-            <CustomSelect
-              name="commodities"
-              label="Commodities"
-              value={formik.values.commodities}
-              onChange={(e) => handleFieldChange("commodities", e.target.value)}
-              MenuProps={{
-                PaperProps: {
-                  style: { background: "#292829" },
-                },
-              }}
-            >
-              <CustomMenuItem value="Yes">Yes</CustomMenuItem>
-              <CustomMenuItem value="No">No</CustomMenuItem>
-            </CustomSelect>
-          </FormControl>
-        </Grid> */}
 
         <Grid item xs={12} sm={6}>
           <CustomTextField
             fullWidth
-            name="valueOfProperties"
-            label="Value of Properties"
+            name="mortgagePayAnnually"
+            label="Mortage Pay Annually"
             type="number"
-            value={formik.values.valueOfProperties}
+            value={formik.values.mortgagePayAnnually}
             onChange={(e) =>
-              handleFieldChange("valueOfProperties", e.target.value)
-            }
-            InputProps={{
-              style: { color: "#ffb942" },
-            }}
-          />
-        </Grid>
-
-        {/* <Grid item xs={12} sm={6}>
-          <FormControl fullWidth required>
-            <CustomInputLabel>Properties</CustomInputLabel>
-            <CustomSelect
-              name="properties"
-              label="Properties"
-              value={formik.values.properties}
-              onChange={(e) => handleFieldChange("properties", e.target.value)}
-              MenuProps={{
-                PaperProps: {
-                  style: { background: "#292829" },
-                },
-              }}
-            >
-              <CustomMenuItem value="Yes">Yes</CustomMenuItem>
-              <CustomMenuItem value="No">No</CustomMenuItem>
-            </CustomSelect>
-          </FormControl>
-        </Grid> */}
-
-        <Grid item xs={12} sm={6}>
-          <CustomTextField
-            fullWidth
-            name="valueOfCryptocurrencies"
-            label="Value of Cryptocurrencies"
-            type="number"
-            value={formik.values.valueOfCryptocurrencies}
-            onChange={(e) =>
-              handleFieldChange("valueOfCryptocurrencies", e.target.value)
-            }
-            InputProps={{
-              style: { color: "#ffb942" },
-            }}
-          />
-        </Grid>
-
-        {/* <Grid item xs={12} sm={6}>
-          <FormControl fullWidth required>
-            <CustomInputLabel>Cryptocurrencies</CustomInputLabel>
-            <CustomSelect
-              name="cryptocurrencies"
-              label="Cryptocurrencies"
-              value={formik.values.cryptocurrencies}
-              onChange={(e) =>
-                handleFieldChange("cryptocurrencies", e.target.value)
-              }
-              MenuProps={{
-                PaperProps: {
-                  style: { background: "#292829" },
-                },
-              }}
-            >
-              <CustomMenuItem value="Yes">Yes</CustomMenuItem>
-              <CustomMenuItem value="No">No</CustomMenuItem>
-            </CustomSelect>
-          </FormControl>
-        </Grid> */}
-
-        <Grid item xs={12} sm={6}>
-          <CustomTextField
-            fullWidth
-            name="valueOfOtherInvestments"
-            label="Value of Other Investments"
-            type="number"
-            value={formik.values.valueOfOtherInvestments}
-            onChange={(e) =>
-              handleFieldChange("valueOfOtherInvestments", e.target.value)
+              handleFieldChange("mortgagePayAnnually", e.target.value)
             }
             InputProps={{
               style: { color: "#ffb942" },
@@ -591,12 +281,12 @@ const CashFlowStatementForm = ({ onNext, onBack }) => {
         <Grid item xs={12} sm={6}>
           <CustomTextField
             fullWidth
-            name="currentValueOfOrdinaryCPF"
-            label="Current Value Of Ordinary Account in CPF"
+            name="loansPayAnnually"
+            label="Loans Pay Annually"
             type="number"
-            value={formik.values.valueOfOtherInvestments}
+            value={formik.values.loansPayAnnually}
             onChange={(e) =>
-              handleFieldChange("currentValueOfOrdinaryCPF", e.target.value)
+              handleFieldChange("loansPayAnnually", e.target.value)
             }
             InputProps={{
               style: { color: "#ffb942" },
@@ -607,12 +297,12 @@ const CashFlowStatementForm = ({ onNext, onBack }) => {
         <Grid item xs={12} sm={6}>
           <CustomTextField
             fullWidth
-            name="currentValueOfSpecialCPF"
-            label="Current Value Of Special Account in CPF"
+            name="payForInsuranceAnnually"
+            label="Pay For Insurance Annually"
             type="number"
-            value={formik.values.valueOfOtherInvestments}
+            value={formik.values.payForInsuranceAnnually}
             onChange={(e) =>
-              handleFieldChange("currentValueOfSpecialCPF", e.target.value)
+              handleFieldChange("payForInsuranceAnnually", e.target.value)
             }
             InputProps={{
               style: { color: "#ffb942" },
@@ -623,12 +313,60 @@ const CashFlowStatementForm = ({ onNext, onBack }) => {
         <Grid item xs={12} sm={6}>
           <CustomTextField
             fullWidth
-            name="currentValueOfMedisaveCPF"
-            label="Current Value Of Medi Save Account in CPF"
+            name="payForHouseholdAnnually"
+            label="Pay for Household Annually"
             type="number"
-            value={formik.values.valueOfOtherInvestments}
+            value={formik.values.payForHouseholdAnnually}
             onChange={(e) =>
-              handleFieldChange("currentValueOfMedisaveCPF", e.target.value)
+              handleFieldChange("payForHouseholdAnnually", e.target.value)
+            }
+            InputProps={{
+              style: { color: "#ffb942" },
+            }}
+            error={
+              formik.touched.payForHouseholdAnnually &&
+              Boolean(formik.errors.payForHouseholdAnnually)
+            }
+            helperText={
+              formik.touched.payForHouseholdAnnually &&
+              formik.errors.payForHouseholdAnnually
+            }
+          />
+        </Grid>
+
+        <Grid item xs={12} sm={6}>
+          <CustomTextField
+            fullWidth
+            name="payForTransportAnnually"
+            label="Pay for Transport Annually"
+            type="number"
+            value={formik.values.payForTransportAnnually}
+            onChange={(e) =>
+              handleFieldChange("payForTransportAnnually", e.target.value)
+            }
+            InputProps={{
+              style: { color: "#ffb942" },
+            }}
+            error={
+              formik.touched.payForTransportAnnually &&
+              Boolean(formik.errors.payForTransportAnnually)
+            }
+            helperText={
+              formik.touched.payForTransportAnnually &&
+              formik.errors.payForTransportAnnually
+            }
+          />
+        </Grid>
+
+        <Grid item xs={12} sm={6}>
+          <CustomTextField
+            fullWidth
+            name="payForDependenstAnnually"
+            label="Pay for Dependents Annually"
+            type="number"
+            value={formik.values.payForDependenstAnnually}
+            onChange={(e) =>
+              handleFieldChange("payForDependenstAnnually", e.target.value)
             }
             InputProps={{
               style: { color: "#ffb942" },
@@ -639,12 +377,39 @@ const CashFlowStatementForm = ({ onNext, onBack }) => {
         <Grid item xs={12} sm={6}>
           <CustomTextField
             fullWidth
-            name="currentValueOfOtherCPF"
-            label="Current Value Of Any Other Account in CPF"
+            name="payForPersonalExpensesAnnually"
+            label="Pay for Personal Expenses Annually"
             type="number"
-            value={formik.values.valueOfOtherInvestments}
+            value={formik.values.payForPersonalExpensesAnnually}
             onChange={(e) =>
-              handleFieldChange("currentValueOfOtherCPF", e.target.value)
+              handleFieldChange(
+                "payForPersonalExpensesAnnually",
+                e.target.value
+              )
+            }
+            InputProps={{
+              style: { color: "#ffb942" },
+            }}
+            error={
+              formik.touched.payForPersonalExpensesAnnually &&
+              Boolean(formik.errors.payForPersonalExpensesAnnually)
+            }
+            helperText={
+              formik.touched.payForPersonalExpensesAnnually &&
+              formik.errors.payForPersonalExpensesAnnually
+            }
+          />
+        </Grid>
+
+        <Grid item xs={12} sm={6}>
+          <CustomTextField
+            fullWidth
+            name="payForMedicalAnnually"
+            label="Pay for Medical Annually"
+            type="number"
+            value={formik.values.payForMedicalAnnually}
+            onChange={(e) =>
+              handleFieldChange("payForMedicalAnnually", e.target.value)
             }
             InputProps={{
               style: { color: "#ffb942" },

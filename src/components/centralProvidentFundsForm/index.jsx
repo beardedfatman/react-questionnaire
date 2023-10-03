@@ -12,14 +12,10 @@ import Cookies from "js-cookie";
 const CentralProvidentFundsForm = ({ onNext, onBack }) => {
   const formik = useFormik({
     initialValues: {
-      //   centralProvidentFund: "No",
       careShield: "No",
       doneYourNominations: "No",
     },
     validationSchema: Yup.object({
-      //   centralProvidentFund: Yup.string().required(
-      //     "Central Provident Fund is required"
-      //   ),
       careShield: Yup.string().required("CareShield is required"),
       doneYourNominations: Yup.string().required(
         "Done Your Nominations is required"
