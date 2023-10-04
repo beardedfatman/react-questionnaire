@@ -2,17 +2,96 @@ import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Typography, Button, Grid, Box } from "@mui/material";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { ThemeProvider, createTheme } from "@mui/material";
 import { CustomTextField } from "../Fields";
 import Cookies from "js-cookie";
+import dayjs from "dayjs";
 
 const DependentForm = ({ onNext, onBack }) => {
   const [dependentsCount, setDependentsCount] = useState([0]);
+
+  const customTheme = createTheme({
+    palette: {
+      mode: "dark",
+      primary: {
+        main: "#ffb942", // Set the primary color to golden
+      },
+      background: {
+        default: "black !important", // Set the background color to black
+      },
+      text: {
+        primary: "#ffb942", // Set the text color to golden
+        secondary: "#ffb942",
+      },
+    },
+    components: {
+      MuiInputBase: {
+        styleOverrides: {
+          root: {
+            color: "#ffb942", // Set the text color to golden for input base
+          },
+        },
+      },
+      MuiOutlinedInput: {
+        styleOverrides: {
+          root: {
+            borderColor: "#ffb942 !important", // Set the border color to #ffb942
+          },
+          notchedOutline: {
+            borderColor: "#ffb942 !important", // Set the border color to #ffb942
+          },
+        },
+      },
+      MuiIconButton: {
+        styleOverrides: {
+          root: {
+            color: "#ffb942 !important", // Set the icon color to #ffb942
+          },
+        },
+      },
+      MuiPickersDay: {
+        styleOverrides: {
+          daySelected: {
+            backgroundColor: "#ffb942 !important", // Set the background color for selected days to #ffb942
+            "&:hover": {
+              backgroundColor: "#ffb942 !important", // Set the background color on hover to #ffb942
+            },
+          },
+        },
+      },
+      MuiPaper: {
+        styleOverrides: {
+          paper: {
+            background: "#ffb942 !important", // Set the background color of the popover to black
+            color: "#ffb942 !important", // Set the text color of the popover to #ffb942
+          },
+        },
+      },
+
+      MuiPopper: {
+        styleOverrides: {
+          paper: {
+            background: "#ffb942 !important", // Set the background color of the popover to black
+            color: "#ffb942 !important", // Set the text color of the popover to #ffb942
+          },
+        },
+      },
+      MuiInputLabel: {
+        styleOverrides: {
+          root: {
+            color: "#ffb942 !important", // Set the text color to #ffb942 for input labels
+          },
+        },
+      },
+    },
+  });
 
   const formik = useFormik({
     initialValues: {
       dependents: dependentsCount.map(() => ({
         dependentName: "",
-        dependentDateBirth: "",
+        dependentDateBirth: null,
         dependentAnnualSpending: "",
         dependentNeed: "",
       })),
@@ -21,7 +100,7 @@ const DependentForm = ({ onNext, onBack }) => {
       dependents: Yup.array().of(
         Yup.object().shape({
           dependentName: Yup.string().optional(),
-          dependentDateBirth: Yup.string().optional(),
+          dependentDateBirth: Yup.date().nullable().optional(),
           dependentAnnualSpending: Yup.number()
             .optional()
             .positive("Amount must be positive"),
@@ -184,37 +263,55 @@ const DependentForm = ({ onNext, onBack }) => {
               />
             </Grid>
             <Grid item xs={12} sm={4}>
-              <CustomTextField
-                fullWidth
-                name={`dependents[${index}].dependentDateBirth`}
-                label="Date of Birth"
-                value={formik.values.dependents[index].dependentDateBirth}
-                onChange={(e) =>
-                  handleFieldChange(
-                    "dependentDateBirth",
-                    e.target.value,
-                    "dependents",
-                    index
-                  )
-                }
-                error={
-                  formik.touched.dependents &&
-                  formik.touched.dependents[index] &&
-                  Boolean(
-                    formik.errors.dependents &&
-                      formik.errors.dependents[index]?.dependentDateBirth
-                  )
-                }
-                helperText={
-                  formik.touched.dependents &&
-                  formik.touched.dependents[index] &&
-                  formik.errors.dependents &&
-                  formik.errors.dependents[index]?.dependentDateBirth
-                }
-                InputProps={{
-                  style: { color: "#ffb942" },
-                }}
-              />
+              <ThemeProvider theme={customTheme}>
+                <DatePicker
+                  fullWidth
+                  sx={{
+                    width: "100%",
+                    "& .MuiPickersLayout-root": {
+                      backgroundColor: "black !important", // Set the background color of the popover to black
+                      color: "goldenrod !important", // Set the text color of the popover to goldenrod
+                    },
+                  }}
+                  name={`dependents[${index}].dependentDateBirth`}
+                  label="Date of Birth"
+                  value={
+                    formik.values.dependents[index].dependentDateBirth != null
+                      ? dayjs(
+                          formik.values.dependents[index].dependentDateBirth
+                        )
+                      : null
+                  }
+                  onChange={(date) =>
+                    handleFieldChange(
+                      "dependentDateBirth",
+                      date.toDate(),
+                      "dependents",
+                      index
+                    )
+                  }
+                  PopOverProps={{
+                    style: { backgroundColor: "black !important" }, // Set the background color of the popover to black
+                  }}
+                  renderInput={(params) => (
+                    <CustomTextField
+                      fullWidth
+                      {...params}
+                      error={
+                        formik.touched.dateOfBirth &&
+                        Boolean(formik.errors.dateOfBirth)
+                      }
+                      helperText={
+                        formik.touched.dateOfBirth && formik.errors.dateOfBirth
+                      }
+                      required
+                      InputProps={{
+                        style: { color: "#ffb942" }, // Change text color to golden
+                      }}
+                    />
+                  )}
+                />
+              </ThemeProvider>
             </Grid>
             <Grid item xs={12} sm={2}>
               <CustomTextField
