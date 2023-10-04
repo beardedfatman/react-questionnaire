@@ -9,6 +9,7 @@ import CentralProvidentFundsForm from "../centralProvidentFundsForm";
 import CashFlowStatementForm from "../cashFlowStatementForm";
 import RetirementForm from "../retirement";
 import GoalForm from "../goalsForm";
+import DependentForm from "../dependentsForm";
 
 const steps = [
   "Personal Details",
@@ -142,6 +143,7 @@ function Main() {
         {step === 0 && <PersonalDetailForm onNext={onNext} onBack={onBack} />}
         {step === 1 && <EmploymentStatusForm onNext={onNext} onBack={onBack} />}
         {step === 2 && <GoalForm onNext={onNext} onBack={onBack} />}
+        {step === 3 && <DependentForm onNext={onNext} onBack={onBack} />}
         {/* {step === 2 && <NetWorthForm onNext={onNext} onBack={onBack} />}
         {step === 3 && <LoanForm onNext={onNext} onBack={onBack} />}
         {step === 4 && (
