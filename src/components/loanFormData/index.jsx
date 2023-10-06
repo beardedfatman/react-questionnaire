@@ -71,8 +71,6 @@ const LoanForm = ({ onNext, saveFormData, onBack }) => {
       incomeTaxLastYear: Yup.number().nullable(),
     }),
     onSubmit: (values) => {
-      console.log("Loan Form Values", values);
-      // saveFormData(values);
       onNext();
     },
   });
@@ -108,6 +106,9 @@ const LoanForm = ({ onNext, saveFormData, onBack }) => {
     <form onSubmit={formik.handleSubmit}>
       <Typography variant="h4" sx={{ color: "#ffb942" }}>
         Loan Details
+      </Typography>
+      <Typography variant="h5" sx={{ color: "#ffb942", mb: 0.51, mt: 0.51 }}>
+        Long Term Loan
       </Typography>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
@@ -163,7 +164,9 @@ const LoanForm = ({ onNext, saveFormData, onBack }) => {
             type="number"
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+      </Grid>
+      <Grid container spacing={2} sx={{ mt: 0.51, mb: 0.51 }}>
+        <Grid item xs={12} sm={4}>
           <CustomTextField
             fullWidth
             name="remainingRenovationLoan"
@@ -188,7 +191,7 @@ const LoanForm = ({ onNext, saveFormData, onBack }) => {
             type="number"
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={4}>
           <CustomTextField
             fullWidth
             name="remainingVehicleLoan"
@@ -213,7 +216,7 @@ const LoanForm = ({ onNext, saveFormData, onBack }) => {
             type="number"
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={4}>
           <CustomTextField
             fullWidth
             name="remainingStudyLoan"
@@ -238,6 +241,11 @@ const LoanForm = ({ onNext, saveFormData, onBack }) => {
             type="number"
           />
         </Grid>
+      </Grid>
+      <Typography variant="h5" sx={{ color: "#ffb942", mb: 0.51, mt: 0.51 }}>
+        Short Term Loan
+      </Typography>
+      <Grid container spacing={2} sx={{ mt: 0.51, mb: 0.51 }}>
         <Grid item xs={12} sm={6}>
           <FormControl
             fullWidth
@@ -267,6 +275,7 @@ const LoanForm = ({ onNext, saveFormData, onBack }) => {
             </CustomSelect>
           </FormControl>
         </Grid>
+
         <Grid item xs={12} sm={6}>
           <CustomTextField
             fullWidth
@@ -359,7 +368,6 @@ const LoanForm = ({ onNext, saveFormData, onBack }) => {
         </Button>
         <Button
           type="submit"
-          // disabled={!isFormValid}
           variant="contained"
           sx={{
             mt: 3.5,
@@ -377,4 +385,3 @@ const LoanForm = ({ onNext, saveFormData, onBack }) => {
 };
 
 export default LoanForm;
-// Annual Salary (text field only numbers and optional), Annual Bonus (text field only numbers and optional), Investment Income Annual (text field only numbers and optional), Rental Income Annual (text field only numbers and optional), Other Income Annual (text field only numbers and optional),

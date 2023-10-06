@@ -10,6 +10,7 @@ import CashFlowStatementForm from "../cashFlowStatementForm";
 import RetirementForm from "../retirement";
 import GoalForm from "../goalsForm";
 import DependentForm from "../dependentsForm";
+import InsuranceForm from "../insuranceForm";
 
 const steps = [
   "Personal Details",
@@ -31,33 +32,31 @@ function Main() {
   useEffect(() => {
     // Cookies.remove("stepCount");
     const formDataFromCookies = Cookies.get("stepCount"); // Get the saved form data
-    console.log("786 formDataFromCookies", formDataFromCookies);
+
     if (formDataFromCookies) {
-      // const parsedData = JSON.parse(formDataFromCookies);
-      // console.log("786 stepcount",parsedData);
       setStep(parseInt(formDataFromCookies));
-      // formik.setValues(parsedData); // Set the formik values from the cookie data
     }
-    console.log("786 step change", step);
   }, []);
 
   const onNext = () => {
-    setStep((step) => {
-      // if (step < 5) {
-      setTimeout(() => {
-        Cookies.set("stepCount", step + 1, {
-          expires: 7,
-        }); // Save the form data to cookies as JSON
-      }, 100);
-      return step + 1;
-      // }
-      // setTimeout(() => {
-      //   Cookies.set("stepCount", step, {
-      //     expires: 7,
-      //   }); // Save the form data to cookies as JSON
-      // }, 100);
-      return step;
-    });
+    if (step < 9) {
+      setStep((step) => {
+        // if (step < 5) {
+        setTimeout(() => {
+          Cookies.set("stepCount", step + 1, {
+            expires: 7,
+          }); // Save the form data to cookies as JSON
+        }, 100);
+        return step + 1;
+        // }
+        // setTimeout(() => {
+        //   Cookies.set("stepCount", step, {
+        //     expires: 7,
+        //   }); // Save the form data to cookies as JSON
+        // }, 100);
+        // return step;
+      });
+    }
   };
 
   const onBack = () => {
@@ -143,16 +142,17 @@ function Main() {
         {step === 0 && <PersonalDetailForm onNext={onNext} onBack={onBack} />}
         {step === 1 && <EmploymentStatusForm onNext={onNext} onBack={onBack} />}
         {step === 2 && <GoalForm onNext={onNext} onBack={onBack} />}
-        {step === 3 && <DependentForm onNext={onNext} onBack={onBack} />}
-        {/* {step === 2 && <NetWorthForm onNext={onNext} onBack={onBack} />}
-        {step === 3 && <LoanForm onNext={onNext} onBack={onBack} />}
-        {step === 4 && (
+        {step === 3 && <NetWorthForm onNext={onNext} onBack={onBack} />}
+        {step === 4 && <LoanForm onNext={onNext} onBack={onBack} />}
+        {step === 5 && (
           <CentralProvidentFundsForm onNext={onNext} onBack={onBack} />
         )}
-        {step === 5 && (
+        {step === 6 && (
           <CashFlowStatementForm onNext={onNext} onBack={onBack} />
         )}
-        {step === 6 && <RetirementForm onNext={onNext} onBack={onBack} />} */}
+        {step === 7 && <InsuranceForm onNext={onNext} onBack={onBack} />}
+        {step === 8 && <DependentForm onNext={onNext} onBack={onBack} />}
+        {step === 9 && <RetirementForm onBack={onBack} />}
       </Box>
     </Box>
   );

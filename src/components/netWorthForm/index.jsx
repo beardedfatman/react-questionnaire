@@ -44,14 +44,6 @@ const NetWorthForm = ({ onNext, onBack }) => {
       currentValueOfOtherCPF: "",
       stocks: "No",
       valueOfStocks: "",
-      // anyLongTermLoans: "No",
-      // remainingLoan: "",
-      // remainingRenovationLoan: "",
-      // remainingVehicleLoan: "",
-      // remainingStudyLoan: "",
-      // anyShortTermLoans: "No",
-      // remainingCreditCardsLoan: "",
-      // remainingPersonalDebitLoan: "",
     },
     validationSchema: Yup.object({
       currentValueOfResidence: Yup.number().optional(),
@@ -81,18 +73,6 @@ const NetWorthForm = ({ onNext, onBack }) => {
       currentValueOfSpecialCPF: Yup.number().optional(),
       currentValueOfMedisaveCPF: Yup.number().optional(),
       currentValueOfOtherCPF: Yup.number().optional(),
-      // anyLongTermLoans: Yup.string().required(
-      //   "Any Long Term Loans is required"
-      // ),
-      // remainingLoan: Yup.number().optional(),
-      // remainingRenovationLoan: Yup.number().optional(),
-      // remainingVehicleLoan: Yup.number().optional(),
-      // remainingStudyLoan: Yup.number().optional(),
-      // anyShortTermLoans: Yup.string().required(
-      //   "Any Short Term Loans is required"
-      // ),
-      // remainingCreditCardsLoan: Yup.number().optional(),
-      // remainingPersonalDebitLoan: Yup.number().optional(),
     }),
     onSubmit: (values) => {
       // Save form data to cookies
@@ -123,8 +103,6 @@ const NetWorthForm = ({ onNext, onBack }) => {
         await formik.setValues(updatedValuesOther);
       }
     } else if (fieldName.localeCompare("valueOfBonds") === 0) {
-      // const updatedValuesOther = { ...formik.values, ["bond"]: value };
-      // await formik.setValues(updatedValuesOther);
       if (value !== "") {
         const updatedValuesOther = { ...formik.values, ["bond"]: "Yes" };
         await formik.setValues(updatedValuesOther);
@@ -133,8 +111,6 @@ const NetWorthForm = ({ onNext, onBack }) => {
         await formik.setValues(updatedValuesOther);
       }
     } else if (fieldName.localeCompare("valueOfEquities") === 0) {
-      // const updatedValuesOther = { ...formik.values, ["equities"]: value };
-      // await formik.setValues(updatedValuesOther);
       if (value !== "") {
         const updatedValuesOther = { ...formik.values, ["equities"]: "Yes" };
         await formik.setValues(updatedValuesOther);
@@ -143,8 +119,6 @@ const NetWorthForm = ({ onNext, onBack }) => {
         await formik.setValues(updatedValuesOther);
       }
     } else if (fieldName.localeCompare("valueOfCommodities") === 0) {
-      // const updatedValuesOther = { ...formik.values, ["commodities"]: value };
-      // await formik.setValues(updatedValuesOther);
       if (value !== "") {
         const updatedValuesOther = { ...formik.values, ["commodities"]: "Yes" };
         await formik.setValues(updatedValuesOther);
@@ -196,8 +170,12 @@ const NetWorthForm = ({ onNext, onBack }) => {
       <Typography variant="h4" sx={{ color: "#ffb942" }}>
         Net Worth Details
       </Typography>
+      <Typography variant="h5" sx={{ color: "#ffb942", mb: 0.51 }}>
+        Value of Fixed Assets
+      </Typography>
       <Grid container spacing={2}>
         {/* Current Value of Residence */}
+
         <Grid item xs={12} sm={6}>
           <CustomTextField
             fullWidth
@@ -230,7 +208,12 @@ const NetWorthForm = ({ onNext, onBack }) => {
             }}
           />
         </Grid>
+      </Grid>
+      <Typography variant="h5" sx={{ color: "#ffb942", mb: 0.51, mt: 0.51 }}>
+        Cash Assets
+      </Typography>
 
+      <Grid container spacing={2}>
         {/* Current Savings */}
         <Grid item xs={12} sm={6}>
           <CustomTextField
@@ -272,7 +255,12 @@ const NetWorthForm = ({ onNext, onBack }) => {
             }}
           />
         </Grid>
+      </Grid>
+      <Typography variant="h5" sx={{ color: "#ffb942", mb: 0.51, mt: 0.51 }}>
+        Investments
+      </Typography>
 
+      <Grid container spacing={2}>
         {/* Any Investments */}
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth required>
@@ -324,27 +312,6 @@ const NetWorthForm = ({ onNext, onBack }) => {
           />
         </Grid>
 
-        {/* Bond */}
-        {/* <Grid item xs={12} sm={6}>
-          <FormControl fullWidth required>
-            <CustomInputLabel>Bond</CustomInputLabel>
-            <CustomSelect
-              name="bond"
-              label="Bond"
-              value={formik.values.bond}
-              onChange={(e) => handleFieldChange("bond", e.target.value)}
-              MenuProps={{
-                PaperProps: {
-                  style: { background: "#292829" },
-                },
-              }}
-            >
-              <CustomMenuItem value="Yes">Yes</CustomMenuItem>
-              <CustomMenuItem value="No">No</CustomMenuItem>
-            </CustomSelect>
-          </FormControl>
-        </Grid> */}
-
         {/* Value of Unit Trusts */}
         <Grid item xs={12} sm={6}>
           <CustomTextField
@@ -361,27 +328,6 @@ const NetWorthForm = ({ onNext, onBack }) => {
             }}
           />
         </Grid>
-
-        {/* Unit Trusts */}
-        {/* <Grid item xs={12} sm={6}>
-          <FormControl fullWidth required>
-            <CustomInputLabel>Unit Trusts</CustomInputLabel>
-            <CustomSelect
-              name="unitTrusts"
-              label="Unit Trusts"
-              value={formik.values.unitTrusts}
-              onChange={(e) => handleFieldChange("unitTrusts", e.target.value)}
-              MenuProps={{
-                PaperProps: {
-                  style: { background: "#292829" },
-                },
-              }}
-            >
-              <CustomMenuItem value="Yes">Yes</CustomMenuItem>
-              <CustomMenuItem value="No">No</CustomMenuItem>
-            </CustomSelect>
-          </FormControl>
-        </Grid> */}
 
         {/* Value of Equities */}
         <Grid item xs={12} sm={6}>
@@ -400,27 +346,6 @@ const NetWorthForm = ({ onNext, onBack }) => {
           />
         </Grid>
 
-        {/* Equities */}
-        {/* <Grid item xs={12} sm={6}>
-          <FormControl fullWidth required>
-            <CustomInputLabel>Equities</CustomInputLabel>
-            <CustomSelect
-              name="equities"
-              label="Equities"
-              value={formik.values.equities}
-              onChange={(e) => handleFieldChange("equities", e.target.value)}
-              MenuProps={{
-                PaperProps: {
-                  style: { background: "#292829" },
-                },
-              }}
-            >
-              <CustomMenuItem value="Yes">Yes</CustomMenuItem>
-              <CustomMenuItem value="No">No</CustomMenuItem>
-            </CustomSelect>
-          </FormControl>
-        </Grid> */}
-
         {/* Value of Insurance Policies */}
         <Grid item xs={12} sm={6}>
           <CustomTextField
@@ -437,29 +362,6 @@ const NetWorthForm = ({ onNext, onBack }) => {
             }}
           />
         </Grid>
-
-        {/* Insurance Policies */}
-        {/* <Grid item xs={12} sm={6}>
-          <FormControl fullWidth required>
-            <CustomInputLabel>Insurance Policies</CustomInputLabel>
-            <CustomSelect
-              name="insurancePolicies"
-              label="Insurance Policies"
-              value={formik.values.insurancePolicies}
-              onChange={(e) =>
-                handleFieldChange("insurancePolicies", e.target.value)
-              }
-              MenuProps={{
-                PaperProps: {
-                  style: { background: "#292829" },
-                },
-              }}
-            >
-              <CustomMenuItem value="Yes">Yes</CustomMenuItem>
-              <CustomMenuItem value="No">No</CustomMenuItem>
-            </CustomSelect>
-          </FormControl>
-        </Grid> */}
 
         {/* Add similar fields for Commodities, Properties, Cryptocurrencies, Other Investments */}
         <Grid item xs={12} sm={6}>
@@ -478,26 +380,6 @@ const NetWorthForm = ({ onNext, onBack }) => {
           />
         </Grid>
 
-        {/* <Grid item xs={12} sm={6}>
-          <FormControl fullWidth required>
-            <CustomInputLabel>Commodities</CustomInputLabel>
-            <CustomSelect
-              name="commodities"
-              label="Commodities"
-              value={formik.values.commodities}
-              onChange={(e) => handleFieldChange("commodities", e.target.value)}
-              MenuProps={{
-                PaperProps: {
-                  style: { background: "#292829" },
-                },
-              }}
-            >
-              <CustomMenuItem value="Yes">Yes</CustomMenuItem>
-              <CustomMenuItem value="No">No</CustomMenuItem>
-            </CustomSelect>
-          </FormControl>
-        </Grid> */}
-
         <Grid item xs={12} sm={6}>
           <CustomTextField
             fullWidth
@@ -514,26 +396,6 @@ const NetWorthForm = ({ onNext, onBack }) => {
           />
         </Grid>
 
-        {/* <Grid item xs={12} sm={6}>
-          <FormControl fullWidth required>
-            <CustomInputLabel>Properties</CustomInputLabel>
-            <CustomSelect
-              name="properties"
-              label="Properties"
-              value={formik.values.properties}
-              onChange={(e) => handleFieldChange("properties", e.target.value)}
-              MenuProps={{
-                PaperProps: {
-                  style: { background: "#292829" },
-                },
-              }}
-            >
-              <CustomMenuItem value="Yes">Yes</CustomMenuItem>
-              <CustomMenuItem value="No">No</CustomMenuItem>
-            </CustomSelect>
-          </FormControl>
-        </Grid> */}
-
         <Grid item xs={12} sm={6}>
           <CustomTextField
             fullWidth
@@ -549,28 +411,6 @@ const NetWorthForm = ({ onNext, onBack }) => {
             }}
           />
         </Grid>
-
-        {/* <Grid item xs={12} sm={6}>
-          <FormControl fullWidth required>
-            <CustomInputLabel>Cryptocurrencies</CustomInputLabel>
-            <CustomSelect
-              name="cryptocurrencies"
-              label="Cryptocurrencies"
-              value={formik.values.cryptocurrencies}
-              onChange={(e) =>
-                handleFieldChange("cryptocurrencies", e.target.value)
-              }
-              MenuProps={{
-                PaperProps: {
-                  style: { background: "#292829" },
-                },
-              }}
-            >
-              <CustomMenuItem value="Yes">Yes</CustomMenuItem>
-              <CustomMenuItem value="No">No</CustomMenuItem>
-            </CustomSelect>
-          </FormControl>
-        </Grid> */}
 
         <Grid item xs={12} sm={6}>
           <CustomTextField

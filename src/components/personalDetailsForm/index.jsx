@@ -123,8 +123,6 @@ const PersonalDetailForm = ({ onNext, saveFormData, onBack }) => {
         .required("Postal Code/Zip Code is required"),
     }),
     onSubmit: (values) => {
-      console.log("786 values", values);
-      // saveFormData(values);
       onNext();
     },
   });
@@ -132,7 +130,7 @@ const PersonalDetailForm = ({ onNext, saveFormData, onBack }) => {
   useEffect(() => {
     // Cookies.remove("personalFormData");
     const formDataFromCookies = Cookies.get("personalFormData"); // Get the saved form data
-    console.log("786 formDataFromCookies", formDataFromCookies);
+
     if (formDataFromCookies) {
       const parsedData = JSON.parse(formDataFromCookies);
       formik.setValues(parsedData); // Set the formik values from the cookie data
@@ -143,7 +141,6 @@ const PersonalDetailForm = ({ onNext, saveFormData, onBack }) => {
   const handleFieldChange = async (fieldName, value) => {
     const updatedValues = { ...formik.values, [fieldName]: value };
     await formik.setValues(updatedValues); // Update formik values
-    console.log("786 savign", formik.values);
 
     setTimeout(() => {
       Cookies.set("personalFormData", JSON.stringify(updatedValues), {
@@ -417,7 +414,6 @@ const PersonalDetailForm = ({ onNext, saveFormData, onBack }) => {
         </Button>
         <Button
           type="submit"
-          // disabled={!formik.isValid}
           variant="contained"
           sx={{
             mt: 3.5, // Set margin-top

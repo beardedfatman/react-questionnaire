@@ -41,7 +41,7 @@ const EmploymentStatusForm = ({ onNext, onBack }) => {
   useEffect(() => {
     // Cookies.remove("personalFormData");
     const formDataFromCookies = Cookies.get("employmentStatusFormData"); // Get the saved form data
-    console.log("786 formDataFromCookies", formDataFromCookies);
+
     if (formDataFromCookies) {
       const parsedData = JSON.parse(formDataFromCookies);
       formik.setValues(parsedData); // Set the formik values from the cookie data
@@ -52,7 +52,6 @@ const EmploymentStatusForm = ({ onNext, onBack }) => {
   const handleFieldChange = async (fieldName, value) => {
     const updatedValues = { ...formik.values, [fieldName]: value };
     await formik.setValues(updatedValues); // Update formik values
-    console.log("786 savign", formik.values);
 
     setTimeout(() => {
       Cookies.set("employmentStatusFormData", JSON.stringify(updatedValues), {
@@ -104,7 +103,6 @@ const EmploymentStatusForm = ({ onNext, onBack }) => {
             name="occupation"
             label="Occupation"
             value={formik.values.occupation}
-            // onChange={formik.handleChange}
             onChange={(e) => {
               formik.handleChange(e);
               handleFieldChange("occupation", e.target.value);
@@ -125,7 +123,6 @@ const EmploymentStatusForm = ({ onNext, onBack }) => {
             name="company"
             label="Company"
             value={formik.values.company}
-            // onChange={formik.handleChange}
             onChange={(e) => {
               formik.handleChange(e);
               handleFieldChange("company", e.target.value);
@@ -145,7 +142,6 @@ const EmploymentStatusForm = ({ onNext, onBack }) => {
             label="Years in Company"
             type="number"
             value={formik.values.yearsInCompany}
-            // onChange={formik.handleChange}
             onChange={(e) => {
               formik.handleChange(e);
               handleFieldChange("yearsInCompany", e.target.value);
