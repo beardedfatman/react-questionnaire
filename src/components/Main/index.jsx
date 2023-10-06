@@ -152,7 +152,7 @@ function Main() {
         )}
         {step === 7 && <InsuranceForm onNext={onNext} onBack={onBack} />}
         {step === 8 && <DependentForm onNext={onNext} onBack={onBack} />}
-        {step === 9 && <RetirementForm onNext={onNext} onBack={onBack} />}
+        {step === 9 && <RetirementForm onBack={onBack} />}
       </Box>
     </Box>
   );

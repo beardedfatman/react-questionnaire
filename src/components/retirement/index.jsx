@@ -14,7 +14,7 @@ import {
 } from "../Fields";
 import Cookies from "js-cookie";
 
-const RetirementForm = ({ onNext, onBack }) => {
+const RetirementForm = ({ onBack }) => {
   const formik = useFormik({
     initialValues: {
       retirementAge: "",
@@ -31,9 +31,39 @@ const RetirementForm = ({ onNext, onBack }) => {
       Cookies.set("retirementData", JSON.stringify(values), {
         expires: 7,
       });
-      onNext();
+
+      submitForm();
     },
   });
+
+  const submitForm = () => {
+    const personalData = JSON.parse(Cookies.get("personalFormData"));
+    const employmentData = JSON.parse(Cookies.get("employmentStatusFormData"));
+    const goalData = JSON.parse(Cookies.get("goalFormData"));
+    const newWorthData = JSON.parse(Cookies.get("netWorthFormData"));
+    const loansData = JSON.parse(Cookies.get("loanFormData"));
+    const centralProvidentFundsData = JSON.parse(
+      Cookies.get("centralProvidentFundsFormData")
+    );
+    const cashFlowData = JSON.parse(Cookies.get("cashFlowStatementFormData"));
+    const insuranceData = JSON.parse(Cookies.get("insuranceFormData"));
+    const dependentsData = JSON.parse(Cookies.get("dependentsFormData"));
+    const retirementData = JSON.parse(Cookies.get("retirementData"));
+
+    console.log(
+      "786 data",
+      personalData,
+      employmentData,
+      goalData,
+      newWorthData,
+      loansData,
+      centralProvidentFundsData,
+      cashFlowData,
+      insuranceData,
+      dependentsData,
+      retirementData
+    );
+  };
 
   // Load saved form data from cookies
   useEffect(() => {
@@ -145,7 +175,7 @@ const RetirementForm = ({ onNext, onBack }) => {
             },
           }}
         >
-          Next
+          Submit
         </Button>
       </Box>
     </form>
