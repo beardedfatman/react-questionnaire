@@ -105,9 +105,7 @@ const InsuranceForm = ({ onNext, onBack }) => {
     if (formDataFromCookies) {
       const parsedData = JSON.parse(formDataFromCookies);
       formik.setValues(parsedData);
-      //   setHospitilizationInsuranceCount(parsedData["hospitilizationInsurance"]["count"]);
 
-      console.log("786 parsedData", parsedData, formik.values);
       let arr = [0],
         mid = [0],
         long = [0],
@@ -157,7 +155,6 @@ const InsuranceForm = ({ onNext, onBack }) => {
   }, []);
 
   const handleFieldChange = async (fieldName, value, goalType, index) => {
-    console.log("787 handleFieldChange", fieldName, value, goalType, index);
     const updatedValues = { ...formik.values };
 
     if (goalType != "") {
@@ -394,12 +391,6 @@ const InsuranceForm = ({ onNext, onBack }) => {
         Hospitalisation and Surgical
       </Typography>
       {hospitilizationInsuranceCount.map((index) => {
-        console.log(
-          "786 index",
-          index,
-          hospitilizationInsuranceCount,
-          formik.values
-        );
         return (
           <Grid container spacing={2} key={index} mt={0.5}>
             <Grid item xs={12} sm={4}>
@@ -989,9 +980,7 @@ const InsuranceForm = ({ onNext, onBack }) => {
                 <Button
                   variant="contained"
                   color="secondary"
-                  onClick={() =>
-                    handleRemoveGoal("earlyAndCriticalIllness", index)
-                  }
+                  onClick={() => handleRemoveGoal("lifeInsurance", index)}
                   sx={{
                     mt: 1,
                     backgroundColor: "#ffb942",

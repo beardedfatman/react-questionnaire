@@ -127,7 +127,6 @@ const DependentForm = ({ onNext, onBack }) => {
       const parsedData = JSON.parse(formDataFromCookies);
       formik.setValues(parsedData);
 
-      console.log("786 parsedData", parsedData, formik.values);
       let arr = [0];
 
       for (
@@ -135,19 +134,15 @@ const DependentForm = ({ onNext, onBack }) => {
         index < parsedData["dependents"].length - 1;
         index++
       ) {
-        console.log("786 index", index, parsedData["dependents"][index]);
         handleAddGoal("dependents");
         arr.push(index + 1);
       }
-
-      console.log("786 dependentsCount", dependentsCount);
 
       setDependentsCount(arr);
     }
   }, []);
 
   const handleFieldChange = async (fieldName, value, goalType, index) => {
-    console.log("787 handleFieldChange", fieldName, value, goalType, index);
     const updatedValues = { ...formik.values };
     updatedValues[goalType][index][fieldName] = value;
 
@@ -226,7 +221,6 @@ const DependentForm = ({ onNext, onBack }) => {
       </Typography>
 
       {dependentsCount.map((index) => {
-        console.log("786 index", index, dependentsCount, formik.values);
         return (
           <Grid container spacing={2} key={index} mt={0.5}>
             <Grid item xs={12} sm={2}>

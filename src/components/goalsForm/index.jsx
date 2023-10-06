@@ -73,9 +73,7 @@ const GoalForm = ({ onNext, onBack }) => {
     if (formDataFromCookies) {
       const parsedData = JSON.parse(formDataFromCookies);
       formik.setValues(parsedData);
-      //   setShortTermGoalsCount(parsedData["shortTermGoals"]["count"]);
 
-      console.log("786 parsedData", parsedData, formik.values);
       let arr = [0],
         mid = [0],
         long = [0];
@@ -85,7 +83,6 @@ const GoalForm = ({ onNext, onBack }) => {
         index < parsedData["shortTermGoals"].length - 1;
         index++
       ) {
-        console.log("786 index", index, parsedData["shortTermGoals"][index]);
         handleAddGoal("shortTermGoals");
         arr.push(index + 1);
       }
@@ -95,7 +92,6 @@ const GoalForm = ({ onNext, onBack }) => {
         index < parsedData["midTermGoals"].length - 1;
         index++
       ) {
-        // console.log("786 index", index, parsedData["shortTermGoals"][index]);
         handleAddGoal("midTermGoals");
         mid.push(index + 1);
       }
@@ -105,13 +101,10 @@ const GoalForm = ({ onNext, onBack }) => {
         index < parsedData["longTermGoals"].length - 1;
         index++
       ) {
-        // console.log("786 index", index, parsedData["shortTermGoals"][index]);
         handleAddGoal("longTermGoals");
         long.push(index + 1);
       }
 
-      console.log("786 shortTermGoalsCount", shortTermGoalsCount);
-      //   setShortTermGoalsCount(parsedData["shortTermGoals"].length - 1);
       setShortTermGoalsCount(arr);
       setMidTermGoalsCount(mid);
       setLongTermGoalsCount(long);
@@ -119,13 +112,9 @@ const GoalForm = ({ onNext, onBack }) => {
   }, []);
 
   const handleFieldChange = async (fieldName, value, goalType, index) => {
-    console.log("787 handleFieldChange", fieldName, value, goalType, index);
     const updatedValues = { ...formik.values };
     updatedValues[goalType][index][fieldName] = value;
 
-    // if (goalType === "shortTermGoals") {
-    //   updatedValues[goalType]["count"] = shortTermGoalsCount;
-    // }
     await formik.setValues(updatedValues);
     setTimeout(() => {
       Cookies.set("goalFormData", JSON.stringify(updatedValues), {
@@ -159,10 +148,6 @@ const GoalForm = ({ onNext, onBack }) => {
         formik.setFieldValue(type, [...formik.values[type], newGoal]);
       }
     } else if (type === "midTermGoals" && midTermGoalsCount.length < 4) {
-      //   const newGoal = { description: "", targetDate: "", amount: "" };
-      //   formik.setFieldValue(type, [...formik.values[type], newGoal]);
-      //   setMidTermGoalsCount((prevCounts) => [...prevCounts, prevCounts.length]);
-
       const newGoal = {
         description: "",
         targetDate: "",
@@ -183,10 +168,6 @@ const GoalForm = ({ onNext, onBack }) => {
         formik.setFieldValue(type, [...formik.values[type], newGoal]);
       }
     } else if (type === "longTermGoals" && longTermGoalsCount.length < 4) {
-      //   const newGoal = { description: "", targetDate: "", amount: "" };
-      //   formik.setFieldValue(type, [...formik.values[type], newGoal]);
-      //   setLongTermGoalsCount((prevCounts) => [...prevCounts, prevCounts.length]);
-
       const newGoal = {
         description: "",
         targetDate: "",
@@ -243,9 +224,6 @@ const GoalForm = ({ onNext, onBack }) => {
 
       setShortTermGoalsCount(temp);
     } else if (type === "midTermGoals") {
-      //   setMidTermGoalsCount((prevCounts) =>
-      //     prevCounts.filter((_, i) => i !== index)
-      //   );
       let temp = [];
 
       midTermGoalsCount.map((d) => {
@@ -287,7 +265,6 @@ const GoalForm = ({ onNext, onBack }) => {
         Short-term Goals
       </Typography>
       {shortTermGoalsCount.map((index) => {
-        console.log("786 index", index, shortTermGoalsCount, formik.values);
         return (
           <Grid container spacing={2} key={index} mt={0.5}>
             <Grid item xs={12} sm={4}>
@@ -296,7 +273,6 @@ const GoalForm = ({ onNext, onBack }) => {
                 name={`shortTermGoals[${index}].description`}
                 label="Description"
                 value={formik.values.shortTermGoals[index].description}
-                //   onChange={formik.handleChange}
                 onChange={(e) =>
                   handleFieldChange(
                     "description",
@@ -330,7 +306,6 @@ const GoalForm = ({ onNext, onBack }) => {
                 name={`shortTermGoals[${index}].targetDate`}
                 label="Target Date"
                 value={formik.values.shortTermGoals[index].targetDate}
-                // onChange={formik.handleChange}
                 onChange={(e) =>
                   handleFieldChange(
                     "targetDate",
@@ -365,7 +340,6 @@ const GoalForm = ({ onNext, onBack }) => {
                 label="Amount"
                 type="number"
                 value={formik.values.shortTermGoals[index].amount}
-                // onChange={formik.handleChange}
                 onChange={(e) =>
                   handleFieldChange(
                     "amount",
@@ -404,7 +378,6 @@ const GoalForm = ({ onNext, onBack }) => {
                 >
                   <Button
                     variant="contained"
-                    // color="secondary"
                     onClick={() => handleRemoveGoal("shortTermGoals", index)}
                     sx={{
                       mt: 1,
@@ -457,7 +430,6 @@ const GoalForm = ({ onNext, onBack }) => {
               name={`midTermGoals[${index}].description`}
               label="Description"
               value={formik.values.midTermGoals[index].description}
-              //   onChange={formik.handleChange}
               onChange={(e) =>
                 handleFieldChange(
                   "description",
@@ -491,7 +463,6 @@ const GoalForm = ({ onNext, onBack }) => {
               name={`midTermGoals[${index}].targetDate`}
               label="Target Date"
               value={formik.values.midTermGoals[index].targetDate}
-              //   onChange={formik.handleChange}
               onChange={(e) =>
                 handleFieldChange(
                   "targetDate",
@@ -526,7 +497,6 @@ const GoalForm = ({ onNext, onBack }) => {
               label="Amount"
               type="number"
               value={formik.values.midTermGoals[index].amount}
-              //   onChange={formik.handleChange}
               onChange={(e) =>
                 handleFieldChange(
                   "amount",
@@ -615,7 +585,6 @@ const GoalForm = ({ onNext, onBack }) => {
               name={`longTermGoals[${index}].description`}
               label="Description"
               value={formik.values.longTermGoals[index].description}
-              //   onChange={formik.handleChange}
               onChange={(e) =>
                 handleFieldChange(
                   "description",
@@ -649,7 +618,6 @@ const GoalForm = ({ onNext, onBack }) => {
               name={`longTermGoals[${index}].targetDate`}
               label="Target Date"
               value={formik.values.longTermGoals[index].targetDate}
-              //   onChange={formik.handleChange}
               onChange={(e) =>
                 handleFieldChange(
                   "targetDate",
@@ -684,7 +652,6 @@ const GoalForm = ({ onNext, onBack }) => {
               label="Amount"
               type="number"
               value={formik.values.longTermGoals[index].amount}
-              //   onChange={formik.handleChange}
               onChange={(e) =>
                 handleFieldChange(
                   "amount",
