@@ -55,33 +55,10 @@ const CentralProvidentFundsForm = ({ onNext, onBack }) => {
 
   return (
     <form onSubmit={formik.handleSubmit}>
-      <Typography variant="h4" sx={{ color: "#ffb942" }}>
+      <Typography variant="h4" sx={{ color: "#ffb942", mb: 2.51 }}>
         Central Provident Funds Details
       </Typography>
       <Grid container spacing={2}>
-        {/* Central Provident Fund */}
-        {/* <Grid item xs={12} sm={6}>
-          <FormControl fullWidth required>
-            <CustomInputLabel>Central Provident Fund</CustomInputLabel>
-            <CustomSelect
-              name="centralProvidentFund"
-              label="Central Provident Fund"
-              value={formik.values.centralProvidentFund}
-              onChange={(e) =>
-                handleFieldChange("centralProvidentFund", e.target.value)
-              }
-              MenuProps={{
-                PaperProps: {
-                  style: { background: "#292829" },
-                },
-              }}
-            >
-              <CustomMenuItem value="Yes">Yes</CustomMenuItem>
-              <CustomMenuItem value="No">No</CustomMenuItem>
-            </CustomSelect>
-          </FormControl>
-        </Grid> */}
-
         {/* CareShield */}
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth required>

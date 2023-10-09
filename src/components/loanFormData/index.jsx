@@ -104,10 +104,10 @@ const LoanForm = ({ onNext, saveFormData, onBack }) => {
 
   return (
     <form onSubmit={formik.handleSubmit}>
-      <Typography variant="h4" sx={{ color: "#ffb942" }}>
+      <Typography variant="h4" sx={{ color: "#ffb942", mb: 2.51 }}>
         Loan Details
       </Typography>
-      <Typography variant="h5" sx={{ color: "#ffb942", mb: 0.51, mt: 0.51 }}>
+      <Typography variant="h5" sx={{ color: "#ffb942", mb: 1.51, mt: 1.51 }}>
         Long Term Loan
       </Typography>
       <Grid container spacing={2}>
@@ -165,7 +165,7 @@ const LoanForm = ({ onNext, saveFormData, onBack }) => {
           />
         </Grid>
       </Grid>
-      <Grid container spacing={2} sx={{ mt: 0.51, mb: 0.51 }}>
+      <Grid container spacing={2} sx={{ mt: 1.51, mb: 1.51 }}>
         <Grid item xs={12} sm={4}>
           <CustomTextField
             fullWidth

@@ -13,6 +13,7 @@ import {
   CustomTextField,
 } from "../Fields";
 import Cookies from "js-cookie";
+import axios from "axios";
 
 const RetirementForm = ({ onBack }) => {
   const formik = useFormik({
@@ -63,6 +64,33 @@ const RetirementForm = ({ onBack }) => {
       dependentsData,
       retirementData
     );
+
+    let data = {
+      personalData: personalData,
+      employmentData: employmentData,
+      goalData: goalData,
+      newWorthData: newWorthData,
+      loansData: loansData,
+      centralProvidentFundsData: centralProvidentFundsData,
+      cashFlowData: cashFlowData,
+      insuranceData: insuranceData,
+      dependentsData: dependentsData,
+      retirementData: retirementData,
+    };
+
+    const apiUrl = `${process.env.REACT_APP_API_URL}/add-data`;
+
+    // Make the POST request using Axios
+    axios
+      .post(apiUrl, data)
+      .then((response) => {
+        // Handle success
+        console.log("POST request successful:", response.data);
+      })
+      .catch((error) => {
+        // Handle error
+        console.error("Error making POST request:", error);
+      });
   };
 
   // Load saved form data from cookies
@@ -86,7 +114,7 @@ const RetirementForm = ({ onBack }) => {
 
   return (
     <form onSubmit={formik.handleSubmit}>
-      <Typography variant="h4" sx={{ color: "#ffb942" }}>
+      <Typography variant="h4" sx={{ color: "#ffb942", mb: 2.51 }}>
         Retirement Planning
       </Typography>
       <Grid container spacing={2}>
