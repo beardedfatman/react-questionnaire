@@ -256,7 +256,7 @@ const GoalForm = ({ onNext, onBack }) => {
 
   return (
     <form onSubmit={formik.handleSubmit}>
-      <Typography variant="h4" sx={{ color: "#ffb942" }}>
+      <Typography variant="h4" sx={{ color: "#ffb942", mb: 2.51 }}>
         Goal Details
       </Typography>
 

@@ -103,7 +103,7 @@ const CashFlowStatementForm = ({ onNext, onBack }) => {
 
   return (
     <form onSubmit={formik.handleSubmit}>
-      <Typography variant="h4" sx={{ color: "#ffb942" }}>
+      <Typography variant="h4" sx={{ color: "#ffb942", mb: 2.51 }}>
         Cash Flow Statement Details
       </Typography>
       <Grid container spacing={2}>

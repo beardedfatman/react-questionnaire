@@ -167,10 +167,10 @@ const NetWorthForm = ({ onNext, onBack }) => {
 
   return (
     <form onSubmit={formik.handleSubmit}>
-      <Typography variant="h4" sx={{ color: "#ffb942" }}>
+      <Typography variant="h4" sx={{ color: "#ffb942", mb: 2.51 }}>
         Net Worth Details
       </Typography>
-      <Typography variant="h5" sx={{ color: "#ffb942", mb: 0.51 }}>
+      <Typography variant="h5" sx={{ color: "#ffb942", mb: 1.51 }}>
         Value of Fixed Assets
       </Typography>
       <Grid container spacing={2}>
@@ -209,7 +209,7 @@ const NetWorthForm = ({ onNext, onBack }) => {
           />
         </Grid>
       </Grid>
-      <Typography variant="h5" sx={{ color: "#ffb942", mb: 0.51, mt: 0.51 }}>
+      <Typography variant="h5" sx={{ color: "#ffb942", mb: 1.51, mt: 1.51 }}>
         Cash Assets
       </Typography>
 
@@ -256,7 +256,7 @@ const NetWorthForm = ({ onNext, onBack }) => {
           />
         </Grid>
       </Grid>
-      <Typography variant="h5" sx={{ color: "#ffb942", mb: 0.51, mt: 0.51 }}>
+      <Typography variant="h5" sx={{ color: "#ffb942", mb: 1.51, mt: 1.51 }}>
         Investments
       </Typography>
 

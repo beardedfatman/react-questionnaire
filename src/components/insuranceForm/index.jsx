@@ -359,7 +359,7 @@ const InsuranceForm = ({ onNext, onBack }) => {
 
   return (
     <form onSubmit={formik.handleSubmit}>
-      <Typography variant="h4" sx={{ color: "#ffb942" }}>
+      <Typography variant="h4" sx={{ color: "#ffb942", mb: 2.51 }}>
         Insurance Details
       </Typography>
       <FormControl
@@ -387,7 +387,7 @@ const InsuranceForm = ({ onNext, onBack }) => {
           <CustomMenuItem value="No">No</CustomMenuItem>
         </CustomSelect>
       </FormControl>
-      <Typography variant="h5" sx={{ color: "#ffb942" }}>
+      <Typography variant="h5" sx={{ color: "#ffb942", mt: 1.51 }}>
         Hospitalisation and Surgical
       </Typography>
       {hospitilizationInsuranceCount.map((index) => {

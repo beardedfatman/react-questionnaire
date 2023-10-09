@@ -1,5 +1,12 @@
 import { useState, useEffect } from "react";
-import { Box, useMediaQuery, Stepper, Step, StepLabel } from "@mui/material";
+import {
+  Box,
+  useMediaQuery,
+  Stepper,
+  Step,
+  StepLabel,
+  MobileStepper,
+} from "@mui/material";
 import Cookies from "js-cookie"; // Import js-cookie
 import PersonalDetailForm from "../personalDetailsForm";
 import EmploymentStatusForm from "../EmploymentStatusForm";
@@ -139,6 +146,7 @@ function Main() {
             ))}
           </Stepper>
         )}
+        {isMobile && <MobileStepper steps={steps.length} activeStep={step} />}
         {step === 0 && <PersonalDetailForm onNext={onNext} onBack={onBack} />}
         {step === 1 && <EmploymentStatusForm onNext={onNext} onBack={onBack} />}
         {step === 2 && <GoalForm onNext={onNext} onBack={onBack} />}

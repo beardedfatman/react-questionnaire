@@ -104,8 +104,8 @@ const PersonalDetailForm = ({ onNext, saveFormData, onBack }) => {
       address: "",
       maritalStatus: "",
       nationality: "",
-      city: "",
-      state: "",
+      city: "Singapore",
+      state: "Singapore",
       postalCode: "",
     },
     validationSchema: Yup.object({
@@ -116,8 +116,8 @@ const PersonalDetailForm = ({ onNext, saveFormData, onBack }) => {
       address: Yup.string().required("Address is required"),
       maritalStatus: Yup.string().required("Marital Status is required"),
       nationality: Yup.string().required("Nationality is required"),
-      city: Yup.string().required("City/Town is required"), // New field validation
-      state: Yup.string().required("State/Region/Province is required"), // New field validation
+      // city: Yup.string().required("City/Town is required"), // New field validation
+      // state: Yup.string().required("State/Region/Province is required"), // New field validation
       postalCode: Yup.number()
         .typeError("Please enter a valid number")
         .required("Postal Code/Zip Code is required"),
@@ -151,7 +151,7 @@ const PersonalDetailForm = ({ onNext, saveFormData, onBack }) => {
 
   return (
     <form onSubmit={formik.handleSubmit}>
-      <Typography variant="h4" sx={{ color: "#ffb942" }}>
+      <Typography variant="h4" sx={{ color: "#ffb942", mb: 2.51 }}>
         Personal Details
       </Typography>
       <Grid container spacing={2}>
@@ -339,7 +339,7 @@ const PersonalDetailForm = ({ onNext, saveFormData, onBack }) => {
             }}
           />
         </Grid>
-        <Grid item xs={12} sm={4}>
+        {/* <Grid item xs={12} sm={4}>
           <CustomTextField
             fullWidth
             name="city"
@@ -374,8 +374,8 @@ const PersonalDetailForm = ({ onNext, saveFormData, onBack }) => {
               style: { color: "#ffb942" },
             }}
           />
-        </Grid>
-        <Grid item xs={12} sm={4}>
+        </Grid> */}
+        <Grid item xs={12} sm={12}>
           <CustomTextField
             fullWidth
             name="postalCode"
