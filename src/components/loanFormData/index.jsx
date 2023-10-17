@@ -20,10 +20,11 @@ const LoanForm = ({ onNext, saveFormData, onBack }) => {
   const formik = useFormik({
     initialValues: {
       hasLongTermLoans: "No",
-      remainingLoan: "",
+      remainingHouseLoan: "",
       remainingRenovationLoan: "",
       remainingVehicleLoan: "",
       remainingStudyLoan: "",
+      remainingOtherLoan: "",
       hasShortTermLoan: "No",
       remainingCreditCardsLoan: "",
       remainingPersonalDebitLoan: "",
@@ -31,7 +32,7 @@ const LoanForm = ({ onNext, saveFormData, onBack }) => {
     },
     validationSchema: Yup.object({
       hasLongTermLoans: Yup.string().required("This field is required"),
-      remainingLoan: Yup.number()
+      remainingHouseLoan: Yup.number()
         .when("hasLongTermLoans", {
           is: "Yes",
           then: () => Yup.number().required("This field is required"),
@@ -50,6 +51,12 @@ const LoanForm = ({ onNext, saveFormData, onBack }) => {
         })
         .nullable(),
       remainingStudyLoan: Yup.number()
+        .when("hasLongTermLoans", {
+          is: "Yes",
+          then: () => Yup.number().required("This field is required"),
+        })
+        .nullable(),
+      remainingOtherLoan: Yup.number()
         .when("hasLongTermLoans", {
           is: "Yes",
           then: () => Yup.number().required("This field is required"),
@@ -105,13 +112,13 @@ const LoanForm = ({ onNext, saveFormData, onBack }) => {
   return (
     <form onSubmit={formik.handleSubmit}>
       <Typography variant="h4" sx={{ color: "#ffb942", mb: 2.51 }}>
-        Loan Details
+        Loans
       </Typography>
       <Typography variant="h5" sx={{ color: "#ffb942", mb: 1.51, mt: 1.51 }}>
-        Long Term Loan
+        Long-Term Loan
       </Typography>
       <Grid container spacing={2}>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={12}>
           <FormControl
             fullWidth
             required
@@ -140,113 +147,141 @@ const LoanForm = ({ onNext, saveFormData, onBack }) => {
             </CustomSelect>
           </FormControl>
         </Grid>
-        <Grid item xs={12} sm={6}>
-          <CustomTextField
-            fullWidth
-            name="remainingLoan"
-            label="Remaining Loan"
-            value={formik.values.remainingLoan}
-            onChange={(e) => {
-              formik.handleChange(e);
-              handleFieldChange("remainingLoan", e.target.value);
-            }}
-            error={
-              formik.touched.remainingLoan &&
-              Boolean(formik.errors.remainingLoan)
-            }
-            helperText={
-              formik.touched.remainingLoan && formik.errors.remainingLoan
-            }
-            required={formik.values.hasLongTermLoans === "Yes"}
-            InputProps={{
-              style: { color: "#ffb942" },
-            }}
-            type="number"
-          />
-        </Grid>
       </Grid>
-      <Grid container spacing={2} sx={{ mt: 1.51, mb: 1.51 }}>
-        <Grid item xs={12} sm={4}>
-          <CustomTextField
-            fullWidth
-            name="remainingRenovationLoan"
-            label="Remaining Renovation Loan"
-            value={formik.values.remainingRenovationLoan}
-            onChange={(e) => {
-              formik.handleChange(e);
-              handleFieldChange("remainingRenovationLoan", e.target.value);
-            }}
-            error={
-              formik.touched.remainingRenovationLoan &&
-              Boolean(formik.errors.remainingRenovationLoan)
-            }
-            helperText={
-              formik.touched.remainingRenovationLoan &&
-              formik.errors.remainingRenovationLoan
-            }
-            required={formik.values.hasLongTermLoans === "Yes"}
-            InputProps={{
-              style: { color: "#ffb942" },
-            }}
-            type="number"
-          />
+      {formik.values.hasLongTermLoans === "Yes" && (
+        <Grid container spacing={2} sx={{ mt: 1.51, mb: 1.51 }}>
+          <Grid item xs={12} sm={6}>
+            <CustomTextField
+              fullWidth
+              name="remainingHouseLoan"
+              label="Remaining House Loan"
+              value={formik.values.remainingHouseLoan}
+              onChange={(e) => {
+                formik.handleChange(e);
+                handleFieldChange("remainingHouseLoan", e.target.value);
+              }}
+              error={
+                formik.touched.remainingHouseLoan &&
+                Boolean(formik.errors.remainingHouseLoan)
+              }
+              helperText={
+                formik.touched.remainingHouseLoan &&
+                formik.errors.remainingHouseLoan
+              }
+              required={formik.values.hasLongTermLoans === "Yes"}
+              InputProps={{
+                style: { color: "#ffb942" },
+              }}
+              type="number"
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <CustomTextField
+              fullWidth
+              name="remainingRenovationLoan"
+              label="Remaining Renovation Loan"
+              value={formik.values.remainingRenovationLoan}
+              onChange={(e) => {
+                formik.handleChange(e);
+                handleFieldChange("remainingRenovationLoan", e.target.value);
+              }}
+              error={
+                formik.touched.remainingRenovationLoan &&
+                Boolean(formik.errors.remainingRenovationLoan)
+              }
+              helperText={
+                formik.touched.remainingRenovationLoan &&
+                formik.errors.remainingRenovationLoan
+              }
+              required={formik.values.hasLongTermLoans === "Yes"}
+              InputProps={{
+                style: { color: "#ffb942" },
+              }}
+              type="number"
+            />
+          </Grid>
+          <Grid item xs={12} sm={4}>
+            <CustomTextField
+              fullWidth
+              name="remainingVehicleLoan"
+              label="Remaining Vehicle Loan"
+              value={formik.values.remainingVehicleLoan}
+              onChange={(e) => {
+                formik.handleChange(e);
+                handleFieldChange("remainingVehicleLoan", e.target.value);
+              }}
+              error={
+                formik.touched.remainingVehicleLoan &&
+                Boolean(formik.errors.remainingVehicleLoan)
+              }
+              helperText={
+                formik.touched.remainingVehicleLoan &&
+                formik.errors.remainingVehicleLoan
+              }
+              required={formik.values.hasLongTermLoans === "Yes"}
+              InputProps={{
+                style: { color: "#ffb942" },
+              }}
+              type="number"
+            />
+          </Grid>
+          <Grid item xs={12} sm={4}>
+            <CustomTextField
+              fullWidth
+              name="remainingStudyLoan"
+              label="Remaining Study Loan"
+              value={formik.values.remainingStudyLoan}
+              onChange={(e) => {
+                formik.handleChange(e);
+                handleFieldChange("remainingStudyLoan", e.target.value);
+              }}
+              error={
+                formik.touched.remainingStudyLoan &&
+                Boolean(formik.errors.remainingStudyLoan)
+              }
+              helperText={
+                formik.touched.remainingStudyLoan &&
+                formik.errors.remainingStudyLoan
+              }
+              required={formik.values.hasLongTermLoans === "Yes"}
+              InputProps={{
+                style: { color: "#ffb942" },
+              }}
+              type="number"
+            />
+          </Grid>
+          <Grid item xs={12} sm={4}>
+            <CustomTextField
+              fullWidth
+              name="remainingOtherLoan"
+              label="Remaining Other Loan"
+              value={formik.values.remainingOtherLoan}
+              onChange={(e) => {
+                formik.handleChange(e);
+                handleFieldChange("remainingOtherLoan", e.target.value);
+              }}
+              error={
+                formik.touched.remainingOtherLoan &&
+                Boolean(formik.errors.remainingOtherLoan)
+              }
+              helperText={
+                formik.touched.remainingOtherLoan &&
+                formik.errors.remainingOtherLoan
+              }
+              required={formik.values.hasLongTermLoans === "Yes"}
+              InputProps={{
+                style: { color: "#ffb942" },
+              }}
+              type="number"
+            />
+          </Grid>
         </Grid>
-        <Grid item xs={12} sm={4}>
-          <CustomTextField
-            fullWidth
-            name="remainingVehicleLoan"
-            label="Remaining Vehicle Loan"
-            value={formik.values.remainingVehicleLoan}
-            onChange={(e) => {
-              formik.handleChange(e);
-              handleFieldChange("remainingVehicleLoan", e.target.value);
-            }}
-            error={
-              formik.touched.remainingVehicleLoan &&
-              Boolean(formik.errors.remainingVehicleLoan)
-            }
-            helperText={
-              formik.touched.remainingVehicleLoan &&
-              formik.errors.remainingVehicleLoan
-            }
-            required={formik.values.hasLongTermLoans === "Yes"}
-            InputProps={{
-              style: { color: "#ffb942" },
-            }}
-            type="number"
-          />
-        </Grid>
-        <Grid item xs={12} sm={4}>
-          <CustomTextField
-            fullWidth
-            name="remainingStudyLoan"
-            label="Remaining Study Loan"
-            value={formik.values.remainingStudyLoan}
-            onChange={(e) => {
-              formik.handleChange(e);
-              handleFieldChange("remainingStudyLoan", e.target.value);
-            }}
-            error={
-              formik.touched.remainingStudyLoan &&
-              Boolean(formik.errors.remainingStudyLoan)
-            }
-            helperText={
-              formik.touched.remainingStudyLoan &&
-              formik.errors.remainingStudyLoan
-            }
-            required={formik.values.hasLongTermLoans === "Yes"}
-            InputProps={{
-              style: { color: "#ffb942" },
-            }}
-            type="number"
-          />
-        </Grid>
-      </Grid>
+      )}
       <Typography variant="h5" sx={{ color: "#ffb942", mb: 0.51, mt: 0.51 }}>
-        Short Term Loan
+        Short-Term Loan
       </Typography>
       <Grid container spacing={2} sx={{ mt: 0.51, mb: 0.51 }}>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={12}>
           <FormControl
             fullWidth
             required
@@ -275,81 +310,87 @@ const LoanForm = ({ onNext, saveFormData, onBack }) => {
             </CustomSelect>
           </FormControl>
         </Grid>
-
-        <Grid item xs={12} sm={6}>
-          <CustomTextField
-            fullWidth
-            name="remainingCreditCardsLoan"
-            label="Remaining Credit Cards Loan"
-            value={formik.values.remainingCreditCardsLoan}
-            onChange={(e) => {
-              formik.handleChange(e);
-              handleFieldChange("remainingCreditCardsLoan", e.target.value);
-            }}
-            error={
-              formik.touched.remainingCreditCardsLoan &&
-              Boolean(formik.errors.remainingCreditCardsLoan)
-            }
-            helperText={
-              formik.touched.remainingCreditCardsLoan &&
-              formik.errors.remainingCreditCardsLoan
-            }
-            required={formik.values.hasShortTermLoan === "Yes"}
-            InputProps={{
-              style: { color: "#ffb942" },
-            }}
-            type="number"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <CustomTextField
-            fullWidth
-            name="remainingPersonalDebitLoan"
-            label="Remaining Personal Debit Loan"
-            value={formik.values.remainingPersonalDebitLoan}
-            onChange={(e) => {
-              formik.handleChange(e);
-              handleFieldChange("remainingPersonalDebitLoan", e.target.value);
-            }}
-            error={
-              formik.touched.remainingPersonalDebitLoan &&
-              Boolean(formik.errors.remainingPersonalDebitLoan)
-            }
-            helperText={
-              formik.touched.remainingPersonalDebitLoan &&
-              formik.errors.remainingPersonalDebitLoan
-            }
-            required={formik.values.hasShortTermLoan === "Yes"}
-            InputProps={{
-              style: { color: "#ffb942" },
-            }}
-            type="number"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <CustomTextField
-            fullWidth
-            name="incomeTaxLastYear"
-            label="Income Tax Last Year"
-            value={formik.values.incomeTaxLastYear}
-            onChange={(e) => {
-              formik.handleChange(e);
-              handleFieldChange("incomeTaxLastYear", e.target.value);
-            }}
-            error={
-              formik.touched.incomeTaxLastYear &&
-              Boolean(formik.errors.incomeTaxLastYear)
-            }
-            helperText={
-              formik.touched.incomeTaxLastYear &&
-              formik.errors.incomeTaxLastYear
-            }
-            InputProps={{
-              style: { color: "#ffb942" },
-            }}
-            type="number"
-          />
-        </Grid>
+        {formik.values.hasShortTermLoan === "Yes" && (
+          <>
+            <Grid item xs={12} sm={4}>
+              <CustomTextField
+                fullWidth
+                name="remainingCreditCardsLoan"
+                label="Remaining Credit Cards Loan"
+                value={formik.values.remainingCreditCardsLoan}
+                onChange={(e) => {
+                  formik.handleChange(e);
+                  handleFieldChange("remainingCreditCardsLoan", e.target.value);
+                }}
+                error={
+                  formik.touched.remainingCreditCardsLoan &&
+                  Boolean(formik.errors.remainingCreditCardsLoan)
+                }
+                helperText={
+                  formik.touched.remainingCreditCardsLoan &&
+                  formik.errors.remainingCreditCardsLoan
+                }
+                required={formik.values.hasShortTermLoan === "Yes"}
+                InputProps={{
+                  style: { color: "#ffb942" },
+                }}
+                type="number"
+              />
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <CustomTextField
+                fullWidth
+                name="remainingPersonalDebitLoan"
+                label="Remaining Personal Debit Loan"
+                value={formik.values.remainingPersonalDebitLoan}
+                onChange={(e) => {
+                  formik.handleChange(e);
+                  handleFieldChange(
+                    "remainingPersonalDebitLoan",
+                    e.target.value
+                  );
+                }}
+                error={
+                  formik.touched.remainingPersonalDebitLoan &&
+                  Boolean(formik.errors.remainingPersonalDebitLoan)
+                }
+                helperText={
+                  formik.touched.remainingPersonalDebitLoan &&
+                  formik.errors.remainingPersonalDebitLoan
+                }
+                required={formik.values.hasShortTermLoan === "Yes"}
+                InputProps={{
+                  style: { color: "#ffb942" },
+                }}
+                type="number"
+              />
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <CustomTextField
+                fullWidth
+                name="incomeTaxLastYear"
+                label="Income Tax Last Year"
+                value={formik.values.incomeTaxLastYear}
+                onChange={(e) => {
+                  formik.handleChange(e);
+                  handleFieldChange("incomeTaxLastYear", e.target.value);
+                }}
+                error={
+                  formik.touched.incomeTaxLastYear &&
+                  Boolean(formik.errors.incomeTaxLastYear)
+                }
+                helperText={
+                  formik.touched.incomeTaxLastYear &&
+                  formik.errors.incomeTaxLastYear
+                }
+                InputProps={{
+                  style: { color: "#ffb942" },
+                }}
+                type="number"
+              />
+            </Grid>
+          </>
+        )}
       </Grid>
       <Box display="flex" justifyContent="center">
         <Button

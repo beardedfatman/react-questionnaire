@@ -93,7 +93,7 @@ const DependentForm = ({ onNext, onBack }) => {
         dependentName: "",
         dependentDateBirth: null,
         dependentAnnualSpending: "",
-        dependentNeed: "",
+        years: "",
       })),
     },
     validationSchema: Yup.object().shape({
@@ -104,9 +104,7 @@ const DependentForm = ({ onNext, onBack }) => {
           dependentAnnualSpending: Yup.number()
             .optional()
             .positive("Amount must be positive"),
-          dependentNeed: Yup.number()
-            .optional()
-            .positive("Amount must be positive"),
+          years: Yup.number().optional().positive("Amount must be positive"),
         })
       ),
     }),
@@ -217,7 +215,7 @@ const DependentForm = ({ onNext, onBack }) => {
   return (
     <form onSubmit={formik.handleSubmit}>
       <Typography variant="h4" sx={{ color: "#ffb942" }}>
-        Dependents Details
+        Dependents
       </Typography>
 
       {dependentsCount.map((index) => {
@@ -311,7 +309,7 @@ const DependentForm = ({ onNext, onBack }) => {
               <CustomTextField
                 fullWidth
                 name={`dependents[${index}].dependentAnnualSpending`}
-                label="Annual Spending"
+                label="Estimated Annual Spending"
                 type="number"
                 value={formik.values.dependents[index].dependentAnnualSpending}
                 onChange={(e) =>
@@ -344,13 +342,13 @@ const DependentForm = ({ onNext, onBack }) => {
             <Grid item xs={12} sm={2}>
               <CustomTextField
                 fullWidth
-                name={`dependents[${index}].dependentNeed`}
-                label="Annual Amount Needed"
+                name={`dependents[${index}].years`}
+                label="For How Many More Years"
                 type="number"
-                value={formik.values.dependents[index].dependentNeed}
+                value={formik.values.dependents[index].years}
                 onChange={(e) =>
                   handleFieldChange(
-                    "dependentNeed",
+                    "years",
                     e.target.value,
                     "dependents",
                     index
@@ -361,14 +359,14 @@ const DependentForm = ({ onNext, onBack }) => {
                   formik.touched.dependents[index] &&
                   Boolean(
                     formik.errors.dependents &&
-                      formik.errors.dependents[index]?.dependentNeed
+                      formik.errors.dependents[index]?.years
                   )
                 }
                 helperText={
                   formik.touched.dependents &&
                   formik.touched.dependents[index] &&
                   formik.errors.dependents &&
-                  formik.errors.dependents[index]?.dependentNeed
+                  formik.errors.dependents[index]?.years
                 }
                 InputProps={{
                   style: { color: "#ffb942" },

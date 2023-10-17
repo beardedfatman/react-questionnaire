@@ -6,6 +6,7 @@ import {
   Step,
   StepLabel,
   MobileStepper,
+  Typography,
 } from "@mui/material";
 import Cookies from "js-cookie"; // Import js-cookie
 import PersonalDetailForm from "../personalDetailsForm";
@@ -94,6 +95,7 @@ function Main() {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        flexDirection: "column",
       }}
     >
       <Box
@@ -161,6 +163,29 @@ function Main() {
         {step === 7 && <InsuranceForm onNext={onNext} onBack={onBack} />}
         {step === 8 && <DependentForm onNext={onNext} onBack={onBack} />}
         {step === 9 && <RetirementForm onBack={onBack} />}
+      </Box>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          flexDirection: "column",
+          width: "100%",
+          alignItems: "center",
+          mb: 0.9,
+        }}
+      >
+        <img
+          src={"Asset-3.png"}
+          style={{ width: "101px", height: "101px" }}
+          className="App-logo"
+          alt="logo"
+        />
+        <Typography variant="h6" sx={{ color: "#ffb942" }}>
+          Copyright 2023
+        </Typography>
+        <Typography variant="p" sx={{ color: "#ffb942" }}>
+          Built by Xpertise
+        </Typography>
       </Box>
     </Box>
   );

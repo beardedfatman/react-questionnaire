@@ -360,7 +360,7 @@ const InsuranceForm = ({ onNext, onBack }) => {
   return (
     <form onSubmit={formik.handleSubmit}>
       <Typography variant="h4" sx={{ color: "#ffb942", mb: 2.51 }}>
-        Insurance Details
+        Insurance
       </Typography>
       <FormControl
         fullWidth
@@ -369,10 +369,10 @@ const InsuranceForm = ({ onNext, onBack }) => {
           formik.touched.hasInsurance && Boolean(formik.errors.hasInsurance)
         }
       >
-        <CustomInputLabel>Has Any Insuarnce</CustomInputLabel>
+        <CustomInputLabel>Do You Have Any Insuarnce</CustomInputLabel>
         <CustomSelect
           name="hasInsurance"
-          label="Has Any Insurance"
+          label="Do You Have Any Insuarnce"
           value={formik.values.hasInsurance}
           onChange={(e) =>
             handleFieldChange("hasInsurance", e.target.value, "")
@@ -387,636 +387,653 @@ const InsuranceForm = ({ onNext, onBack }) => {
           <CustomMenuItem value="No">No</CustomMenuItem>
         </CustomSelect>
       </FormControl>
-      <Typography variant="h5" sx={{ color: "#ffb942", mt: 1.51 }}>
-        Hospitalisation and Surgical
-      </Typography>
-      {hospitilizationInsuranceCount.map((index) => {
-        return (
-          <Grid container spacing={2} key={index} mt={0.5}>
-            <Grid item xs={12} sm={4}>
-              <CustomTextField
-                fullWidth
-                name={`hospitilizationInsurance[${index}].provider`}
-                label="Policy Provider"
-                value={formik.values.hospitilizationInsurance[index].provider}
-                onChange={(e) =>
-                  handleFieldChange(
-                    "provider",
-                    e.target.value,
-                    "hospitilizationInsurance",
-                    index
-                  )
-                }
-                InputProps={{
-                  style: { color: "#ffb942" },
-                }}
-              />
-            </Grid>
-            <Grid item xs={12} sm={4}>
-              <CustomTextField
-                fullWidth
-                name={`hospitilizationInsurance[${index}].planName`}
-                label="Plan Name"
-                value={formik.values.hospitilizationInsurance[index].planName}
-                onChange={(e) =>
-                  handleFieldChange(
-                    "planName",
-                    e.target.value,
-                    "hospitilizationInsurance",
-                    index
-                  )
-                }
-                InputProps={{
-                  style: { color: "#ffb942" },
-                }}
-              />
-            </Grid>
-            <Grid item xs={12} sm={4}>
-              <CustomTextField
-                fullWidth
-                name={`hospitilizationInsurance[${index}].hospitilizationAssuranceAmount`}
-                label="Assurance Amount"
-                type="number"
-                value={
-                  formik.values.hospitilizationInsurance[index]
-                    .hospitilizationAssuranceAmount
-                }
-                onChange={(e) =>
-                  handleFieldChange(
-                    "hospitilizationAssuranceAmount",
-                    e.target.value,
-                    "hospitilizationInsurance",
-                    index
-                  )
-                }
-                InputProps={{
-                  style: { color: "#ffb942" },
-                }}
-              />
-            </Grid>
-            <Grid item xs={12} sm={4}>
-              <CustomTextField
-                fullWidth
-                name={`hospitilizationInsurance[${index}].policyNumber`}
-                label="Policy Number"
-                type="number"
-                value={
-                  formik.values.hospitilizationInsurance[index].policyNumber
-                }
-                onChange={(e) =>
-                  handleFieldChange(
-                    "policyNumber",
-                    e.target.value,
-                    "hospitilizationInsurance",
-                    index
-                  )
-                }
-                InputProps={{
-                  style: { color: "#ffb942" },
-                }}
-              />
-            </Grid>
-            <Grid item xs={12} sm={4}>
-              <CustomTextField
-                fullWidth
-                name={`hospitilizationInsurance[${index}].annualPayment`}
-                label="Annual Payment"
-                type="number"
-                value={
-                  formik.values.hospitilizationInsurance[index].annualPayment
-                }
-                onChange={(e) =>
-                  handleFieldChange(
-                    "annualPayment",
-                    e.target.value,
-                    "hospitilizationInsurance",
-                    index
-                  )
-                }
-                InputProps={{
-                  style: { color: "#ffb942" },
-                }}
-              />
-            </Grid>
-            {index > 0 && (
-              <Grid item xs={12} sm={1}>
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <Button
-                    variant="contained"
-                    // color="secondary"
-                    onClick={() =>
-                      handleRemoveGoal("hospitilizationInsurance", index)
+      {formik.values.hasInsurance === "Yes" && (
+        <>
+          <Typography variant="h5" sx={{ color: "#ffb942", mt: 1.51 }}>
+            Hospitalisation and Surgical
+          </Typography>
+          {hospitilizationInsuranceCount.map((index) => {
+            return (
+              <Grid container spacing={2} key={index} mt={0.5}>
+                <Grid item xs={12} sm={4}>
+                  <CustomTextField
+                    fullWidth
+                    name={`hospitilizationInsurance[${index}].provider`}
+                    label="Policy Provider"
+                    value={
+                      formik.values.hospitilizationInsurance[index].provider
                     }
+                    onChange={(e) =>
+                      handleFieldChange(
+                        "provider",
+                        e.target.value,
+                        "hospitilizationInsurance",
+                        index
+                      )
+                    }
+                    InputProps={{
+                      style: { color: "#ffb942" },
+                    }}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={4}>
+                  <CustomTextField
+                    fullWidth
+                    name={`hospitilizationInsurance[${index}].planName`}
+                    label="Plan Name"
+                    value={
+                      formik.values.hospitilizationInsurance[index].planName
+                    }
+                    onChange={(e) =>
+                      handleFieldChange(
+                        "planName",
+                        e.target.value,
+                        "hospitilizationInsurance",
+                        index
+                      )
+                    }
+                    InputProps={{
+                      style: { color: "#ffb942" },
+                    }}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={4}>
+                  <CustomTextField
+                    fullWidth
+                    name={`hospitilizationInsurance[${index}].hospitilizationAssuranceAmount`}
+                    label="Assurance Amount"
+                    type="number"
+                    value={
+                      formik.values.hospitilizationInsurance[index]
+                        .hospitilizationAssuranceAmount
+                    }
+                    onChange={(e) =>
+                      handleFieldChange(
+                        "hospitilizationAssuranceAmount",
+                        e.target.value,
+                        "hospitilizationInsurance",
+                        index
+                      )
+                    }
+                    InputProps={{
+                      style: { color: "#ffb942" },
+                    }}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={4}>
+                  <CustomTextField
+                    fullWidth
+                    name={`hospitilizationInsurance[${index}].policyNumber`}
+                    label="Policy Number"
+                    type="number"
+                    value={
+                      formik.values.hospitilizationInsurance[index].policyNumber
+                    }
+                    onChange={(e) =>
+                      handleFieldChange(
+                        "policyNumber",
+                        e.target.value,
+                        "hospitilizationInsurance",
+                        index
+                      )
+                    }
+                    InputProps={{
+                      style: { color: "#ffb942" },
+                    }}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={4}>
+                  <CustomTextField
+                    fullWidth
+                    name={`hospitilizationInsurance[${index}].annualPayment`}
+                    label="Annual Payment"
+                    type="number"
+                    value={
+                      formik.values.hospitilizationInsurance[index]
+                        .annualPayment
+                    }
+                    onChange={(e) =>
+                      handleFieldChange(
+                        "annualPayment",
+                        e.target.value,
+                        "hospitilizationInsurance",
+                        index
+                      )
+                    }
+                    InputProps={{
+                      style: { color: "#ffb942" },
+                    }}
+                  />
+                </Grid>
+                {index > 0 && (
+                  <Grid item xs={12} sm={1}>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Button
+                        variant="contained"
+                        // color="secondary"
+                        onClick={() =>
+                          handleRemoveGoal("hospitilizationInsurance", index)
+                        }
+                        sx={{
+                          mt: 1,
+                          backgroundColor: "#ffb942",
+                          "&:hover": {
+                            backgroundColor: "#ffcc00",
+                          },
+                        }}
+                      >
+                        Remove
+                      </Button>
+                    </Box>
+                  </Grid>
+                )}
+              </Grid>
+            );
+          })}
+          <Box
+            sx={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            {" "}
+            <Button
+              variant="contained"
+              onClick={() => handleAddGoal("hospitilizationInsurance")}
+              sx={{
+                mt: 1,
+                backgroundColor: "#ffb942",
+                "&:hover": {
+                  backgroundColor: "#ffcc00",
+                },
+              }}
+            >
+              Add Hospitalisation and Surgical Insurance
+            </Button>
+          </Box>
+
+          <Typography variant="h5" sx={{ color: "#ffb942" }}>
+            Personal Accident
+          </Typography>
+          {personalAccidentCount.map((index) => (
+            <Grid container spacing={2} key={index} mt={0.5}>
+              <Grid item xs={12} sm={6}>
+                <CustomTextField
+                  fullWidth
+                  name={`personalAccident[${index}].provider`}
+                  label="Policy Provider"
+                  value={formik.values.personalAccident[index].provider}
+                  onChange={(e) =>
+                    handleFieldChange(
+                      "provider",
+                      e.target.value,
+                      "personalAccident",
+                      index
+                    )
+                  }
+                  InputProps={{
+                    style: { color: "#ffb942" },
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <CustomTextField
+                  fullWidth
+                  name={`personalAccident[${index}].planName`}
+                  label="Plan Name"
+                  value={formik.values.personalAccident[index].planName}
+                  onChange={(e) =>
+                    handleFieldChange(
+                      "planName",
+                      e.target.value,
+                      "personalAccident",
+                      index
+                    )
+                  }
+                  InputProps={{
+                    style: { color: "#ffb942" },
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <CustomTextField
+                  fullWidth
+                  name={`personalAccident[${index}].policyNumber`}
+                  label="Policy Number"
+                  type="number"
+                  value={formik.values.personalAccident[index].policyNumber}
+                  onChange={(e) =>
+                    handleFieldChange(
+                      "policyNumber",
+                      e.target.value,
+                      "personalAccident",
+                      index
+                    )
+                  }
+                  InputProps={{
+                    style: { color: "#ffb942" },
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} sm={5}>
+                <CustomTextField
+                  fullWidth
+                  name={`personalAccident[${index}].annualPayment`}
+                  label="Annual Payment"
+                  type="number"
+                  value={formik.values.personalAccident[index].annualPayment}
+                  onChange={(e) =>
+                    handleFieldChange(
+                      "annualPayment",
+                      e.target.value,
+                      "personalAccident",
+                      index
+                    )
+                  }
+                  InputProps={{
+                    style: { color: "#ffb942" },
+                  }}
+                />
+              </Grid>
+              {index > 0 && (
+                <Grid item xs={12} sm={1}>
+                  <Box
                     sx={{
-                      mt: 1,
-                      backgroundColor: "#ffb942",
-                      "&:hover": {
-                        backgroundColor: "#ffcc00",
-                      },
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
                     }}
                   >
-                    Remove
-                  </Button>
-                </Box>
-              </Grid>
-            )}
-          </Grid>
-        );
-      })}
-      <Box
-        sx={{
-          width: "100%",
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        {" "}
-        <Button
-          variant="contained"
-          onClick={() => handleAddGoal("hospitilizationInsurance")}
-          sx={{
-            mt: 1,
-            backgroundColor: "#ffb942",
-            "&:hover": {
-              backgroundColor: "#ffcc00",
-            },
-          }}
-        >
-          Add Hospitalisation and Surgical Insurance
-        </Button>
-      </Box>
-
-      <Typography variant="h5" sx={{ color: "#ffb942" }}>
-        Personal Accident
-      </Typography>
-      {personalAccidentCount.map((index) => (
-        <Grid container spacing={2} key={index} mt={0.5}>
-          <Grid item xs={12} sm={6}>
-            <CustomTextField
-              fullWidth
-              name={`personalAccident[${index}].provider`}
-              label="Policy Provider"
-              value={formik.values.personalAccident[index].provider}
-              onChange={(e) =>
-                handleFieldChange(
-                  "provider",
-                  e.target.value,
-                  "personalAccident",
-                  index
-                )
-              }
-              InputProps={{
-                style: { color: "#ffb942" },
-              }}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <CustomTextField
-              fullWidth
-              name={`personalAccident[${index}].planName`}
-              label="Plan Name"
-              value={formik.values.personalAccident[index].planName}
-              onChange={(e) =>
-                handleFieldChange(
-                  "planName",
-                  e.target.value,
-                  "personalAccident",
-                  index
-                )
-              }
-              InputProps={{
-                style: { color: "#ffb942" },
-              }}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <CustomTextField
-              fullWidth
-              name={`personalAccident[${index}].policyNumber`}
-              label="Policy Number"
-              type="number"
-              value={formik.values.personalAccident[index].policyNumber}
-              onChange={(e) =>
-                handleFieldChange(
-                  "policyNumber",
-                  e.target.value,
-                  "personalAccident",
-                  index
-                )
-              }
-              InputProps={{
-                style: { color: "#ffb942" },
-              }}
-            />
-          </Grid>
-          <Grid item xs={12} sm={5}>
-            <CustomTextField
-              fullWidth
-              name={`personalAccident[${index}].annualPayment`}
-              label="Annual Payment"
-              type="number"
-              value={formik.values.personalAccident[index].annualPayment}
-              onChange={(e) =>
-                handleFieldChange(
-                  "annualPayment",
-                  e.target.value,
-                  "personalAccident",
-                  index
-                )
-              }
-              InputProps={{
-                style: { color: "#ffb942" },
-              }}
-            />
-          </Grid>
-          {index > 0 && (
-            <Grid item xs={12} sm={1}>
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Button
-                  variant="contained"
-                  onClick={() => handleRemoveGoal("personalAccident", index)}
-                  sx={{
-                    mt: 1,
-                    backgroundColor: "#ffb942",
-                    "&:hover": {
-                      backgroundColor: "#ffcc00",
-                    },
-                  }}
-                >
-                  Remove
-                </Button>
-              </Box>
+                    <Button
+                      variant="contained"
+                      onClick={() =>
+                        handleRemoveGoal("personalAccident", index)
+                      }
+                      sx={{
+                        mt: 1,
+                        backgroundColor: "#ffb942",
+                        "&:hover": {
+                          backgroundColor: "#ffcc00",
+                        },
+                      }}
+                    >
+                      Remove
+                    </Button>
+                  </Box>
+                </Grid>
+              )}
             </Grid>
-          )}
-        </Grid>
-      ))}
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Button
-          variant="contained"
-          onClick={() => handleAddGoal("personalAccident")}
-          sx={{
-            mt: 1,
-            backgroundColor: "#ffb942",
-            "&:hover": {
-              backgroundColor: "#ffcc00",
-            },
-          }}
-        >
-          Add Personal Accident Policy
-        </Button>
-      </Box>
+          ))}
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Button
+              variant="contained"
+              onClick={() => handleAddGoal("personalAccident")}
+              sx={{
+                mt: 1,
+                backgroundColor: "#ffb942",
+                "&:hover": {
+                  backgroundColor: "#ffcc00",
+                },
+              }}
+            >
+              Add Personal Accident Policy
+            </Button>
+          </Box>
 
-      <Typography variant="h5" sx={{ color: "#ffb942" }}>
-        Early and Critical Illness Policy
-      </Typography>
-      {earlyAndCriticalIllnessCount.map((index) => (
-        <Grid container spacing={2} key={index} mt={0.5}>
-          <Grid item xs={12} sm={4}>
-            <CustomTextField
-              fullWidth
-              name={`earlyAndCriticalIllness[${index}].provider`}
-              label="Policy Provider"
-              value={formik.values.earlyAndCriticalIllness[index].provider}
-              onChange={(e) =>
-                handleFieldChange(
-                  "provider",
-                  e.target.value,
-                  "earlyAndCriticalIllness",
-                  index
-                )
-              }
-              InputProps={{
-                style: { color: "#ffb942" },
-              }}
-            />
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <CustomTextField
-              fullWidth
-              name={`earlyAndCriticalIllness[${index}].planName`}
-              label="Plan Name"
-              value={formik.values.earlyAndCriticalIllness[index].planName}
-              onChange={(e) =>
-                handleFieldChange(
-                  "planName",
-                  e.target.value,
-                  "earlyAndCriticalIllness",
-                  index
-                )
-              }
-              InputProps={{
-                style: { color: "#ffb942" },
-              }}
-            />
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <CustomTextField
-              fullWidth
-              name={`earlyAndCriticalIllness[${index}].policyNumber`}
-              label="Policy Number"
-              type="number"
-              value={formik.values.earlyAndCriticalIllness[index].policyNumber}
-              onChange={(e) =>
-                handleFieldChange(
-                  "policyNumber",
-                  e.target.value,
-                  "earlyAndCriticalIllness",
-                  index
-                )
-              }
-              InputProps={{
-                style: { color: "#ffb942" },
-              }}
-            />
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <CustomTextField
-              fullWidth
-              name={`earlyAndCriticalIllness[${index}].earlyIllnessSumAssured`}
-              label="Early Illness Assured Sum"
-              type="number"
-              value={
-                formik.values.earlyAndCriticalIllness[index]
-                  .earlyIllnessSumAssured
-              }
-              onChange={(e) =>
-                handleFieldChange(
-                  "earlyIllnessSumAssured",
-                  e.target.value,
-                  "earlyAndCriticalIllness",
-                  index
-                )
-              }
-              InputProps={{
-                style: { color: "#ffb942" },
-              }}
-            />
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <CustomTextField
-              fullWidth
-              name={`earlyAndCriticalIllness[${index}].criticalIllnessSumAssured`}
-              label="Critical Illness Assured Sum"
-              type="number"
-              value={
-                formik.values.earlyAndCriticalIllness[index]
-                  .criticalIllnessSumAssured
-              }
-              onChange={(e) =>
-                handleFieldChange(
-                  "criticalIllnessSumAssured",
-                  e.target.value,
-                  "earlyAndCriticalIllness",
-                  index
-                )
-              }
-              InputProps={{
-                style: { color: "#ffb942" },
-              }}
-            />
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <CustomTextField
-              fullWidth
-              name={`earlyAndCriticalIllness[${index}].annualPayment`}
-              label="Annual Payment"
-              type="number"
-              value={formik.values.earlyAndCriticalIllness[index].annualPayment}
-              onChange={(e) =>
-                handleFieldChange(
-                  "annualPayment",
-                  e.target.value,
-                  "earlyAndCriticalIllness",
-                  index
-                )
-              }
-              InputProps={{
-                style: { color: "#ffb942" },
-              }}
-            />
-          </Grid>
-          {index > 0 && (
-            <Grid item xs={12} sm={1}>
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  onClick={() =>
-                    handleRemoveGoal("earlyAndCriticalIllness", index)
+          <Typography variant="h5" sx={{ color: "#ffb942" }}>
+            Early and Critical Illness Policy
+          </Typography>
+          {earlyAndCriticalIllnessCount.map((index) => (
+            <Grid container spacing={2} key={index} mt={0.5}>
+              <Grid item xs={12} sm={4}>
+                <CustomTextField
+                  fullWidth
+                  name={`earlyAndCriticalIllness[${index}].provider`}
+                  label="Policy Provider"
+                  value={formik.values.earlyAndCriticalIllness[index].provider}
+                  onChange={(e) =>
+                    handleFieldChange(
+                      "provider",
+                      e.target.value,
+                      "earlyAndCriticalIllness",
+                      index
+                    )
                   }
-                  sx={{
-                    mt: 1,
-                    backgroundColor: "#ffb942",
-                    "&:hover": {
-                      backgroundColor: "#ffcc00",
-                    },
+                  InputProps={{
+                    style: { color: "#ffb942" },
                   }}
-                >
-                  Remove
-                </Button>
-              </Box>
+                />
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                <CustomTextField
+                  fullWidth
+                  name={`earlyAndCriticalIllness[${index}].planName`}
+                  label="Plan Name"
+                  value={formik.values.earlyAndCriticalIllness[index].planName}
+                  onChange={(e) =>
+                    handleFieldChange(
+                      "planName",
+                      e.target.value,
+                      "earlyAndCriticalIllness",
+                      index
+                    )
+                  }
+                  InputProps={{
+                    style: { color: "#ffb942" },
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                <CustomTextField
+                  fullWidth
+                  name={`earlyAndCriticalIllness[${index}].policyNumber`}
+                  label="Policy Number"
+                  type="number"
+                  value={
+                    formik.values.earlyAndCriticalIllness[index].policyNumber
+                  }
+                  onChange={(e) =>
+                    handleFieldChange(
+                      "policyNumber",
+                      e.target.value,
+                      "earlyAndCriticalIllness",
+                      index
+                    )
+                  }
+                  InputProps={{
+                    style: { color: "#ffb942" },
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                <CustomTextField
+                  fullWidth
+                  name={`earlyAndCriticalIllness[${index}].earlyIllnessSumAssured`}
+                  label="Early Illness Assured Sum"
+                  type="number"
+                  value={
+                    formik.values.earlyAndCriticalIllness[index]
+                      .earlyIllnessSumAssured
+                  }
+                  onChange={(e) =>
+                    handleFieldChange(
+                      "earlyIllnessSumAssured",
+                      e.target.value,
+                      "earlyAndCriticalIllness",
+                      index
+                    )
+                  }
+                  InputProps={{
+                    style: { color: "#ffb942" },
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                <CustomTextField
+                  fullWidth
+                  name={`earlyAndCriticalIllness[${index}].criticalIllnessSumAssured`}
+                  label="Critical Illness Assured Sum"
+                  type="number"
+                  value={
+                    formik.values.earlyAndCriticalIllness[index]
+                      .criticalIllnessSumAssured
+                  }
+                  onChange={(e) =>
+                    handleFieldChange(
+                      "criticalIllnessSumAssured",
+                      e.target.value,
+                      "earlyAndCriticalIllness",
+                      index
+                    )
+                  }
+                  InputProps={{
+                    style: { color: "#ffb942" },
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                <CustomTextField
+                  fullWidth
+                  name={`earlyAndCriticalIllness[${index}].annualPayment`}
+                  label="Annual Payment"
+                  type="number"
+                  value={
+                    formik.values.earlyAndCriticalIllness[index].annualPayment
+                  }
+                  onChange={(e) =>
+                    handleFieldChange(
+                      "annualPayment",
+                      e.target.value,
+                      "earlyAndCriticalIllness",
+                      index
+                    )
+                  }
+                  InputProps={{
+                    style: { color: "#ffb942" },
+                  }}
+                />
+              </Grid>
+              {index > 0 && (
+                <Grid item xs={12} sm={1}>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      onClick={() =>
+                        handleRemoveGoal("earlyAndCriticalIllness", index)
+                      }
+                      sx={{
+                        mt: 1,
+                        backgroundColor: "#ffb942",
+                        "&:hover": {
+                          backgroundColor: "#ffcc00",
+                        },
+                      }}
+                    >
+                      Remove
+                    </Button>
+                  </Box>
+                </Grid>
+              )}
             </Grid>
-          )}
-        </Grid>
-      ))}
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Button
-          variant="contained"
-          onClick={() => handleAddGoal("earlyAndCriticalIllness")}
-          sx={{
-            mt: 1,
-            backgroundColor: "#ffb942",
-            "&:hover": {
-              backgroundColor: "#ffcc00",
-            },
-          }}
-        >
-          Add Early and Critical Illness Policy
-        </Button>
-      </Box>
+          ))}
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Button
+              variant="contained"
+              onClick={() => handleAddGoal("earlyAndCriticalIllness")}
+              sx={{
+                mt: 1,
+                backgroundColor: "#ffb942",
+                "&:hover": {
+                  backgroundColor: "#ffcc00",
+                },
+              }}
+            >
+              Add Early and Critical Illness Policy
+            </Button>
+          </Box>
 
-      <Typography variant="h5" sx={{ color: "#ffb942" }}>
-        Life Insurance Policy
-      </Typography>
-      {lifeInsuranceCount.map((index) => (
-        <Grid container spacing={2} key={index} mt={0.5}>
-          <Grid item xs={12} sm={4}>
-            <CustomTextField
-              fullWidth
-              name={`lifeInsurance[${index}].provider`}
-              label="Policy Provider"
-              value={formik.values.lifeInsurance[index].provider}
-              onChange={(e) =>
-                handleFieldChange(
-                  "provider",
-                  e.target.value,
-                  "lifeInsurance",
-                  index
-                )
-              }
-              InputProps={{
-                style: { color: "#ffb942" },
-              }}
-            />
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <CustomTextField
-              fullWidth
-              name={`lifeInsurance[${index}].planName`}
-              label="Plan Name"
-              value={formik.values.lifeInsurance[index].planName}
-              onChange={(e) =>
-                handleFieldChange(
-                  "planName",
-                  e.target.value,
-                  "lifeInsurance",
-                  index
-                )
-              }
-              InputProps={{
-                style: { color: "#ffb942" },
-              }}
-            />
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <CustomTextField
-              fullWidth
-              name={`lifeInsurance[${index}].policyNumber`}
-              label="Policy Number"
-              type="number"
-              value={formik.values.lifeInsurance[index].policyNumber}
-              onChange={(e) =>
-                handleFieldChange(
-                  "policyNumber",
-                  e.target.value,
-                  "lifeInsurance",
-                  index
-                )
-              }
-              InputProps={{
-                style: { color: "#ffb942" },
-              }}
-            />
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <CustomTextField
-              fullWidth
-              name={`lifeInsurance[${index}].earlyIllnessSumAssured`}
-              label="Assured Sum"
-              type="number"
-              value={formik.values.lifeInsurance[index].earlyIllnessSumAssured}
-              onChange={(e) =>
-                handleFieldChange(
-                  "earlyIllnessSumAssured",
-                  e.target.value,
-                  "lifeInsurance",
-                  index
-                )
-              }
-              InputProps={{
-                style: { color: "#ffb942" },
-              }}
-            />
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <CustomTextField
-              fullWidth
-              name={`lifeInsurance[${index}].annualPayment`}
-              label="Annual Payment"
-              type="number"
-              value={formik.values.lifeInsurance[index].annualPayment}
-              onChange={(e) =>
-                handleFieldChange(
-                  "annualPayment",
-                  e.target.value,
-                  "lifeInsurance",
-                  index
-                )
-              }
-              InputProps={{
-                style: { color: "#ffb942" },
-              }}
-            />
-          </Grid>
-          {index > 0 && (
-            <Grid item xs={12} sm={1}>
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  onClick={() => handleRemoveGoal("lifeInsurance", index)}
-                  sx={{
-                    mt: 1,
-                    backgroundColor: "#ffb942",
-                    "&:hover": {
-                      backgroundColor: "#ffcc00",
-                    },
+          <Typography variant="h5" sx={{ color: "#ffb942" }}>
+            Life Insurance Policy
+          </Typography>
+          {lifeInsuranceCount.map((index) => (
+            <Grid container spacing={2} key={index} mt={0.5}>
+              <Grid item xs={12} sm={4}>
+                <CustomTextField
+                  fullWidth
+                  name={`lifeInsurance[${index}].provider`}
+                  label="Policy Provider"
+                  value={formik.values.lifeInsurance[index].provider}
+                  onChange={(e) =>
+                    handleFieldChange(
+                      "provider",
+                      e.target.value,
+                      "lifeInsurance",
+                      index
+                    )
+                  }
+                  InputProps={{
+                    style: { color: "#ffb942" },
                   }}
-                >
-                  Remove
-                </Button>
-              </Box>
+                />
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                <CustomTextField
+                  fullWidth
+                  name={`lifeInsurance[${index}].planName`}
+                  label="Plan Name"
+                  value={formik.values.lifeInsurance[index].planName}
+                  onChange={(e) =>
+                    handleFieldChange(
+                      "planName",
+                      e.target.value,
+                      "lifeInsurance",
+                      index
+                    )
+                  }
+                  InputProps={{
+                    style: { color: "#ffb942" },
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                <CustomTextField
+                  fullWidth
+                  name={`lifeInsurance[${index}].policyNumber`}
+                  label="Policy Number"
+                  type="number"
+                  value={formik.values.lifeInsurance[index].policyNumber}
+                  onChange={(e) =>
+                    handleFieldChange(
+                      "policyNumber",
+                      e.target.value,
+                      "lifeInsurance",
+                      index
+                    )
+                  }
+                  InputProps={{
+                    style: { color: "#ffb942" },
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                <CustomTextField
+                  fullWidth
+                  name={`lifeInsurance[${index}].earlyIllnessSumAssured`}
+                  label="Assured Sum"
+                  type="number"
+                  value={
+                    formik.values.lifeInsurance[index].earlyIllnessSumAssured
+                  }
+                  onChange={(e) =>
+                    handleFieldChange(
+                      "earlyIllnessSumAssured",
+                      e.target.value,
+                      "lifeInsurance",
+                      index
+                    )
+                  }
+                  InputProps={{
+                    style: { color: "#ffb942" },
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                <CustomTextField
+                  fullWidth
+                  name={`lifeInsurance[${index}].annualPayment`}
+                  label="Annual Payment"
+                  type="number"
+                  value={formik.values.lifeInsurance[index].annualPayment}
+                  onChange={(e) =>
+                    handleFieldChange(
+                      "annualPayment",
+                      e.target.value,
+                      "lifeInsurance",
+                      index
+                    )
+                  }
+                  InputProps={{
+                    style: { color: "#ffb942" },
+                  }}
+                />
+              </Grid>
+              {index > 0 && (
+                <Grid item xs={12} sm={1}>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      onClick={() => handleRemoveGoal("lifeInsurance", index)}
+                      sx={{
+                        mt: 1,
+                        backgroundColor: "#ffb942",
+                        "&:hover": {
+                          backgroundColor: "#ffcc00",
+                        },
+                      }}
+                    >
+                      Remove
+                    </Button>
+                  </Box>
+                </Grid>
+              )}
             </Grid>
-          )}
-        </Grid>
-      ))}
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Button
-          variant="contained"
-          onClick={() => handleAddGoal("lifeInsurance")}
-          sx={{
-            mt: 1,
-            backgroundColor: "#ffb942",
-            "&:hover": {
-              backgroundColor: "#ffcc00",
-            },
-          }}
-        >
-          Add Life Insurance Policy
-        </Button>
-      </Box>
+          ))}
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Button
+              variant="contained"
+              onClick={() => handleAddGoal("lifeInsurance")}
+              sx={{
+                mt: 1,
+                backgroundColor: "#ffb942",
+                "&:hover": {
+                  backgroundColor: "#ffcc00",
+                },
+              }}
+            >
+              Add Life Insurance Policy
+            </Button>
+          </Box>
+        </>
+      )}
 
       <Box display="flex" justifyContent="center">
         <Button

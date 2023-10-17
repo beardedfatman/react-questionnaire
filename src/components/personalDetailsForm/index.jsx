@@ -107,6 +107,7 @@ const PersonalDetailForm = ({ onNext, saveFormData, onBack }) => {
       city: "Singapore",
       state: "Singapore",
       postalCode: "",
+      email: "",
     },
     validationSchema: Yup.object({
       name: Yup.string().required("Name is required"),
@@ -116,6 +117,9 @@ const PersonalDetailForm = ({ onNext, saveFormData, onBack }) => {
       address: Yup.string().required("Address is required"),
       maritalStatus: Yup.string().required("Marital Status is required"),
       nationality: Yup.string().required("Nationality is required"),
+      email: Yup.string()
+        .email("Invalid email format")
+        .required("Email is required"), // Email field with validation
       // city: Yup.string().required("City/Town is required"), // New field validation
       // state: Yup.string().required("State/Region/Province is required"), // New field validation
       postalCode: Yup.number()
@@ -158,6 +162,24 @@ const PersonalDetailForm = ({ onNext, saveFormData, onBack }) => {
         <Grid item xs={12} sm={6}>
           <CustomTextField
             fullWidth
+            name="email"
+            label="Email"
+            value={formik.values.email}
+            onChange={(e) => {
+              formik.handleChange(e);
+              handleFieldChange("email", e.target.value);
+            }}
+            error={formik.touched.email && Boolean(formik.errors.email)}
+            helperText={formik.touched.email && formik.errors.email}
+            required
+            InputProps={{
+              style: { color: "#ffb942" },
+            }}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <CustomTextField
+            fullWidth
             name="name"
             label="Name"
             value={formik.values.name}
@@ -173,7 +195,7 @@ const PersonalDetailForm = ({ onNext, saveFormData, onBack }) => {
             }}
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={4}>
           <CustomTextField
             fullWidth
             name="contactNumber"
@@ -196,7 +218,7 @@ const PersonalDetailForm = ({ onNext, saveFormData, onBack }) => {
             }}
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={4}>
           <ThemeProvider theme={customTheme}>
             <DatePicker
               fullWidth
@@ -241,7 +263,7 @@ const PersonalDetailForm = ({ onNext, saveFormData, onBack }) => {
             />
           </ThemeProvider>
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={4}>
           <FormControl
             fullWidth
             required

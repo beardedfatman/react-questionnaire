@@ -20,12 +20,12 @@ const RetirementForm = ({ onBack }) => {
     initialValues: {
       retirementAge: "",
       monthlyNeed: "",
-      needFinancialAdvisor: "No",
+      // needFinancialAdvisor: "No",
     },
     validationSchema: Yup.object({
       retirementAge: Yup.string().required("Retirement Age is required"),
       monthlyNeed: Yup.string().required("Monthly Need is required"),
-      needFinancialAdvisor: Yup.string().required("Value is required"),
+      // needFinancialAdvisor: Yup.string().required("Value is required"),
     }),
     onSubmit: (values) => {
       // Save form data to cookies
@@ -142,7 +142,7 @@ const RetirementForm = ({ onBack }) => {
           <CustomTextField
             fullWidth
             name="monthlyNeed"
-            label="Monthly Need"
+            label="Estimated Monthly Need"
             type="number"
             value={formik.values.monthlyNeed}
             onChange={(e) => handleFieldChange("monthlyNeed", e.target.value)}
@@ -155,7 +155,7 @@ const RetirementForm = ({ onBack }) => {
             helperText={formik.touched.monthlyNeed && formik.errors.monthlyNeed}
           />
         </Grid>
-        <Grid item xs={12}>
+        {/* <Grid item xs={12}>
           <FormControl fullWidth required>
             <CustomInputLabel>Need Financial Advisor</CustomInputLabel>
             <CustomSelect
@@ -175,7 +175,7 @@ const RetirementForm = ({ onBack }) => {
               <CustomMenuItem value="No">No</CustomMenuItem>
             </CustomSelect>
           </FormControl>
-        </Grid>
+        </Grid> */}
       </Grid>
       <Box display="flex" justifyContent="center">
         <Button
