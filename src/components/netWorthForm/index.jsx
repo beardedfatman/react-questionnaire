@@ -45,8 +45,10 @@ const NetWorthForm = ({ onNext, onBack }) => {
       currentValueOfOtherCPF: "",
       stocks: "No",
       valueOfStocks: "",
+      realEstate: "No",
     },
     validationSchema: Yup.object({
+      realEstate: Yup.string().optional(),
       currentValueOfResidence: Yup.number().optional(),
       currentValueOfVehicle: Yup.number().optional(),
       currentSavings: Yup.number().required("Current Savings is required"),
@@ -92,9 +94,6 @@ const NetWorthForm = ({ onNext, onBack }) => {
   }, []);
 
   const handleFieldChange = async (fieldName, value) => {
-    const updatedValues = { ...formik.values, [fieldName]: value };
-    await formik.setValues(updatedValues);
-
     if (fieldName.localeCompare("valueOfStocks") === 0) {
       if (value !== "") {
         const updatedValuesOther = { ...formik.values, ["stocks"]: "Yes" };
@@ -104,6 +103,7 @@ const NetWorthForm = ({ onNext, onBack }) => {
         await formik.setValues(updatedValuesOther);
       }
     } else if (fieldName.localeCompare("valueOfBonds") === 0) {
+      //issue fix it in morning Insha Allah
       if (value !== "") {
         const updatedValuesOther = { ...formik.values, ["bond"]: "Yes" };
         await formik.setValues(updatedValuesOther);
@@ -158,6 +158,9 @@ const NetWorthForm = ({ onNext, onBack }) => {
       };
       await formik.setValues(updatedValuesOther);
     }
+
+    const updatedValues = { ...formik.values, [fieldName]: value };
+    await formik.setValues(updatedValues);
 
     setTimeout(() => {
       Cookies.set("netWorthFormData", JSON.stringify(updatedValues), {

@@ -441,8 +441,7 @@ const InsuranceForm = ({ onNext, onBack }) => {
                   <CustomTextField
                     fullWidth
                     name={`hospitilizationInsurance[${index}].hospitilizationAssuranceAmount`}
-                    label="Assurance Amount"
-                    type="number"
+                    label="How is your hospitalisation and surgical insurance"
                     value={
                       formik.values.hospitilizationInsurance[index]
                         .hospitilizationAssuranceAmount

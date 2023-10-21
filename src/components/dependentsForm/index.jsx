@@ -3,8 +3,13 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Typography, Button, Grid, Box } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { ThemeProvider, createTheme } from "@mui/material";
-import { CustomTextField } from "../Fields";
+import { ThemeProvider, createTheme, FormControl } from "@mui/material";
+import {
+  CustomTextField,
+  CustomInputLabel,
+  CustomSelect,
+  CustomMenuItem,
+} from "../Fields";
 import Cookies from "js-cookie";
 import dayjs from "dayjs";
 
@@ -89,6 +94,7 @@ const DependentForm = ({ onNext, onBack }) => {
 
   const formik = useFormik({
     initialValues: {
+      anyDependents: "Yes",
       dependents: dependentsCount.map(() => ({
         dependentName: "",
         dependentDateBirth: null,
@@ -97,6 +103,7 @@ const DependentForm = ({ onNext, onBack }) => {
       })),
     },
     validationSchema: Yup.object().shape({
+      anyDependents: Yup.string(),
       dependents: Yup.array().of(
         Yup.object().shape({
           dependentName: Yup.string().optional(),
@@ -152,12 +159,24 @@ const DependentForm = ({ onNext, onBack }) => {
     }, 100);
   };
 
+  const handleFieldChangeSimple = async (fieldName, value) => {
+    const updatedValues = { ...formik.values, [fieldName]: value };
+    await formik.setValues(updatedValues); // Update formik values
+
+    setTimeout(() => {
+      Cookies.set("dependentsFormData", JSON.stringify(updatedValues), {
+        expires: 7,
+      }); // Save the form data to cookies as JSON
+    }, 100);
+  };
+
   const handleAddGoal = (type) => {
     if (type === "dependents" && dependentsCount.length < 4) {
       const newGoal = {
         dependentName: "",
         dependentDateBirth: "",
         dependentAnnualSpending: "",
+        years: "",
       };
 
       setDependentsCount((prevCounts) => [...prevCounts, prevCounts.length]);
@@ -218,212 +237,275 @@ const DependentForm = ({ onNext, onBack }) => {
         Dependents
       </Typography>
 
-      {dependentsCount.map((index) => {
-        return (
-          <Grid container spacing={2} key={index} mt={0.5}>
-            <Grid item xs={12} sm={2}>
-              <CustomTextField
-                fullWidth
-                name={`dependents[${index}].dependentName`}
-                label="Name"
-                value={formik.values.dependents[index].dependentName}
-                onChange={(e) =>
-                  handleFieldChange(
-                    "dependentName",
-                    e.target.value,
-                    "dependents",
-                    index
-                  )
-                }
-                error={
-                  formik.touched.dependents &&
-                  formik.touched.dependents[index] &&
-                  Boolean(
-                    formik.errors.dependents &&
-                      formik.errors.dependents[index]?.dependentName
-                  )
-                }
-                helperText={
-                  formik.touched.dependents &&
-                  formik.touched.dependents[index] &&
-                  formik.errors.dependents &&
-                  formik.errors.dependents[index]?.dependentName
-                }
-                InputProps={{
-                  style: { color: "#ffb942" },
-                }}
-              />
-            </Grid>
-            <Grid item xs={12} sm={4}>
-              <ThemeProvider theme={customTheme}>
-                <DatePicker
+      <Grid container spacing={2} mt={0.5}>
+        <Grid item xs={12} sm={12}>
+          <FormControl
+            fullWidth
+            required
+            error={
+              formik.touched.anyDependents &&
+              Boolean(formik.errors.anyDependents)
+            }
+          >
+            <CustomInputLabel>Any Dependents</CustomInputLabel>
+            <CustomSelect
+              name="anyDependents"
+              label="Any Dependents"
+              value={formik.values.anyDependents}
+              onChange={(e) => {
+                formik.handleChange(e);
+                handleFieldChangeSimple("anyDependents", e.target.value);
+              }}
+              error={
+                formik.touched.anyDependents &&
+                Boolean(formik.errors.anyDependents)
+              }
+              helperText={
+                formik.touched.anyDependents && formik.errors.anyDependents
+              }
+              MenuProps={{
+                PaperProps: {
+                  style: { background: "#292829" },
+                },
+              }}
+            >
+              <CustomMenuItem value="Yes">Yes</CustomMenuItem>
+              <CustomMenuItem value="No">No</CustomMenuItem>
+            </CustomSelect>
+          </FormControl>
+        </Grid>
+      </Grid>
+      {formik.values.anyDependents === "No" && (
+        <Grid item xs={12} sm={12} mt={2.51}>
+          <CustomTextField
+            fullWidth
+            name={"noOfChild"}
+            label="How many children would you like in the future"
+            type="number"
+            value={formik.values.noOfChild}
+            onChange={(e) => {
+              formik.handleChange(e);
+              handleFieldChangeSimple("noOfChild", e.target.value);
+            }}
+            error={formik.touched.noOfChild && Boolean(formik.errors.noOfChild)}
+            helperText={formik.touched.noOfChild && formik.errors.noOfChild}
+            InputProps={{
+              style: { color: "#ffb942" },
+            }}
+          />
+        </Grid>
+      )}
+      {formik.values.anyDependents === "Yes" &&
+        dependentsCount.map((index) => {
+          return (
+            <Grid container spacing={2} key={index} mt={0.5}>
+              <Grid item xs={12} sm={2}>
+                <CustomTextField
                   fullWidth
-                  sx={{
-                    width: "100%",
-                    "& .MuiPickersLayout-root": {
-                      backgroundColor: "black !important", // Set the background color of the popover to black
-                      color: "goldenrod !important", // Set the text color of the popover to goldenrod
-                    },
-                  }}
-                  name={`dependents[${index}].dependentDateBirth`}
-                  label="Date of Birth"
-                  value={
-                    formik.values.dependents[index].dependentDateBirth != null
-                      ? dayjs(
-                          formik.values.dependents[index].dependentDateBirth
-                        )
-                      : null
-                  }
-                  onChange={(date) =>
+                  name={`dependents[${index}].dependentName`}
+                  label="Name"
+                  value={formik.values.dependents[index].dependentName}
+                  onChange={(e) =>
                     handleFieldChange(
-                      "dependentDateBirth",
-                      date.toDate(),
+                      "dependentName",
+                      e.target.value,
                       "dependents",
                       index
                     )
                   }
-                  PopOverProps={{
-                    style: { backgroundColor: "black !important" }, // Set the background color of the popover to black
+                  error={
+                    formik.touched.dependents &&
+                    formik.touched.dependents[index] &&
+                    Boolean(
+                      formik.errors.dependents &&
+                        formik.errors.dependents[index]?.dependentName
+                    )
+                  }
+                  helperText={
+                    formik.touched.dependents &&
+                    formik.touched.dependents[index] &&
+                    formik.errors.dependents &&
+                    formik.errors.dependents[index]?.dependentName
+                  }
+                  InputProps={{
+                    style: { color: "#ffb942" },
                   }}
-                  renderInput={(params) => (
-                    <CustomTextField
-                      fullWidth
-                      {...params}
-                      error={
-                        formik.touched.dateOfBirth &&
-                        Boolean(formik.errors.dateOfBirth)
-                      }
-                      helperText={
-                        formik.touched.dateOfBirth && formik.errors.dateOfBirth
-                      }
-                      required
-                      InputProps={{
-                        style: { color: "#ffb942" }, // Change text color to golden
-                      }}
-                    />
-                  )}
                 />
-              </ThemeProvider>
-            </Grid>
-            <Grid item xs={12} sm={2}>
-              <CustomTextField
-                fullWidth
-                name={`dependents[${index}].dependentAnnualSpending`}
-                label="Estimated Annual Spending"
-                type="number"
-                value={formik.values.dependents[index].dependentAnnualSpending}
-                onChange={(e) =>
-                  handleFieldChange(
-                    "dependentAnnualSpending",
-                    e.target.value,
-                    "dependents",
-                    index
-                  )
-                }
-                error={
-                  formik.touched.dependents &&
-                  formik.touched.dependents[index] &&
-                  Boolean(
-                    formik.errors.dependents &&
-                      formik.errors.dependents[index]?.dependentAnnualSpending
-                  )
-                }
-                helperText={
-                  formik.touched.dependents &&
-                  formik.touched.dependents[index] &&
-                  formik.errors.dependents &&
-                  formik.errors.dependents[index]?.dependentAnnualSpending
-                }
-                InputProps={{
-                  style: { color: "#ffb942" },
-                }}
-              />
-            </Grid>
-            <Grid item xs={12} sm={2}>
-              <CustomTextField
-                fullWidth
-                name={`dependents[${index}].years`}
-                label="For How Many More Years"
-                type="number"
-                value={formik.values.dependents[index].years}
-                onChange={(e) =>
-                  handleFieldChange(
-                    "years",
-                    e.target.value,
-                    "dependents",
-                    index
-                  )
-                }
-                error={
-                  formik.touched.dependents &&
-                  formik.touched.dependents[index] &&
-                  Boolean(
-                    formik.errors.dependents &&
-                      formik.errors.dependents[index]?.years
-                  )
-                }
-                helperText={
-                  formik.touched.dependents &&
-                  formik.touched.dependents[index] &&
-                  formik.errors.dependents &&
-                  formik.errors.dependents[index]?.years
-                }
-                InputProps={{
-                  style: { color: "#ffb942" },
-                }}
-              />
-            </Grid>
-            {index > 0 && (
-              <Grid item xs={12} sm={1}>
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <Button
-                    variant="contained"
-                    onClick={() => handleRemoveGoal("dependents", index)}
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                <ThemeProvider theme={customTheme}>
+                  <DatePicker
+                    fullWidth
                     sx={{
-                      mt: 1,
-                      backgroundColor: "#ffb942",
-                      "&:hover": {
-                        backgroundColor: "#ffcc00",
+                      width: "100%",
+                      "& .MuiPickersLayout-root": {
+                        backgroundColor: "black !important", // Set the background color of the popover to black
+                        color: "goldenrod !important", // Set the text color of the popover to goldenrod
                       },
                     }}
-                  >
-                    Remove
-                  </Button>
-                </Box>
+                    name={`dependents[${index}].dependentDateBirth`}
+                    label="Date of Birth"
+                    value={
+                      formik.values.dependents[index].dependentDateBirth != null
+                        ? dayjs(
+                            formik.values.dependents[index].dependentDateBirth
+                          )
+                        : null
+                    }
+                    onChange={(date) =>
+                      handleFieldChange(
+                        "dependentDateBirth",
+                        date.toDate(),
+                        "dependents",
+                        index
+                      )
+                    }
+                    PopOverProps={{
+                      style: { backgroundColor: "black !important" }, // Set the background color of the popover to black
+                    }}
+                    renderInput={(params) => (
+                      <CustomTextField
+                        fullWidth
+                        {...params}
+                        error={
+                          formik.touched.dateOfBirth &&
+                          Boolean(formik.errors.dateOfBirth)
+                        }
+                        helperText={
+                          formik.touched.dateOfBirth &&
+                          formik.errors.dateOfBirth
+                        }
+                        required
+                        InputProps={{
+                          style: { color: "#ffb942" }, // Change text color to golden
+                        }}
+                      />
+                    )}
+                  />
+                </ThemeProvider>
               </Grid>
-            )}
-          </Grid>
-        );
-      })}
-      <Box
-        sx={{
-          width: "100%",
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        {" "}
-        <Button
-          variant="contained"
-          onClick={() => handleAddGoal("dependents")}
+              <Grid item xs={12} sm={2}>
+                <CustomTextField
+                  fullWidth
+                  name={`dependents[${index}].dependentAnnualSpending`}
+                  label="Estimated Annual Spending"
+                  type="number"
+                  value={
+                    formik.values.dependents[index].dependentAnnualSpending
+                  }
+                  onChange={(e) =>
+                    handleFieldChange(
+                      "dependentAnnualSpending",
+                      e.target.value,
+                      "dependents",
+                      index
+                    )
+                  }
+                  error={
+                    formik.touched.dependents &&
+                    formik.touched.dependents[index] &&
+                    Boolean(
+                      formik.errors.dependents &&
+                        formik.errors.dependents[index]?.dependentAnnualSpending
+                    )
+                  }
+                  helperText={
+                    formik.touched.dependents &&
+                    formik.touched.dependents[index] &&
+                    formik.errors.dependents &&
+                    formik.errors.dependents[index]?.dependentAnnualSpending
+                  }
+                  InputProps={{
+                    style: { color: "#ffb942" },
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} sm={2}>
+                <CustomTextField
+                  fullWidth
+                  name={`dependents[${index}].years`}
+                  label="For How Many More Years"
+                  type="number"
+                  value={formik.values.dependents[index].years}
+                  onChange={(e) =>
+                    handleFieldChange(
+                      "years",
+                      e.target.value,
+                      "dependents",
+                      index
+                    )
+                  }
+                  error={
+                    formik.touched.dependents &&
+                    formik.touched.dependents[index] &&
+                    Boolean(
+                      formik.errors.dependents &&
+                        formik.errors.dependents[index]?.years
+                    )
+                  }
+                  helperText={
+                    formik.touched.dependents &&
+                    formik.touched.dependents[index] &&
+                    formik.errors.dependents &&
+                    formik.errors.dependents[index]?.years
+                  }
+                  InputProps={{
+                    style: { color: "#ffb942" },
+                  }}
+                />
+              </Grid>
+              {index > 0 && (
+                <Grid item xs={12} sm={1}>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Button
+                      variant="contained"
+                      onClick={() => handleRemoveGoal("dependents", index)}
+                      sx={{
+                        mt: 1,
+                        backgroundColor: "#ffb942",
+                        "&:hover": {
+                          backgroundColor: "#ffcc00",
+                        },
+                      }}
+                    >
+                      Remove
+                    </Button>
+                  </Box>
+                </Grid>
+              )}
+            </Grid>
+          );
+        })}
+      {formik.values.anyDependents === "Yes" && (
+        <Box
           sx={{
-            mt: 1.5,
-            backgroundColor: "#ffb942",
-            "&:hover": {
-              backgroundColor: "#ffcc00",
-            },
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
           }}
         >
-          Add Dependent
-        </Button>
-      </Box>
-
+          {" "}
+          <Button
+            variant="contained"
+            onClick={() => handleAddGoal("dependents")}
+            sx={{
+              mt: 1.5,
+              backgroundColor: "#ffb942",
+              "&:hover": {
+                backgroundColor: "#ffcc00",
+              },
+            }}
+          >
+            Add Dependent
+          </Button>
+        </Box>
+      )}
       <Box display="flex" justifyContent="center">
         <Button
           onClick={onBack}

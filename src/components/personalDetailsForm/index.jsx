@@ -98,6 +98,8 @@ const PersonalDetailForm = ({ onNext, saveFormData, onBack }) => {
   const formik = useFormik({
     initialValues: {
       name: "",
+      lastname: "",
+      phone: "",
       contactNumber: "",
       dateOfBirth: null, // Use null for dateOfBirth
       gender: "",
@@ -108,9 +110,14 @@ const PersonalDetailForm = ({ onNext, saveFormData, onBack }) => {
       state: "Singapore",
       postalCode: "",
       email: "",
+      address2: "",
+      country: "Singapore",
+      nationality: "Singapore",
     },
     validationSchema: Yup.object({
       name: Yup.string().required("Name is required"),
+      lastname: Yup.string().required("Name is required"),
+      phone: Yup.string().required("Name is required"),
       contactNumber: Yup.string().required("Contact Number is required"),
       dateOfBirth: Yup.date().nullable().required("Date of Birth is required"), // Use Yup.date() for dateOfBirth
       gender: Yup.string().required("Gender is required"),
@@ -159,7 +166,7 @@ const PersonalDetailForm = ({ onNext, saveFormData, onBack }) => {
         Personal Details
       </Typography>
       <Grid container spacing={2}>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={4}>
           <CustomTextField
             fullWidth
             name="email"
@@ -177,11 +184,11 @@ const PersonalDetailForm = ({ onNext, saveFormData, onBack }) => {
             }}
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={4}>
           <CustomTextField
             fullWidth
             name="name"
-            label="Name"
+            label="First Name"
             value={formik.values.name}
             onChange={(e) => {
               formik.handleChange(e);
@@ -189,6 +196,24 @@ const PersonalDetailForm = ({ onNext, saveFormData, onBack }) => {
             }}
             error={formik.touched.name && Boolean(formik.errors.name)}
             helperText={formik.touched.name && formik.errors.name}
+            required
+            InputProps={{
+              style: { color: "#ffb942" },
+            }}
+          />
+        </Grid>
+        <Grid item xs={12} sm={4}>
+          <CustomTextField
+            fullWidth
+            name="lastname"
+            label="Last Name"
+            value={formik.values.lastname}
+            onChange={(e) => {
+              formik.handleChange(e);
+              handleFieldChange("lastname", e.target.value);
+            }}
+            error={formik.touched.lastname && Boolean(formik.errors.lastname)}
+            helperText={formik.touched.lastname && formik.errors.lastname}
             required
             InputProps={{
               style: { color: "#ffb942" },
@@ -312,7 +337,10 @@ const PersonalDetailForm = ({ onNext, saveFormData, onBack }) => {
           <FormControl
             fullWidth
             required
-            error={formik.touched.gender && Boolean(formik.errors.gender)}
+            error={
+              formik.touched.maritalStatus &&
+              Boolean(formik.errors.maritalStatus)
+            }
           >
             <CustomInputLabel>Marital Status</CustomInputLabel>
             <CustomSelect
@@ -397,7 +425,7 @@ const PersonalDetailForm = ({ onNext, saveFormData, onBack }) => {
             }}
           />
         </Grid> */}
-        <Grid item xs={12} sm={12}>
+        <Grid item xs={12} sm={6}>
           <CustomTextField
             fullWidth
             name="postalCode"
@@ -412,6 +440,25 @@ const PersonalDetailForm = ({ onNext, saveFormData, onBack }) => {
               formik.touched.postalCode && Boolean(formik.errors.postalCode)
             }
             helperText={formik.touched.postalCode && formik.errors.postalCode}
+            required
+            InputProps={{
+              style: { color: "#ffb942" },
+            }}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <CustomTextField
+            fullWidth
+            name="phone"
+            label="Phone Number"
+            // type="number"
+            value={formik.values.phone}
+            onChange={(e) => {
+              formik.handleChange(e);
+              handleFieldChange("phone", e.target.value);
+            }}
+            error={formik.touched.phone && Boolean(formik.errors.phone)}
+            helperText={formik.touched.phone && formik.errors.phone}
             required
             InputProps={{
               style: { color: "#ffb942" },
