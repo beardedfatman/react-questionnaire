@@ -5,13 +5,7 @@ import { Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import { Box } from "@mui/material";
-import FormControl from "@mui/material/FormControl";
-import {
-  CustomInputLabel,
-  CustomMenuItem,
-  CustomSelect,
-  CustomTextField,
-} from "../Fields";
+import { CustomTextField } from "../Fields";
 import Cookies from "js-cookie";
 import axios from "axios";
 
@@ -20,12 +14,12 @@ const RetirementForm = ({ onBack }) => {
     initialValues: {
       retirementAge: "",
       monthlyNeed: "",
-      needFinancialAdvisor: "No",
+      // needFinancialAdvisor: "No",
     },
     validationSchema: Yup.object({
       retirementAge: Yup.string().required("Retirement Age is required"),
       monthlyNeed: Yup.string().required("Monthly Need is required"),
-      needFinancialAdvisor: Yup.string().required("Value is required"),
+      // needFinancialAdvisor: Yup.string().required("Value is required"),
     }),
     onSubmit: (values) => {
       // Save form data to cookies
@@ -50,6 +44,319 @@ const RetirementForm = ({ onBack }) => {
     const insuranceData = JSON.parse(Cookies.get("insuranceFormData"));
     const dependentsData = JSON.parse(Cookies.get("dependentsFormData"));
     const retirementData = JSON.parse(Cookies.get("retirementData"));
+    const willData = JSON.parse(Cookies.get("WillFormData"));
+
+    let arr = [];
+    let personalDataKeys = [
+      "name",
+      "lastname",
+      "phone",
+      "email",
+      "dateOfBirth",
+      "gender",
+      "address",
+      "address2",
+      "city",
+      "state",
+      "postalcode",
+      "country",
+      "gender",
+      "nationality",
+    ];
+
+    personalDataKeys.forEach((d) => {
+      if (personalData[d] !== undefined) {
+        arr.push(personalData[d]);
+      } else {
+        arr.push("");
+      }
+    });
+
+    let employmenetDataKeys = [
+      "status",
+      "occupation",
+      "company",
+      "yearsInCompany",
+    ];
+
+    employmenetDataKeys.forEach((d) => {
+      if (employmentData[d] !== undefined) {
+        arr.push(employmentData[d]);
+      } else {
+        arr.push("");
+      }
+    });
+
+    Object.keys(goalData).forEach((d) => {
+      for (let i = 0; i < 4; i++) {
+        if (goalData[d][i] !== undefined) {
+          arr.push(goalData[d][i].description);
+          arr.push(goalData[d][i].targetDate);
+          arr.push(goalData[d][i].amount);
+        } else {
+          arr.push("");
+          arr.push("");
+          arr.push("");
+        }
+      }
+    });
+
+    let netWorthFormDataKeys = [
+      "currentValueOfResidence",
+      "currentValueOfVehicle",
+      "currentSavings",
+      "currentValueOfFixedDeposits",
+      "anyInvestments",
+      "bond",
+      "unitTrusts",
+      "stocks",
+      "insurancePolicies",
+      "realEstate",
+      "commodities",
+      "cryptocurrencies",
+      "otherInvestments",
+      "valueOfBonds",
+      "valueOfUnitTrusts",
+      "valueOfEquities",
+      "valueOfInsurancePolicies",
+      "valueOfCommodities",
+      "valueOfProperties",
+      "valueOfCryptocurrencies",
+      "valueOfOtherInvestments",
+      "currentValueOfOrdinaryCPF",
+      "currentValueOfSpecialCPF",
+      "currentValueOfMedisaveCPF",
+      "currentValueOfOtherCPF",
+    ];
+
+    netWorthFormDataKeys.forEach((d) => {
+      if (newWorthData[d] !== undefined) {
+        arr.push(newWorthData[d]);
+      } else {
+        arr.push("");
+      }
+    });
+
+    let loansDataKeys = [
+      "hasLongTermLoans",
+      "remainingLoan",
+      "remainingRenovationLoan",
+      "remainingVehicleLoan",
+      "remainingStudyLoan",
+      "hasShortTermLoan",
+      "remainingCreditCardsLoan",
+      "remainingPersonalDebitLoan",
+      "incomeTaxLastYear",
+    ];
+
+    loansDataKeys.forEach((d) => {
+      if (loansData[d] !== undefined) {
+        arr.push(loansData[d]);
+      } else {
+        arr.push("");
+      }
+    });
+
+    arr.push(centralProvidentFundsData["careShield"]);
+    arr.push(centralProvidentFundsData["doneYourNominations"]);
+
+    let cashFlowDataKeys = [
+      "annualSalary",
+      "annualBonus",
+      "annualInvestmentIncome",
+      "rentalIncomeAnnual",
+      "otherIncomeAnnual",
+      "annualSavings",
+      "annualInvestments",
+      "mortgagePayAnnually",
+      "mortgagePayAnnually", //baad main delete karna
+      "loansPayAnnually",
+      "payForInsuranceAnnually",
+      "payForHouseholdAnnually",
+      "payForTransportAnnually",
+      "payForDependenstAnnually",
+      "payForPersonalExpensesAnnually",
+      "payForMedicalAnnually",
+      "payForMiscellaniousAnnually",
+      "giveForFamilyBlessingsAnnually",
+    ];
+
+    cashFlowDataKeys.forEach((d) => {
+      if (cashFlowData[d] !== undefined) {
+        arr.push(cashFlowData[d]);
+      } else {
+        arr.push("");
+      }
+    });
+
+    // let insuranceDataKeys = ["hasInsurance"];
+
+    arr.push(insuranceData["hasInsurance"]);
+
+    for (let i = 0; i < 4; i++) {
+      if (insuranceData["hospitilizationInsurance"][i] !== undefined) {
+        arr.push(insuranceData["hospitilizationInsurance"][i].provider);
+        arr.push(insuranceData["hospitilizationInsurance"][i].planName);
+        arr.push(
+          insuranceData["hospitilizationInsurance"][i]
+            .hospitilizationAssuranceAmount
+        );
+        arr.push(insuranceData["hospitilizationInsurance"][i].policyNumber);
+        arr.push(insuranceData["hospitilizationInsurance"][i].annualPayment);
+      } else {
+        arr.push("");
+        arr.push("");
+        arr.push("");
+        arr.push("");
+        arr.push("");
+      }
+    }
+
+    for (let i = 0; i < 4; i++) {
+      if (insuranceData["personalAccident"][i] !== undefined) {
+        arr.push(insuranceData["personalAccident"][i].provider);
+        arr.push(insuranceData["personalAccident"][i].planName);
+        arr.push(insuranceData["personalAccident"][i].policyNumber);
+        arr.push(insuranceData["personalAccident"][i].annualPayment);
+      } else {
+        arr.push("");
+        arr.push("");
+        arr.push("");
+        arr.push("");
+      }
+    }
+
+    for (let i = 0; i < 4; i++) {
+      if (insuranceData["earlyAndCriticalIllness"][i] !== undefined) {
+        arr.push(insuranceData["earlyAndCriticalIllness"][i].provider);
+        arr.push(insuranceData["earlyAndCriticalIllness"][i].planName);
+        arr.push(insuranceData["earlyAndCriticalIllness"][i].policyNumber);
+        arr.push(
+          insuranceData["earlyAndCriticalIllness"][i].earlyIllnessSumAssured
+        );
+        arr.push(
+          insuranceData["earlyAndCriticalIllness"][i].criticalIllnessSumAssured
+        );
+        arr.push(insuranceData["earlyAndCriticalIllness"][i].annualPayment);
+      } else {
+        arr.push("");
+        arr.push("");
+        arr.push("");
+        arr.push("");
+        arr.push("");
+        arr.push("");
+      }
+    }
+
+    for (let i = 0; i < 4; i++) {
+      if (insuranceData["lifeInsurance"][i] !== undefined) {
+        arr.push(insuranceData["lifeInsurance"][i].provider);
+        arr.push(insuranceData["lifeInsurance"][i].planName);
+        arr.push(insuranceData["lifeInsurance"][i].policyNumber);
+        arr.push(insuranceData["lifeInsurance"][i].lifeSumAssured);
+        arr.push(insuranceData["lifeInsurance"][i].annualPayment);
+      } else {
+        arr.push("");
+        arr.push("");
+        arr.push("");
+        arr.push("");
+        arr.push("");
+      }
+    }
+
+    // let dependentsDataKeys=[];
+
+    // for (let i = 0; i < 4; i++) {
+    //   if (i === 0) {
+    //     if (dependentsData.dependents[i].dependentName !== "") {
+    //       arr.push("Yes");
+    //       arr.push(dependentsData.dependents.length);
+    //     } else {
+    //       arr.push("No");
+    //       arr.push(0);
+    //     }
+    //   }
+
+    if (dependentsData.anyDependents === "No") {
+      arr.push("No");
+      arr.push(dependentsData.noOfChild);
+      arr.push(0);
+    } else {
+      arr.push("Yes");
+      arr.push("");
+      arr.push(dependentsData.dependents.length);
+    }
+
+    console.log("786 dependentsData", dependentsData);
+
+    for (let i = 0; i < 4; i++) {
+      // if (i === 0) {
+      //   if (dependentsData.dependents[i].dependentName !== "") {
+      //     arr.push("Yes");
+      //     arr.push(dependentsData.dependents.length);
+      //   } else {
+      //     arr.push("No");
+      //     arr.push(0);
+      //   }
+      // }
+
+      if (
+        dependentsData.dependents[i] !== undefined &&
+        dependentsData.anyDependents === "Yes"
+      ) {
+        arr.push(dependentsData.dependents[i].dependentName);
+        arr.push(dependentsData.dependents[i].dependentDateBirth);
+        arr.push(dependentsData.dependents[i].dependentAnnualSpending);
+        arr.push(dependentsData.dependents[i].years);
+      } else {
+        arr.push("");
+        arr.push("");
+        arr.push("");
+        arr.push("");
+      }
+    }
+
+    arr.push(willData.leaveWill);
+    if (willData.leaveWill.localeCompare("No") !== 0) {
+      arr.push(willData.nric);
+    }
+
+    for (let i = 0; i < 2; i++) {
+      if (
+        willData["executors"][i] !== undefined &&
+        willData.leaveWill.localeCompare("No") !== 0
+      ) {
+        arr.push(willData["executors"][i].name);
+        arr.push(willData["executors"][i].nric);
+        arr.push(willData["executors"][i].address);
+      } else {
+        arr.push("");
+        arr.push("");
+        arr.push("");
+      }
+    }
+
+    for (let i = 0; i < 2; i++) {
+      if (
+        willData["beneficiaries"][i] !== undefined &&
+        willData.leaveWill.localeCompare("No") !== 0
+      ) {
+        arr.push(willData["beneficiaries"][i].name);
+        arr.push(willData["beneficiaries"][i].nric);
+        arr.push(willData["beneficiaries"][i].address);
+        arr.push(willData["beneficiaries"][i].percentOfAsset);
+      } else {
+        arr.push("");
+        arr.push("");
+        arr.push("");
+        arr.push("");
+      }
+    }
+
+    arr.push(retirementData.retirementAge);
+    arr.push(retirementData.monthlyNeed);
+
+    console.log("786 arr", arr);
 
     console.log(
       "786 data",
@@ -82,7 +389,7 @@ const RetirementForm = ({ onBack }) => {
 
     // Make the POST request using Axios
     axios
-      .post(apiUrl, data)
+      .post(apiUrl, arr)
       .then((response) => {
         // Handle success
         console.log("POST request successful:", response.data);
@@ -142,7 +449,7 @@ const RetirementForm = ({ onBack }) => {
           <CustomTextField
             fullWidth
             name="monthlyNeed"
-            label="Monthly Need"
+            label="Estimated Monthly Need"
             type="number"
             value={formik.values.monthlyNeed}
             onChange={(e) => handleFieldChange("monthlyNeed", e.target.value)}
@@ -155,7 +462,7 @@ const RetirementForm = ({ onBack }) => {
             helperText={formik.touched.monthlyNeed && formik.errors.monthlyNeed}
           />
         </Grid>
-        <Grid item xs={12}>
+        {/* <Grid item xs={12}>
           <FormControl fullWidth required>
             <CustomInputLabel>Need Financial Advisor</CustomInputLabel>
             <CustomSelect
@@ -175,7 +482,7 @@ const RetirementForm = ({ onBack }) => {
               <CustomMenuItem value="No">No</CustomMenuItem>
             </CustomSelect>
           </FormControl>
-        </Grid>
+        </Grid> */}
       </Grid>
       <Box display="flex" justifyContent="center">
         <Button

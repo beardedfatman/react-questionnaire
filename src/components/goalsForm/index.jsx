@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { Typography, Button, Grid, Box } from "@mui/material";
-import { CustomTextField } from "../Fields"; // You can customize this import as needed
+import { Typography, Button, Grid, Box, ThemeProvider } from "@mui/material";
+import { CustomTextField, CustomDivider } from "../Fields"; // You can customize this import as needed
 import Cookies from "js-cookie";
+import AddIcon from "@mui/icons-material/Add";
+import dayjs from "dayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { customTheme } from "../customTheme";
 
 const GoalForm = ({ onNext, onBack }) => {
   const [shortTermGoalsCount, setShortTermGoalsCount] = useState([0]);
@@ -257,7 +261,7 @@ const GoalForm = ({ onNext, onBack }) => {
   return (
     <form onSubmit={formik.handleSubmit}>
       <Typography variant="h4" sx={{ color: "#ffb942", mb: 2.51 }}>
-        Goal Details
+        Goal
       </Typography>
 
       {/* Short-term Goals */}
@@ -301,7 +305,61 @@ const GoalForm = ({ onNext, onBack }) => {
               />
             </Grid>
             <Grid item xs={12} sm={4}>
-              <CustomTextField
+              <ThemeProvider theme={customTheme}>
+                <DatePicker
+                  fullWidth
+                  sx={{
+                    width: "100%",
+                    "& .MuiPickersLayout-root": {
+                      backgroundColor: "black !important", // Set the background color of the popover to black
+                      color: "goldenrod !important", // Set the text color of the popover to goldenrod
+                    },
+                  }}
+                  name={`shortTermGoals[${index}].targetDate`}
+                  label="Target Date"
+                  onChange={(date) =>
+                    handleFieldChange(
+                      "targetDate",
+                      date.toDate(),
+                      "shortTermGoals",
+                      index
+                    )
+                  }
+                  value={
+                    formik.values.shortTermGoals[index].targetDate != null
+                      ? dayjs(formik.values.shortTermGoals[index].targetDate)
+                      : null
+                  }
+                  PopOverProps={{
+                    style: { backgroundColor: "black !important" }, // Set the background color of the popover to black
+                  }}
+                  renderInput={(params) => (
+                    <CustomTextField
+                      fullWidth
+                      {...params}
+                      error={
+                        formik.touched.shortTermGoals &&
+                        formik.touched.shortTermGoals[index] &&
+                        Boolean(
+                          formik.errors.shortTermGoals &&
+                            formik.errors.shortTermGoals[index]?.targetDate
+                        )
+                      }
+                      helperText={
+                        formik.touched.shortTermGoals &&
+                        formik.touched.shortTermGoals[index] &&
+                        formik.errors.shortTermGoals &&
+                        formik.errors.shortTermGoals[index]?.targetDate
+                      }
+                      required
+                      InputProps={{
+                        style: { color: "#ffb942" }, // Change text color to golden
+                      }}
+                    />
+                  )}
+                />
+              </ThemeProvider>
+              {/* <CustomTextField
                 fullWidth
                 name={`shortTermGoals[${index}].targetDate`}
                 label="Target Date"
@@ -331,7 +389,7 @@ const GoalForm = ({ onNext, onBack }) => {
                 InputProps={{
                   style: { color: "#ffb942" },
                 }}
-              />
+              /> */}
             </Grid>
             <Grid item xs={12} sm={3}>
               <CustomTextField
@@ -414,10 +472,11 @@ const GoalForm = ({ onNext, onBack }) => {
             },
           }}
         >
+          <AddIcon />
           Add Short-term Goal
         </Button>
       </Box>
-
+      <CustomDivider />
       {/* Mid-term Goals */}
       <Typography variant="h5" sx={{ color: "#ffb942" }}>
         Mid-term Goals
@@ -458,7 +517,7 @@ const GoalForm = ({ onNext, onBack }) => {
             />
           </Grid>
           <Grid item xs={12} sm={4}>
-            <CustomTextField
+            {/* <CustomTextField
               fullWidth
               name={`midTermGoals[${index}].targetDate`}
               label="Target Date"
@@ -488,7 +547,61 @@ const GoalForm = ({ onNext, onBack }) => {
               InputProps={{
                 style: { color: "#ffb942" },
               }}
-            />
+            /> */}
+            <ThemeProvider theme={customTheme}>
+              <DatePicker
+                fullWidth
+                sx={{
+                  width: "100%",
+                  "& .MuiPickersLayout-root": {
+                    backgroundColor: "black !important", // Set the background color of the popover to black
+                    color: "goldenrod !important", // Set the text color of the popover to goldenrod
+                  },
+                }}
+                name={`midTermGoals[${index}].targetDate`}
+                label="Target Date"
+                onChange={(date) =>
+                  handleFieldChange(
+                    "targetDate",
+                    date.toDate(),
+                    "midTermGoals",
+                    index
+                  )
+                }
+                value={
+                  formik.values.midTermGoals[index].targetDate != null
+                    ? dayjs(formik.values.midTermGoals[index].targetDate)
+                    : null
+                }
+                PopOverProps={{
+                  style: { backgroundColor: "black !important" }, // Set the background color of the popover to black
+                }}
+                renderInput={(params) => (
+                  <CustomTextField
+                    fullWidth
+                    {...params}
+                    error={
+                      formik.touched.midTermGoals &&
+                      formik.touched.midTermGoals[index] &&
+                      Boolean(
+                        formik.errors.midTermGoals &&
+                          formik.errors.midTermGoals[index]?.targetDate
+                      )
+                    }
+                    helperText={
+                      formik.touched.midTermGoals &&
+                      formik.touched.midTermGoals[index] &&
+                      formik.errors.midTermGoals &&
+                      formik.errors.midTermGoals[index]?.targetDate
+                    }
+                    required
+                    InputProps={{
+                      style: { color: "#ffb942" }, // Change text color to golden
+                    }}
+                  />
+                )}
+              />
+            </ThemeProvider>
           </Grid>
           <Grid item xs={12} sm={3}>
             <CustomTextField
@@ -569,10 +682,11 @@ const GoalForm = ({ onNext, onBack }) => {
             },
           }}
         >
+          <AddIcon />
           Add Mid-term Goal
         </Button>
       </Box>
-
+      <CustomDivider />
       {/* Long-term Goals */}
       <Typography variant="h5" sx={{ color: "#ffb942" }}>
         Long-term Goals
@@ -613,7 +727,7 @@ const GoalForm = ({ onNext, onBack }) => {
             />
           </Grid>
           <Grid item xs={12} sm={4}>
-            <CustomTextField
+            {/* <CustomTextField
               fullWidth
               name={`longTermGoals[${index}].targetDate`}
               label="Target Date"
@@ -643,7 +757,61 @@ const GoalForm = ({ onNext, onBack }) => {
               InputProps={{
                 style: { color: "#ffb942" },
               }}
-            />
+            /> */}
+            <ThemeProvider theme={customTheme}>
+              <DatePicker
+                fullWidth
+                sx={{
+                  width: "100%",
+                  "& .MuiPickersLayout-root": {
+                    backgroundColor: "black !important", // Set the background color of the popover to black
+                    color: "goldenrod !important", // Set the text color of the popover to goldenrod
+                  },
+                }}
+                name={`longTermGoals[${index}].targetDate`}
+                label="Target Date"
+                onChange={(date) =>
+                  handleFieldChange(
+                    "targetDate",
+                    date.toDate(),
+                    "longTermGoals",
+                    index
+                  )
+                }
+                value={
+                  formik.values.longTermGoals[index].targetDate != null
+                    ? dayjs(formik.values.longTermGoals[index].targetDate)
+                    : null
+                }
+                PopOverProps={{
+                  style: { backgroundColor: "black !important" }, // Set the background color of the popover to black
+                }}
+                renderInput={(params) => (
+                  <CustomTextField
+                    fullWidth
+                    {...params}
+                    error={
+                      formik.touched.longTermGoals &&
+                      formik.touched.longTermGoals[index] &&
+                      Boolean(
+                        formik.errors.longTermGoals &&
+                          formik.errors.longTermGoals[index]?.targetDate
+                      )
+                    }
+                    helperText={
+                      formik.touched.longTermGoals &&
+                      formik.touched.longTermGoals[index] &&
+                      formik.errors.longTermGoals &&
+                      formik.errors.longTermGoals[index]?.targetDate
+                    }
+                    required
+                    InputProps={{
+                      style: { color: "#ffb942" }, // Change text color to golden
+                    }}
+                  />
+                )}
+              />
+            </ThemeProvider>
           </Grid>
           <Grid item xs={12} sm={3}>
             <CustomTextField
@@ -725,6 +893,7 @@ const GoalForm = ({ onNext, onBack }) => {
             },
           }}
         >
+          <AddIcon />
           Add Long-term Goal
         </Button>
       </Box>

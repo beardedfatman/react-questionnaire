@@ -6,6 +6,7 @@ import {
   Step,
   StepLabel,
   MobileStepper,
+  Typography,
 } from "@mui/material";
 import Cookies from "js-cookie"; // Import js-cookie
 import PersonalDetailForm from "../personalDetailsForm";
@@ -18,6 +19,7 @@ import RetirementForm from "../retirement";
 import GoalForm from "../goalsForm";
 import DependentForm from "../dependentsForm";
 import InsuranceForm from "../insuranceForm";
+import WillForm from "../willForm";
 
 const steps = [
   "Personal Details",
@@ -29,6 +31,7 @@ const steps = [
   "Cashflow Statement",
   "Insurance Policies",
   "Dependents",
+  "Will",
   "Retirement",
 ];
 
@@ -46,7 +49,7 @@ function Main() {
   }, []);
 
   const onNext = () => {
-    if (step < 9) {
+    if (step < 10) {
       setStep((step) => {
         // if (step < 5) {
         setTimeout(() => {
@@ -94,6 +97,7 @@ function Main() {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        flexDirection: "column",
       }}
     >
       <Box
@@ -146,7 +150,7 @@ function Main() {
             ))}
           </Stepper>
         )}
-        {isMobile && <MobileStepper steps={steps.length} activeStep={step} />}
+        {/* {isMobile && <MobileStepper steps={steps.length} activeStep={step} />} */}
         {step === 0 && <PersonalDetailForm onNext={onNext} onBack={onBack} />}
         {step === 1 && <EmploymentStatusForm onNext={onNext} onBack={onBack} />}
         {step === 2 && <GoalForm onNext={onNext} onBack={onBack} />}
@@ -160,7 +164,31 @@ function Main() {
         )}
         {step === 7 && <InsuranceForm onNext={onNext} onBack={onBack} />}
         {step === 8 && <DependentForm onNext={onNext} onBack={onBack} />}
-        {step === 9 && <RetirementForm onBack={onBack} />}
+        {step === 9 && <WillForm onNext={onNext} onBack={onBack} />}
+        {step === 10 && <RetirementForm onBack={onBack} />}
+      </Box>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          flexDirection: "column",
+          width: "100%",
+          alignItems: "center",
+          mb: 0.9,
+        }}
+      >
+        <img
+          src={"Asset-3.png"}
+          style={{ width: "101px", height: "101px" }}
+          className="App-logo"
+          alt="logo"
+        />
+        <Typography variant="h6" sx={{ color: "#ffb942" }}>
+          Copyright 2023
+        </Typography>
+        <Typography variant="p" sx={{ color: "#ffb942" }}>
+          Built by Xpertise
+        </Typography>
       </Box>
     </Box>
   );

@@ -5,13 +5,7 @@ import { Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import { Box } from "@mui/material";
-import FormControl from "@mui/material/FormControl";
-import {
-  CustomInputLabel,
-  CustomMenuItem,
-  CustomSelect,
-  CustomTextField,
-} from "../Fields";
+import { CustomDivider, CustomTextField } from "../Fields";
 import Cookies from "js-cookie";
 
 const CashFlowStatementForm = ({ onNext, onBack }) => {
@@ -106,7 +100,10 @@ const CashFlowStatementForm = ({ onNext, onBack }) => {
       <Typography variant="h4" sx={{ color: "#ffb942", mb: 2.51 }}>
         Cash Flow Statement Details
       </Typography>
-      <Grid container spacing={2}>
+      <Typography variant="h5" sx={{ color: "#ffb942" }}>
+        Inflow
+      </Typography>
+      <Grid container spacing={2} mt={0.5}>
         <Grid item xs={12} sm={6}>
           <CustomTextField
             fullWidth
@@ -182,41 +179,12 @@ const CashFlowStatementForm = ({ onNext, onBack }) => {
             }}
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
-          <CustomTextField
-            fullWidth
-            name="payForMiscellaniousAnnually"
-            label="Pay for Miscellanious Annually"
-            type="number"
-            value={formik.values.payForMiscellaniousAnnually}
-            onChange={(e) =>
-              handleFieldChange("payForMiscellaniousAnnually", e.target.value)
-            }
-            InputProps={{
-              style: { color: "#ffb942" },
-            }}
-          />
-        </Grid>
-
-        <Grid item xs={12} sm={6}>
-          <CustomTextField
-            fullWidth
-            name="giveForFamilyBlessingsAnnually"
-            label="Give For Family Blessings Annually"
-            type="number"
-            value={formik.values.giveForFamilyBlessingsAnnually}
-            onChange={(e) =>
-              handleFieldChange(
-                "giveForFamilyBlessingsAnnually",
-                e.target.value
-              )
-            }
-            InputProps={{
-              style: { color: "#ffb942" },
-            }}
-          />
-        </Grid>
-
+      </Grid>
+      <CustomDivider />
+      <Typography variant="h5" sx={{ color: "#ffb942" }}>
+        Savings and Investments Outflows
+      </Typography>
+      <Grid container spacing={2} mt={0.51}>
         <Grid item xs={12} sm={6}>
           <CustomTextField
             fullWidth
@@ -261,7 +229,12 @@ const CashFlowStatementForm = ({ onNext, onBack }) => {
             }
           />
         </Grid>
-
+      </Grid>
+      <CustomDivider />
+      <Typography variant="h5" sx={{ color: "#ffb942" }}>
+        Fixed Outflows
+      </Typography>
+      <Grid container spacing={2} mt={0.51}>
         <Grid item xs={12} sm={6}>
           <CustomTextField
             fullWidth
@@ -303,6 +276,46 @@ const CashFlowStatementForm = ({ onNext, onBack }) => {
             value={formik.values.payForInsuranceAnnually}
             onChange={(e) =>
               handleFieldChange("payForInsuranceAnnually", e.target.value)
+            }
+            InputProps={{
+              style: { color: "#ffb942" },
+            }}
+          />
+        </Grid>
+      </Grid>
+      <CustomDivider />
+      <Typography variant="h5" sx={{ color: "#ffb942" }}>
+        Variable Outflows
+      </Typography>
+      <Grid container spacing={2} mt={0.51}>
+        <Grid item xs={12} sm={6}>
+          <CustomTextField
+            fullWidth
+            name="payForMiscellaniousAnnually"
+            label="Pay for Miscellanious Annually"
+            type="number"
+            value={formik.values.payForMiscellaniousAnnually}
+            onChange={(e) =>
+              handleFieldChange("payForMiscellaniousAnnually", e.target.value)
+            }
+            InputProps={{
+              style: { color: "#ffb942" },
+            }}
+          />
+        </Grid>
+
+        <Grid item xs={12} sm={6}>
+          <CustomTextField
+            fullWidth
+            name="giveForFamilyBlessingsAnnually"
+            label="Give For Family Blessings Annually"
+            type="number"
+            value={formik.values.giveForFamilyBlessingsAnnually}
+            onChange={(e) =>
+              handleFieldChange(
+                "giveForFamilyBlessingsAnnually",
+                e.target.value
+              )
             }
             InputProps={{
               style: { color: "#ffb942" },

@@ -56,16 +56,18 @@ const CentralProvidentFundsForm = ({ onNext, onBack }) => {
   return (
     <form onSubmit={formik.handleSubmit}>
       <Typography variant="h4" sx={{ color: "#ffb942", mb: 2.51 }}>
-        Central Provident Funds Details
+        Central Provident Funds
       </Typography>
       <Grid container spacing={2}>
         {/* CareShield */}
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth required>
-            <CustomInputLabel>CareShield</CustomInputLabel>
+            <CustomInputLabel>
+              Have You Upgraded your CareShield
+            </CustomInputLabel>
             <CustomSelect
               name="careShield"
-              label="CareShield"
+              label="Have You Upgraded your CareShield"
               value={formik.values.careShield}
               onChange={(e) => handleFieldChange("careShield", e.target.value)}
               MenuProps={{
@@ -83,10 +85,10 @@ const CentralProvidentFundsForm = ({ onNext, onBack }) => {
         {/* Done Your Nominations */}
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth required>
-            <CustomInputLabel>Done Your Nominations</CustomInputLabel>
+            <CustomInputLabel>Have You Done Your Nominations</CustomInputLabel>
             <CustomSelect
               name="doneYourNominations"
-              label="Done Your Nominations"
+              label="Have You Done Your Nominations"
               value={formik.values.doneYourNominations}
               onChange={(e) =>
                 handleFieldChange("doneYourNominations", e.target.value)

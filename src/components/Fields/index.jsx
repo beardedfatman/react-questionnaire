@@ -2,7 +2,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import { styled } from "@mui/material/styles";
-import { TextField } from "@mui/material";
+import { TextField, Divider } from "@mui/material";
 
 export const CustomInputLabel = styled(InputLabel)(({ theme }) => ({
   color: "#ffb942", // Change this to your desired color
@@ -73,3 +73,17 @@ export const CustomTextField = styled(TextField)(({ theme }) => ({
     color: "#ffb942 !important", // Text color
   },
 }));
+
+export const CustomDivider = () => {
+  return (
+    <Divider
+      sx={{
+        width: "100%",
+        backgroundColor: "#ffb942",
+        borderWidth: "2.1px",
+        mt: 3.51,
+        mb: 3.51,
+      }}
+    />
+  );
+};

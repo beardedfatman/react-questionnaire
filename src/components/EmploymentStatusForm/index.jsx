@@ -63,7 +63,7 @@ const EmploymentStatusForm = ({ onNext, onBack }) => {
   return (
     <form onSubmit={formik.handleSubmit}>
       <Typography variant="h4" sx={{ color: "#ffb942", mb: 2.51 }}>
-        Employment Status
+        Employment
       </Typography>
       <Grid container spacing={2}>
         <Grid item xs={12}>
@@ -77,7 +77,6 @@ const EmploymentStatusForm = ({ onNext, onBack }) => {
               name="status"
               label="Status"
               value={formik.values.status}
-              //   onChange={formik.handleChange}
               onChange={(e) => {
                 formik.handleChange(e);
                 handleFieldChange("status", e.target.value);
