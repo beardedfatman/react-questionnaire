@@ -95,6 +95,7 @@ const DependentForm = ({ onNext, onBack }) => {
   const formik = useFormik({
     initialValues: {
       anyDependents: "Yes",
+      noOfChild: "0",
       dependents: dependentsCount.map(() => ({
         dependentName: "",
         dependentDateBirth: null,
@@ -104,6 +105,7 @@ const DependentForm = ({ onNext, onBack }) => {
     },
     validationSchema: Yup.object().shape({
       anyDependents: Yup.string(),
+      noOfChild: Yup.number().positive("Amount must be positive"),
       dependents: Yup.array().of(
         Yup.object().shape({
           dependentName: Yup.string().optional(),
@@ -247,7 +249,7 @@ const DependentForm = ({ onNext, onBack }) => {
               Boolean(formik.errors.anyDependents)
             }
           >
-            <CustomInputLabel>Any Dependents</CustomInputLabel>
+            <CustomInputLabel>Any Dependents?</CustomInputLabel>
             <CustomSelect
               name="anyDependents"
               label="Any Dependents"
@@ -280,7 +282,7 @@ const DependentForm = ({ onNext, onBack }) => {
           <CustomTextField
             fullWidth
             name={"noOfChild"}
-            label="How many children would you like in the future"
+            label="How many children would you like in the future?"
             type="number"
             value={formik.values.noOfChild}
             onChange={(e) => {

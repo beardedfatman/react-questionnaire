@@ -98,7 +98,7 @@ const CashFlowStatementForm = ({ onNext, onBack }) => {
   return (
     <form onSubmit={formik.handleSubmit}>
       <Typography variant="h4" sx={{ color: "#ffb942", mb: 2.51 }}>
-        Cash Flow Statement Details
+        Cash Flow Statement
       </Typography>
       <Typography variant="h5" sx={{ color: "#ffb942" }}>
         Inflow
@@ -239,7 +239,7 @@ const CashFlowStatementForm = ({ onNext, onBack }) => {
           <CustomTextField
             fullWidth
             name="mortgagePayAnnually"
-            label="Mortage Pay Annually"
+            label="Mortage Payment Annually"
             type="number"
             value={formik.values.mortgagePayAnnually}
             onChange={(e) =>
@@ -255,7 +255,7 @@ const CashFlowStatementForm = ({ onNext, onBack }) => {
           <CustomTextField
             fullWidth
             name="loansPayAnnually"
-            label="Loans Pay Annually"
+            label="Loans Payment Annually"
             type="number"
             value={formik.values.loansPayAnnually}
             onChange={(e) =>
@@ -271,7 +271,7 @@ const CashFlowStatementForm = ({ onNext, onBack }) => {
           <CustomTextField
             fullWidth
             name="payForInsuranceAnnually"
-            label="Pay For Insurance Annually"
+            label="Payment For Insurance Annually"
             type="number"
             value={formik.values.payForInsuranceAnnually}
             onChange={(e) =>
@@ -292,7 +292,7 @@ const CashFlowStatementForm = ({ onNext, onBack }) => {
           <CustomTextField
             fullWidth
             name="payForMiscellaniousAnnually"
-            label="Pay for Miscellanious Annually"
+            label="Payment for Miscellaneous Annually"
             type="number"
             value={formik.values.payForMiscellaniousAnnually}
             onChange={(e) =>
@@ -308,7 +308,7 @@ const CashFlowStatementForm = ({ onNext, onBack }) => {
           <CustomTextField
             fullWidth
             name="giveForFamilyBlessingsAnnually"
-            label="Give For Family Blessings Annually"
+            label="Family Blessings Annually"
             type="number"
             value={formik.values.giveForFamilyBlessingsAnnually}
             onChange={(e) =>
@@ -327,7 +327,7 @@ const CashFlowStatementForm = ({ onNext, onBack }) => {
           <CustomTextField
             fullWidth
             name="payForHouseholdAnnually"
-            label="Pay for Household Annually"
+            label="Payment for Household Annually"
             type="number"
             value={formik.values.payForHouseholdAnnually}
             onChange={(e) =>
@@ -351,7 +351,7 @@ const CashFlowStatementForm = ({ onNext, onBack }) => {
           <CustomTextField
             fullWidth
             name="payForTransportAnnually"
-            label="Pay for Transport Annually"
+            label="Payment for Transport Annually"
             type="number"
             value={formik.values.payForTransportAnnually}
             onChange={(e) =>
@@ -375,7 +375,7 @@ const CashFlowStatementForm = ({ onNext, onBack }) => {
           <CustomTextField
             fullWidth
             name="payForDependenstAnnually"
-            label="Pay for Dependents Annually"
+            label="Payment for Dependents Annually"
             type="number"
             value={formik.values.payForDependenstAnnually}
             onChange={(e) =>
@@ -391,7 +391,7 @@ const CashFlowStatementForm = ({ onNext, onBack }) => {
           <CustomTextField
             fullWidth
             name="payForPersonalExpensesAnnually"
-            label="Pay for Personal Expenses Annually"
+            label="Payment for Personal Expenses Annually"
             type="number"
             value={formik.values.payForPersonalExpensesAnnually}
             onChange={(e) =>
@@ -418,7 +418,7 @@ const CashFlowStatementForm = ({ onNext, onBack }) => {
           <CustomTextField
             fullWidth
             name="payForMedicalAnnually"
-            label="Pay for Medical Annually"
+            label="Payment for Medical Annually"
             type="number"
             value={formik.values.payForMedicalAnnually}
             onChange={(e) =>
