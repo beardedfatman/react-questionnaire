@@ -179,14 +179,14 @@ function Main() {
       >
         <img
           src={"Asset-3.png"}
-          style={{ width: "101px", height: "101px" }}
+          style={{ width: "121px", height: "121px" }}
           className="App-logo"
           alt="logo"
         />
-        <Typography variant="h6" sx={{ color: "#ffb942" }}>
-          Copyright 2023
+        <Typography variant="p" sx={{ color: "#ffb942", mt: 1 }}>
+          © 2023 Wallet Philosophy
         </Typography>
-        <Typography variant="p" sx={{ color: "#ffb942" }}>
+        <Typography variant="p" sx={{ color: "#ffb942", fontSize: "15px" }}>
           Built by Xpertise
         </Typography>
       </Box>
