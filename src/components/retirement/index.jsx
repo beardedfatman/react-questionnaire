@@ -203,7 +203,9 @@ const RetirementForm = ({ onBack }) => {
         );
         arr.push(insuranceData["hospitilizationInsurance"][i].policyNumber);
         arr.push(insuranceData["hospitilizationInsurance"][i].annualPayment);
+        arr.push(insuranceData["hospitilizationInsurance"][i].annualPaymentCPF);
       } else {
+        arr.push("");
         arr.push("");
         arr.push("");
         arr.push("");
@@ -449,7 +451,7 @@ const RetirementForm = ({ onBack }) => {
           <CustomTextField
             fullWidth
             name="monthlyNeed"
-            label="Estimated Monthly Need"
+            label="Estimated Monthly Expenditure"
             type="number"
             value={formik.values.monthlyNeed}
             onChange={(e) => handleFieldChange("monthlyNeed", e.target.value)}

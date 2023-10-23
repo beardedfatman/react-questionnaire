@@ -9,6 +9,7 @@ import {
   CustomMenuItem,
 } from "../Fields"; // You can customize this import as needed
 import Cookies from "js-cookie";
+import AddIcon from "@mui/icons-material/Add";
 
 const InsuranceForm = ({ onNext, onBack }) => {
   const [hospitilizationInsuranceCount, setHospitilizationInsuranceCount] =
@@ -27,6 +28,7 @@ const InsuranceForm = ({ onNext, onBack }) => {
         hospitilizationAssuranceAmount: "",
         policyNumber: "",
         annualPayment: "",
+        annualPaymentCPF: "",
       })),
       personalAccident: personalAccidentCount.map(() => ({
         provider: "",
@@ -59,6 +61,7 @@ const InsuranceForm = ({ onNext, onBack }) => {
           policyNumber: Yup.string().optional(),
           hospitilizationAssuranceAmount: Yup.number().optional().positive(),
           annualPayment: Yup.number().optional().positive(),
+          annualPaymentCPF: Yup.number().optional().positive(),
         })
       ),
       personalAccident: Yup.array().of(
@@ -369,10 +372,10 @@ const InsuranceForm = ({ onNext, onBack }) => {
           formik.touched.hasInsurance && Boolean(formik.errors.hasInsurance)
         }
       >
-        <CustomInputLabel>Do You Have Any Insuarnce</CustomInputLabel>
+        <CustomInputLabel>Do You Have Any Insurance?</CustomInputLabel>
         <CustomSelect
           name="hasInsurance"
-          label="Do You Have Any Insuarnce"
+          label="Do You Have Any Insurance?"
           value={formik.values.hasInsurance}
           onChange={(e) =>
             handleFieldChange("hasInsurance", e.target.value, "")
@@ -485,7 +488,7 @@ const InsuranceForm = ({ onNext, onBack }) => {
                   <CustomTextField
                     fullWidth
                     name={`hospitilizationInsurance[${index}].annualPayment`}
-                    label="Annual Payment"
+                    label="Annual Payment (Cash)"
                     type="number"
                     value={
                       formik.values.hospitilizationInsurance[index]
@@ -494,6 +497,29 @@ const InsuranceForm = ({ onNext, onBack }) => {
                     onChange={(e) =>
                       handleFieldChange(
                         "annualPayment",
+                        e.target.value,
+                        "hospitilizationInsurance",
+                        index
+                      )
+                    }
+                    InputProps={{
+                      style: { color: "#ffb942" },
+                    }}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={4}>
+                  <CustomTextField
+                    fullWidth
+                    name={`hospitilizationInsurance[${index}].annualPaymentCPF`}
+                    label="Annual Payment (CPF)"
+                    type="number"
+                    value={
+                      formik.values.hospitilizationInsurance[index]
+                        .annualPaymentCPF
+                    }
+                    onChange={(e) =>
+                      handleFieldChange(
+                        "annualPaymentCPF",
                         e.target.value,
                         "hospitilizationInsurance",
                         index
@@ -554,6 +580,7 @@ const InsuranceForm = ({ onNext, onBack }) => {
                 },
               }}
             >
+              <AddIcon />
               Add Hospitalisation and Surgical Insurance
             </Button>
           </Box>
@@ -688,6 +715,7 @@ const InsuranceForm = ({ onNext, onBack }) => {
                 },
               }}
             >
+              <AddIcon />
               Add Personal Accident Policy
             </Button>
           </Box>
@@ -873,6 +901,7 @@ const InsuranceForm = ({ onNext, onBack }) => {
                 },
               }}
             >
+              <AddIcon />
               Add Early and Critical Illness Policy
             </Button>
           </Box>
@@ -1028,6 +1057,7 @@ const InsuranceForm = ({ onNext, onBack }) => {
                 },
               }}
             >
+              <AddIcon />
               Add Life Insurance Policy
             </Button>
           </Box>

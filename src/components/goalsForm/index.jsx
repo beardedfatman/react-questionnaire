@@ -308,6 +308,9 @@ const GoalForm = ({ onNext, onBack }) => {
               <ThemeProvider theme={customTheme}>
                 <DatePicker
                   fullWidth
+                  views={["year"]}
+                  openTo="year"
+                  minDate={dayjs("2023-01-01")}
                   sx={{
                     width: "100%",
                     "& .MuiPickersLayout-root": {
@@ -551,6 +554,9 @@ const GoalForm = ({ onNext, onBack }) => {
             <ThemeProvider theme={customTheme}>
               <DatePicker
                 fullWidth
+                views={["year"]}
+                openTo="year"
+                minDate={dayjs("2023-01-01")}
                 sx={{
                   width: "100%",
                   "& .MuiPickersLayout-root": {
@@ -761,6 +767,9 @@ const GoalForm = ({ onNext, onBack }) => {
             <ThemeProvider theme={customTheme}>
               <DatePicker
                 fullWidth
+                views={["year"]}
+                openTo="year"
+                minDate={dayjs("2023-01-01")}
                 sx={{
                   width: "100%",
                   "& .MuiPickersLayout-root": {

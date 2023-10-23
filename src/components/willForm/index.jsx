@@ -351,7 +351,7 @@ const WillForm = ({ onNext, onBack }) => {
               <CustomTextField
                 fullWidth
                 name={"nric"}
-                label="What is your NRIC"
+                label="What is your NRIC?"
                 value={formik.values.nric}
                 onChange={(e) =>
                   handleFieldChangeSimple("nric", e.target.value)

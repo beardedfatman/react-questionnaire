@@ -247,6 +247,7 @@ const PersonalDetailForm = ({ onNext, saveFormData, onBack }) => {
           <ThemeProvider theme={customTheme}>
             <DatePicker
               fullWidth
+              format="DD/MM/YYYY"
               sx={{
                 width: "100%",
                 "& .MuiPickersLayout-root": {
