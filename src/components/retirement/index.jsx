@@ -201,10 +201,12 @@ const RetirementForm = ({ onBack }) => {
           insuranceData["hospitilizationInsurance"][i]
             .hospitilizationAssuranceAmount
         );
+        arr.push(insuranceData["hospitilizationInsurance"][i].cashRider);
         arr.push(insuranceData["hospitilizationInsurance"][i].policyNumber);
         arr.push(insuranceData["hospitilizationInsurance"][i].annualPayment);
         arr.push(insuranceData["hospitilizationInsurance"][i].annualPaymentCPF);
       } else {
+        arr.push("");
         arr.push("");
         arr.push("");
         arr.push("");
@@ -358,21 +360,21 @@ const RetirementForm = ({ onBack }) => {
     arr.push(retirementData.retirementAge);
     arr.push(retirementData.monthlyNeed);
 
-    console.log("786 arr", arr);
+    // console.log("786 arr", arr);
 
-    console.log(
-      "786 data",
-      personalData,
-      employmentData,
-      goalData,
-      newWorthData,
-      loansData,
-      centralProvidentFundsData,
-      cashFlowData,
-      insuranceData,
-      dependentsData,
-      retirementData
-    );
+    // console.log(
+    //   "786 data",
+    //   personalData,
+    //   employmentData,
+    //   goalData,
+    //   newWorthData,
+    //   loansData,
+    //   centralProvidentFundsData,
+    //   cashFlowData,
+    //   insuranceData,
+    //   dependentsData,
+    //   retirementData
+    // );
 
     let data = {
       personalData: personalData,

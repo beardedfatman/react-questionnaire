@@ -29,6 +29,7 @@ const InsuranceForm = ({ onNext, onBack }) => {
         policyNumber: "",
         annualPayment: "",
         annualPaymentCPF: "",
+        cashRider: "No",
       })),
       personalAccident: personalAccidentCount.map(() => ({
         provider: "",
@@ -62,6 +63,7 @@ const InsuranceForm = ({ onNext, onBack }) => {
           hospitilizationAssuranceAmount: Yup.number().optional().positive(),
           annualPayment: Yup.number().optional().positive(),
           annualPaymentCPF: Yup.number().optional().positive(),
+          cashRider: Yup.string().optional(),
         })
       ),
       personalAccident: Yup.array().of(
@@ -444,7 +446,7 @@ const InsuranceForm = ({ onNext, onBack }) => {
                   <CustomTextField
                     fullWidth
                     name={`hospitilizationInsurance[${index}].hospitilizationAssuranceAmount`}
-                    label="How is your hospitalisation and surgical insurance"
+                    label="Type of Ward"
                     value={
                       formik.values.hospitilizationInsurance[index]
                         .hospitilizationAssuranceAmount
@@ -461,6 +463,40 @@ const InsuranceForm = ({ onNext, onBack }) => {
                       style: { color: "#ffb942" },
                     }}
                   />
+                </Grid>
+                <Grid item xs={12} sm={4}>
+                  <FormControl
+                    fullWidth
+                    error={
+                      formik.touched.hasInsurance &&
+                      Boolean(formik.errors.hasInsurance)
+                    }
+                  >
+                    <CustomInputLabel>Is There a Cash Rider?</CustomInputLabel>
+                    <CustomSelect
+                      name="cashRider"
+                      label="Is There a Cash Rider?"
+                      value={
+                        formik.values.hospitilizationInsurance[index].cashRider
+                      }
+                      onChange={(e) =>
+                        handleFieldChange(
+                          "cashRider",
+                          e.target.value,
+                          "hospitilizationInsurance",
+                          index
+                        )
+                      }
+                      MenuProps={{
+                        PaperProps: {
+                          style: { background: "#292829" },
+                        },
+                      }}
+                    >
+                      <CustomMenuItem value="Yes">Yes</CustomMenuItem>
+                      <CustomMenuItem value="No">No</CustomMenuItem>
+                    </CustomSelect>
+                  </FormControl>
                 </Grid>
                 <Grid item xs={12} sm={4}>
                   <CustomTextField
