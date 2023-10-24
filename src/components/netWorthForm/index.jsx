@@ -439,72 +439,77 @@ const NetWorthForm = ({ onNext, onBack }) => {
                 }}
               />
             </Grid>
-
-            <Grid item xs={12} sm={6}>
-              <CustomTextField
-                fullWidth
-                name="currentValueOfOrdinaryCPF"
-                label="Current Value Of Ordinary Account in CPF"
-                type="number"
-                value={formik.values.currentValueOfOrdinaryCPF}
-                onChange={(e) =>
-                  handleFieldChange("currentValueOfOrdinaryCPF", e.target.value)
-                }
-                InputProps={{
-                  style: { color: "#ffb942" },
-                }}
-              />
-            </Grid>
-
-            <Grid item xs={12} sm={6}>
-              <CustomTextField
-                fullWidth
-                name="currentValueOfSpecialCPF"
-                label="Current Value Of Special Account in CPF"
-                type="number"
-                value={formik.values.currentValueOfSpecialCPF}
-                onChange={(e) =>
-                  handleFieldChange("currentValueOfSpecialCPF", e.target.value)
-                }
-                InputProps={{
-                  style: { color: "#ffb942" },
-                }}
-              />
-            </Grid>
-
-            <Grid item xs={12} sm={6}>
-              <CustomTextField
-                fullWidth
-                name="currentValueOfMedisaveCPF"
-                label="Current Value Of Medi Save Account in CPF"
-                type="number"
-                value={formik.values.currentValueOfMedisaveCPF}
-                onChange={(e) =>
-                  handleFieldChange("currentValueOfMedisaveCPF", e.target.value)
-                }
-                InputProps={{
-                  style: { color: "#ffb942" },
-                }}
-              />
-            </Grid>
-
-            <Grid item xs={12} sm={6}>
-              <CustomTextField
-                fullWidth
-                name="currentValueOfOtherCPF"
-                label="Current Value Of Any Other Account in CPF"
-                type="number"
-                value={formik.values.currentValueOfOtherCPF}
-                onChange={(e) =>
-                  handleFieldChange("currentValueOfOtherCPF", e.target.value)
-                }
-                InputProps={{
-                  style: { color: "#ffb942" },
-                }}
-              />
-            </Grid>
           </>
         )}
+      </Grid>
+      <CustomDivider />
+      <Typography variant="h5" sx={{ color: "#ffb942", mb: 1.51, mt: 1.51 }}>
+        CPF
+      </Typography>
+      <Grid container spacing={2}>
+        <Grid item xs={12} sm={6}>
+          <CustomTextField
+            fullWidth
+            name="currentValueOfOrdinaryCPF"
+            label="Current Value Of Ordinary Account in CPF"
+            type="number"
+            value={formik.values.currentValueOfOrdinaryCPF}
+            onChange={(e) =>
+              handleFieldChange("currentValueOfOrdinaryCPF", e.target.value)
+            }
+            InputProps={{
+              style: { color: "#ffb942" },
+            }}
+          />
+        </Grid>
+
+        <Grid item xs={12} sm={6}>
+          <CustomTextField
+            fullWidth
+            name="currentValueOfSpecialCPF"
+            label="Current Value Of Special Account in CPF"
+            type="number"
+            value={formik.values.currentValueOfSpecialCPF}
+            onChange={(e) =>
+              handleFieldChange("currentValueOfSpecialCPF", e.target.value)
+            }
+            InputProps={{
+              style: { color: "#ffb942" },
+            }}
+          />
+        </Grid>
+
+        <Grid item xs={12} sm={6}>
+          <CustomTextField
+            fullWidth
+            name="currentValueOfMedisaveCPF"
+            label="Current Value Of Medi Save Account in CPF"
+            type="number"
+            value={formik.values.currentValueOfMedisaveCPF}
+            onChange={(e) =>
+              handleFieldChange("currentValueOfMedisaveCPF", e.target.value)
+            }
+            InputProps={{
+              style: { color: "#ffb942" },
+            }}
+          />
+        </Grid>
+
+        <Grid item xs={12} sm={6}>
+          <CustomTextField
+            fullWidth
+            name="currentValueOfOtherCPF"
+            label="Current Value Of Any Other Account in CPF"
+            type="number"
+            value={formik.values.currentValueOfOtherCPF}
+            onChange={(e) =>
+              handleFieldChange("currentValueOfOtherCPF", e.target.value)
+            }
+            InputProps={{
+              style: { color: "#ffb942" },
+            }}
+          />
+        </Grid>
       </Grid>
       <Box display="flex" justifyContent="center">
         <Button
