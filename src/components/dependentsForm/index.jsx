@@ -105,7 +105,7 @@ const DependentForm = ({ onNext, onBack }) => {
     },
     validationSchema: Yup.object().shape({
       anyDependents: Yup.string(),
-      noOfChild: Yup.number().positive("Amount must be positive"),
+      noOfChild: Yup.number().min(0, "Amount must be 0 or positive"),
       dependents: Yup.array().of(
         Yup.object().shape({
           dependentName: Yup.string().optional(),

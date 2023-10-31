@@ -433,7 +433,7 @@ const RetirementForm = ({ onBack }) => {
           <CustomTextField
             fullWidth
             name="retirementAge"
-            label="Retirement Age"
+            label="Expected Retirement Age"
             type="number"
             value={formik.values.retirementAge}
             onChange={(e) => handleFieldChange("retirementAge", e.target.value)}
