@@ -186,7 +186,7 @@ function Main() {
         <Typography variant="p" sx={{ color: "#ffb942", mt: 1 }}>
           © 2023 Wallet Philosophy
         </Typography>
-        <Typography variant="p" sx={{ color: "#ffb942", fontSize: "15px" }}>
+        <Typography variant="p" sx={{ color: "#ffb942", fontSize: "13px" }}>
           Built by Xpertise
         </Typography>
       </Box>
